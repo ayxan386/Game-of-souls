@@ -17,7 +17,27 @@ MonoBehaviour:
   m_SharedData: {fileID: 11400000, guid: b095bb852e84f36429e13c8141e9583d, type: 2}
   m_Metadata:
     m_Items: []
-  m_TableData: []
+  m_TableData:
+  - m_Id: 485658226626560
+    m_Localized: Jugar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 487184533852160
+    m_Localized: Ajustes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 490482682859520
+    m_Localized: "Cr\xE9ditos"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 490565625221120
+    m_Localized: Salir
+    m_Metadata:
+      m_Items: []
+  - m_Id: 495042247823360
+    m_Localized: Volver
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

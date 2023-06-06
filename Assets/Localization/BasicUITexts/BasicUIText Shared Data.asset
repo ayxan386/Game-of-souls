@@ -14,7 +14,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_TableCollectionName: BasicUIText
   m_TableCollectionNameGuidString: b095bb852e84f36429e13c8141e9583d
-  m_Entries: []
+  m_Entries:
+  - m_Id: 485658226626560
+    m_Key: Play
+    m_Metadata:
+      m_Items: []
+  - m_Id: 487184533852160
+    m_Key: Settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 490482682859520
+    m_Key: Credits
+    m_Metadata:
+      m_Items: []
+  - m_Id: 490565625221120
+    m_Key: Exit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 495042247823360
+    m_Key: Back
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
