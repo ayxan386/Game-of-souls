@@ -656,6 +656,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1331091833640009822}
+  - component: {fileID: 601420572}
   m_Layer: 0
   m_Name: Dice
   m_TagString: Untagged
@@ -680,6 +681,42 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &601420572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1331091833640009821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af371f0f5a18e364bada753ae066857e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  diceCube: {fileID: 1331091833307441814}
+  rollRange: {x: 1, y: 7}
+  numberOfRotationsRange: {x: 5, y: 8}
+  rotationDuration: 60
+  rotationSpeedFactor: 6
+  sideAnimations:
+  - sideNumber: 1
+    desiredRotation: {x: 0, y: 0, z: 0}
+    numberOfFrames: 60
+  - sideNumber: 2
+    desiredRotation: {x: 0, y: 270, z: 0}
+    numberOfFrames: 60
+  - sideNumber: 3
+    desiredRotation: {x: 270, y: 0, z: 0}
+    numberOfFrames: 60
+  - sideNumber: 4
+    desiredRotation: {x: 90, y: 0, z: 0}
+    numberOfFrames: 60
+  - sideNumber: 5
+    desiredRotation: {x: 0, y: 90, z: 0}
+    numberOfFrames: 60
+  - sideNumber: 6
+    desiredRotation: {x: 0, y: 180, z: 0}
+    numberOfFrames: 60
 --- !u!1 &1331091833672978946
 GameObject:
   m_ObjectHideFlags: 0
