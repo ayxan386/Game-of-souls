@@ -24,9 +24,8 @@ public class PathManager : MonoBehaviour
         playerPositions[playerId]++;
     }
 
-    public PathTile SetPlayerToPosition(string playerId, int pos)
+    public void StartPlayerAtPosition(string playerId, int pos)
     {
         playerPositions[playerId] = pos;
-        return path[pos];
     }
 }
