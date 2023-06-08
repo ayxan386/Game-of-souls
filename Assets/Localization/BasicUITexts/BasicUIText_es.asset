@@ -39,7 +39,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 874804480872448
-    m_Localized: "Resoluci\xF3n"
+    m_Localized: Resolucion
+    m_Metadata:
+      m_Items: []
+  - m_Id: 916337447964672
+    m_Localized: Volumen
     m_Metadata:
       m_Items: []
   references:
