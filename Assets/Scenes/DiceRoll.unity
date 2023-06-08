@@ -147,14 +147,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 222398115}
-  m_LocalRotation: {x: 0, y: -0.7071068, z: 0.7071068, w: 0}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0.52, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2119148674}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 180}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!212 &222398117
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -453,14 +453,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 989336134}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0.7071068, w: 0}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: -0.52, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2119148674}
   m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 180}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!212 &989336136
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -628,61 +628,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   diceCube: {fileID: 2119148674}
-  rollRange: {x: 1, y: 2}
+  rollRange: {x: 6, y: 7}
   rotationSpeed: {x: 424.9999, y: 937.5, z: -625}
   rotationDuration: 2
-  returnDuration: 0.5
   sideAnimations:
   - sideNumber: 1
-    rotations:
-    - {x: 0, y: 90, z: 0}
-    - {x: 0, y: 0, z: 90}
-    - {x: 0, y: 90, z: 0}
-    - {x: 90, y: 0, z: 0}
-    - {x: 0, y: 0, z: 90}
-    - {x: 90, y: 0, z: 0}
-    eachSideDuration: 1
-  - sideNumber: 5
-    rotations:
-    - {x: 90, y: 0, z: 0}
-    - {x: 0, y: 90, z: 0}
-    - {x: 90, y: 0, z: 0}
-    eachSideDuration: 1
-  - sideNumber: 6
-    rotations:
-    - {x: 90, y: 0, z: 0}
-    - {x: 0, y: 0, z: 135}
-    - {x: 0, y: 90, z: 0}
-    - {x: 90, y: 0, z: 0}
-    - {x: 0, y: 90, z: 0}
-    - {x: 0, y: 0, z: -45}
-    - {x: 0, y: 90, z: 0}
-    - {x: 0, y: 90, z: 0}
-    eachSideDuration: 1
-  - sideNumber: 3
-    rotations:
-    - {x: 0, y: 90, z: 0}
-    - {x: 90, y: 0, z: 0}
-    - {x: 0, y: 90, z: 0}
-    - {x: 90, y: 0, z: 0}
-    - {x: 90, y: 0, z: 0}
-    - {x: 90, y: 0, z: 0}
-    - {x: 90, y: 0, z: 0}
-    eachSideDuration: 1
+    desiredRotation: {x: 0, y: 0, z: 0}
+    numberOfFrames: 60
   - sideNumber: 2
-    rotations:
-    - {x: 0, y: 90, z: 0}
-    - {x: 0, y: 90, z: 0}
-    - {x: 0, y: 90, z: 0}
-    eachSideDuration: 1
+    desiredRotation: {x: 0, y: 270, z: 0}
+    numberOfFrames: 60
+  - sideNumber: 3
+    desiredRotation: {x: 270, y: 0, z: 0}
+    numberOfFrames: 60
   - sideNumber: 4
-    rotations:
-    - {x: 75, y: 120, z: 0}
-    - {x: 75, y: 30, z: 0}
-    - {x: 30, y: 15, z: 0}
-    - {x: 45, y: 15, z: 0}
-    - {x: 45, y: 0, z: 0}
-    eachSideDuration: 1
+    desiredRotation: {x: 90, y: 0, z: 0}
+    numberOfFrames: 60
+  - sideNumber: 5
+    desiredRotation: {x: 0, y: 90, z: 0}
+    numberOfFrames: 60
+  - sideNumber: 6
+    desiredRotation: {x: 0, y: 180, z: 0}
+    numberOfFrames: 60
 --- !u!1 &1385189457
 GameObject:
   m_ObjectHideFlags: 0
@@ -1218,14 +1185,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1794929270}
-  m_LocalRotation: {x: -0.7071068, y: -0, z: 0.7071068, w: 0}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0.52, y: 0.01, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2119148674}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 180}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!212 &1794929272
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1353,8 +1320,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2119148670}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.67970794, y: -0, z: -0, w: -0.73348296}
+  m_LocalPosition: {x: -0.0013456858, y: 0, z: -0.0028852262}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1366,4 +1333,4 @@ Transform:
   - {fileID: 989336135}
   m_Father: {fileID: 296013044}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 274.358, y: 0, z: 0}

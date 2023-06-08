@@ -10,9 +10,7 @@ public class DiceRotationManager : MonoBehaviour
     [SerializeField] private Vector2Int rollRange;
     [SerializeField] private Vector3 rotationSpeed;
     [SerializeField] private float rotationDuration;
-    [SerializeField] private float returnDuration;
     [SerializeField] private List<DiceSideAnimation> sideAnimations;
-
 
     public static DiceRotationManager Instance { get; private set; }
     public static event Action<int> OnDiceRolled;
@@ -46,36 +44,15 @@ public class DiceRotationManager : MonoBehaviour
             yield return null;
         }
 
-        //Return to original rotation
-        for (var startTime = Time.time; Time.time - startTime <= returnDuration;)
-        {
-            diceCube.rotation = Quaternion.Lerp(diceCube.rotation, Quaternion.identity,
-                (Time.time - startTime) / returnDuration);
-            yield return null;
-        }
-
         //Find side animation
         var diceSideAnimation = sideAnimations.Find(animation => animation.sideNumber == diceRoll);
         //Rotate to required side
-        foreach (var rotation in diceSideAnimation.rotations)
+        var startRotation = diceCube.localEulerAngles;
+        for (int i = 0; i < diceSideAnimation.numberOfFrames; i++)
         {
-            var startAngle = diceCube.eulerAngles;
-            startAngle.x %= 360;
-            startAngle.y %= 360;
-            startAngle.z %= 360;
-            for (var startTime = Time.time; Time.time - startTime <= diceSideAnimation.eachSideDuration;)
-            {
-                var increment = Vector3.Lerp(Vector3.zero, rotation,
-                    (Time.time - startTime) / diceSideAnimation.eachSideDuration);
-                diceCube.eulerAngles = (startAngle + increment);
-                var angleCopy = diceCube.eulerAngles;
-                angleCopy.x %= 360;
-                angleCopy.y %= 360;
-                angleCopy.z %= 360;
-                diceCube.eulerAngles = angleCopy;
-                print("Increment is : " + increment + " angle should be " + (startAngle + increment));
-                yield return null;
-            }
+            diceCube.localEulerAngles = Vector3.Lerp(startRotation, diceSideAnimation.desiredRotation,
+                (1f * i / diceSideAnimation.numberOfFrames));
+            yield return null;
         }
 
         print("Dice rolled: " + diceRoll);
@@ -87,6 +64,6 @@ public class DiceRotationManager : MonoBehaviour
 public class DiceSideAnimation
 {
     public int sideNumber;
-    public List<Vector3> rotations;
-    public float eachSideDuration;
+    public Vector3 desiredRotation;
+    public int numberOfFrames;
 }
