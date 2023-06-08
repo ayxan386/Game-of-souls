@@ -1,0 +1,13 @@
+In our first update, we brought several new features:
+1- We resolve all clothing clippings in conflict with the skin.
+2-Improvement in anatomy
+3-Added full male character.
+4-New hats 
+
+Tips:
+
+Reimport a shara character back into your project to download a newer version.
+
+
+Contact : markusartcontcat@gmail.com
+          @markusart3d
