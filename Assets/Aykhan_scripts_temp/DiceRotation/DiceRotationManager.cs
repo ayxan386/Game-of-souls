@@ -8,8 +8,9 @@ public class DiceRotationManager : MonoBehaviour
 {
     [SerializeField] private Transform diceCube;
     [SerializeField] private Vector2Int rollRange;
-    [SerializeField] private Vector3 rotationSpeed;
-    [SerializeField] private float rotationDuration;
+    [SerializeField] private Vector2Int numberOfRotationsRange;
+    [SerializeField] private int rotationDuration;
+    [SerializeField] private int rotationSpeedFactor;
     [SerializeField] private List<DiceSideAnimation> sideAnimations;
 
     public static DiceRotationManager Instance { get; private set; }
@@ -20,14 +21,8 @@ public class DiceRotationManager : MonoBehaviour
         Instance = this;
     }
 
-    private void OnGUI()
-    {
-        if (GUI.Button(new Rect(850, 100, 200, 90), "Roll the dice"))
-        {
-            RollDice();
-        }
-    }
 
+    [ContextMenu("Roll dice")]
     public void RollDice()
     {
         var diceRoll = Random.Range(rollRange.x, rollRange.y);
@@ -38,20 +33,30 @@ public class DiceRotationManager : MonoBehaviour
     {
         diceCube.rotation = Quaternion.identity;
         //Fast roll rotation
-        for (var startTime = Time.time; Time.time - startTime <= rotationDuration;)
+        var numberOfFrames = rotationDuration / rotationSpeedFactor;
+        var numberOfRotations = Random.Range(numberOfRotationsRange.x, numberOfRotationsRange.y);
+        for (int j = 0; j < numberOfRotations; j++)
         {
-            diceCube.Rotate(rotationSpeed * Time.deltaTime, Space.Self);
-            yield return null;
+            var randomRoll = Random.Range(rollRange.x, rollRange.y);
+            var diceSideAnimation = sideAnimations.Find(animation => animation.sideNumber == randomRoll);
+            var startRotation = diceCube.localEulerAngles;
+            for (int i = 0; i < numberOfFrames; i++)
+            {
+                diceCube.localEulerAngles = Vector3.Lerp(startRotation, diceSideAnimation.desiredRotation,
+                    (1f * i / numberOfFrames));
+                yield return null;
+            }
         }
 
         //Find side animation
-        var diceSideAnimation = sideAnimations.Find(animation => animation.sideNumber == diceRoll);
+        var chosenDiceSideAnimation = sideAnimations.Find(animation => animation.sideNumber == diceRoll);
         //Rotate to required side
-        var startRotation = diceCube.localEulerAngles;
-        for (int i = 0; i < diceSideAnimation.numberOfFrames; i++)
+        var initialRotation = diceCube.localEulerAngles;
+        numberOfFrames = chosenDiceSideAnimation.numberOfFrames / rotationSpeedFactor;
+        for (int i = 0; i <= numberOfFrames; i++)
         {
-            diceCube.localEulerAngles = Vector3.Lerp(startRotation, diceSideAnimation.desiredRotation,
-                (1f * i / diceSideAnimation.numberOfFrames));
+            diceCube.localEulerAngles = Vector3.Lerp(initialRotation, chosenDiceSideAnimation.desiredRotation,
+                (1f * i / numberOfFrames));
             yield return null;
         }
 
