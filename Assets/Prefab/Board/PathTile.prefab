@@ -117,6 +117,8 @@ MonoBehaviour:
   - {fileID: 358096127749881701}
   - {fileID: 4195147294459671912}
   - {fileID: 3815915187809929990}
+  nextTiles: []
+  rend: {fileID: 358096127645914270}
 --- !u!1 &358096127749881702
 GameObject:
   m_ObjectHideFlags: 0

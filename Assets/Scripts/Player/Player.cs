@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Cinemachine;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
@@ -8,9 +9,12 @@ public class Player : MonoBehaviour
     [SerializeField] private float minDistance;
     [SerializeField] private float playerMovementSpeed;
     [SerializeField] private Transform tileCheckPoint;
+    [SerializeField] private CinemachineVirtualCamera vCamera;
 
     private CharacterController cc;
     private Transform targetPoint;
+
+    public CinemachineVirtualCamera PlayerView => vCamera;
 
     public static event Action<string> OnPlayerPositionReached;
 
@@ -28,7 +32,10 @@ public class Player : MonoBehaviour
     {
         for (int i = 0; i < diceRoll; i++)
         {
-            var pathTile = PathManager.Instance.GetNextTileForPlayer(name);
+            PathManager.Instance.SearchForNextTile(name);
+            yield return new WaitUntil(() => PathManager.Instance.IsSelected);
+
+            var pathTile = PathManager.Instance.GetNextTileForPlayer();
             targetPoint = pathTile.GetNextPoint();
             print($"Moving player {name} to {targetPoint.position}");
 
