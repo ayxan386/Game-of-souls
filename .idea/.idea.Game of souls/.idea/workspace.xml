@@ -3,14 +3,24 @@
   <component name="ChangeListManager">
     <list default="true" id="bbb7bee6-7010-45a3-b266-75b2c8bfcf5a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Game of souls/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Game of souls/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Materials/BasicColors/Black.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/BasicColors/Black.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefab/Board/PathTile.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefab/Board/PathTile.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ImportAssets/LOW POLY CHARACTERS CUSTOMIZABLEMODULAR ( MALE AND FEMALE )/Animations(Pattern_Unity)/Anim_Controller/Shara_Animation_Controller.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ImportAssets/LOW POLY CHARACTERS CUSTOMIZABLEMODULAR ( MALE AND FEMALE )/Animations(Pattern_Unity)/Anim_Controller/Shara_Animation_Controller.controller" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ImportAssets/LOW POLY CHARACTERS CUSTOMIZABLEMODULAR ( MALE AND FEMALE )/Animations(Pattern_Unity)/Animation/HumanoidIdle.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ImportAssets/LOW POLY CHARACTERS CUSTOMIZABLEMODULAR ( MALE AND FEMALE )/Animations(Pattern_Unity)/Animation/HumanoidIdle.fbx.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ImportAssets/LOW POLY CHARACTERS CUSTOMIZABLEMODULAR ( MALE AND FEMALE )/Animations(Pattern_Unity)/Animation/HumanoidRun.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ImportAssets/LOW POLY CHARACTERS CUSTOMIZABLEMODULAR ( MALE AND FEMALE )/Animations(Pattern_Unity)/Animation/HumanoidRun.fbx.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ImportAssets/LOW POLY CHARACTERS CUSTOMIZABLEMODULAR ( MALE AND FEMALE )/Characters/JHOW/Materials/Skin_Presets/Jhow_Vareation_Skin_Ma_3.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ImportAssets/LOW POLY CHARACTERS CUSTOMIZABLEMODULAR ( MALE AND FEMALE )/Characters/JHOW/Materials/Skin_Presets/Jhow_Vareation_Skin_Ma_3.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ImportAssets/LOW POLY CHARACTERS CUSTOMIZABLEMODULAR ( MALE AND FEMALE )/Characters/JHOW/Materials/Skin_Presets/Jhow_Vareation_Skin_Mat_1.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ImportAssets/LOW POLY CHARACTERS CUSTOMIZABLEMODULAR ( MALE AND FEMALE )/Characters/JHOW/Materials/Skin_Presets/Jhow_Vareation_Skin_Mat_1.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ImportAssets/LOW POLY CHARACTERS CUSTOMIZABLEMODULAR ( MALE AND FEMALE )/Characters/JHOW/Materials/Skin_Presets/Jhow_Vareation_Skin_Mat_2.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ImportAssets/LOW POLY CHARACTERS CUSTOMIZABLEMODULAR ( MALE AND FEMALE )/Characters/JHOW/Materials/Skin_Presets/Jhow_Vareation_Skin_Mat_2.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ImportAssets/LOW POLY CHARACTERS CUSTOMIZABLEMODULAR ( MALE AND FEMALE )/Characters/JHOW/Materials/Skin_Presets/Jhow_Vareation_Skin_Mat_4.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ImportAssets/LOW POLY CHARACTERS CUSTOMIZABLEMODULAR ( MALE AND FEMALE )/Characters/JHOW/Materials/Skin_Presets/Jhow_Vareation_Skin_Mat_4.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ImportAssets/LOW POLY CHARACTERS CUSTOMIZABLEMODULAR ( MALE AND FEMALE )/Characters/JHOW/Mesh/Jhow_Customize_Character.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ImportAssets/LOW POLY CHARACTERS CUSTOMIZABLEMODULAR ( MALE AND FEMALE )/Characters/JHOW/Mesh/Jhow_Customize_Character.fbx.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ImportAssets/LOW POLY CHARACTERS CUSTOMIZABLEMODULAR ( MALE AND FEMALE )/Characters/SHARA/Materials/Skin_Presets/Shara_Mat_Skin_1.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ImportAssets/LOW POLY CHARACTERS CUSTOMIZABLEMODULAR ( MALE AND FEMALE )/Characters/SHARA/Materials/Skin_Presets/Shara_Mat_Skin_1.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ImportAssets/LOW POLY CHARACTERS CUSTOMIZABLEMODULAR ( MALE AND FEMALE )/Characters/SHARA/Materials/Skin_Presets/Shara_Mat_Skin_2.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ImportAssets/LOW POLY CHARACTERS CUSTOMIZABLEMODULAR ( MALE AND FEMALE )/Characters/SHARA/Materials/Skin_Presets/Shara_Mat_Skin_2.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ImportAssets/LOW POLY CHARACTERS CUSTOMIZABLEMODULAR ( MALE AND FEMALE )/Characters/SHARA/Materials/Skin_Presets/Shara_Mat_Skin_3.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ImportAssets/LOW POLY CHARACTERS CUSTOMIZABLEMODULAR ( MALE AND FEMALE )/Characters/SHARA/Materials/Skin_Presets/Shara_Mat_Skin_3.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ImportAssets/LOW POLY CHARACTERS CUSTOMIZABLEMODULAR ( MALE AND FEMALE )/Characters/SHARA/Materials/Skin_Presets/Shara_Mat_Skin_4.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ImportAssets/LOW POLY CHARACTERS CUSTOMIZABLEMODULAR ( MALE AND FEMALE )/Characters/SHARA/Materials/Skin_Presets/Shara_Mat_Skin_4.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ImportAssets/LOW POLY CHARACTERS CUSTOMIZABLEMODULAR ( MALE AND FEMALE )/Characters/SHARA/Materials/Skin_Presets/Shara_Mat_Skin_5.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ImportAssets/LOW POLY CHARACTERS CUSTOMIZABLEMODULAR ( MALE AND FEMALE )/Characters/SHARA/Materials/Skin_Presets/Shara_Mat_Skin_5.mat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefab/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefab/Player.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/BasicBoardLayout.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/BasicBoardLayout.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/BoardLayout/PathManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/BoardLayout/PathManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/BoardLayout/PathTile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/BoardLayout/PathTile.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Player.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,7 +47,8 @@
     &quot;Discover.Launch.Via.Unity&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.appearance&quot;
   },
   &quot;keyToStringList&quot;: {
     &quot;rider.external.source.directories&quot;: [
@@ -96,6 +107,8 @@
       <workItem from="1686048805446" duration="6694000" />
       <workItem from="1686217613550" duration="5532000" />
       <workItem from="1686224719112" duration="7854000" />
+      <workItem from="1686481009571" duration="1139000" />
+      <workItem from="1686482268138" duration="669000" />
     </task>
     <servers />
   </component>
@@ -106,5 +119,9 @@
   <component name="UnityUnitTestConfiguration" currentTestLauncher="EditMode" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float playerMovementSpeed;
     [SerializeField] private Transform tileCheckPoint;
     [SerializeField] private CinemachineVirtualCamera vCamera;
+    [SerializeField] private Animator playerAnimator;
 
     private CharacterController cc;
     private Transform targetPoint;
@@ -37,18 +38,18 @@ public class Player : MonoBehaviour
 
             var pathTile = PathManager.Instance.GetNextTileForPlayer();
             targetPoint = pathTile.GetNextPoint();
-            print($"Moving player {name} to {targetPoint.position}");
-
-            while (!CheckIfReached())
+            playerAnimator.SetBool("running", true);
+            do
             {
                 var dir = -(transform.position - targetPoint.position);
                 dir.Normalize();
                 cc.Move(dir * (playerMovementSpeed * Time.deltaTime));
                 dir.y = 0;
-                transform.forward = dir;
+                transform.forward = Vector3.Lerp(transform.forward, dir, 0.15f);
                 yield return null;
-            }
+            } while (!CheckIfReached());
 
+            playerAnimator.SetBool("running", false);
             PathManager.Instance.PlayerReachedNextTile(name);
             print("Tile reached");
         }
