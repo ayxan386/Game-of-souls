@@ -2,9 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bbb7bee6-7010-45a3-b266-75b2c8bfcf5a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/Aykhan_scripts_temp/DiceRotation/DiceRotationManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Aykhan_scripts_temp/DiceRotation/DiceRotationManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefab/Dice.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefab/Dice.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/DiceRoll.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/DiceRoll.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Game of souls/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Game of souls/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/BasicColors/Black.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/BasicColors/Black.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefab/Board/PathTile.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefab/Board/PathTile.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefab/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefab/Player.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/BasicBoardLayout.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/BasicBoardLayout.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/BoardLayout/PathManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/BoardLayout/PathManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/BoardLayout/PathTile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/BoardLayout/PathTile.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Player.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerManager.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,6 +19,10 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/../Capitalist mobile/Assets/Scripts/GameControl/PlayerManager.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/BoardLayout/PathManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/BoardLayout/PathTile.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/Player.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/PlayerManager.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -84,7 +94,8 @@
       <option name="presentableId" value="Default" />
       <updated>1686048800094</updated>
       <workItem from="1686048805446" duration="6694000" />
-      <workItem from="1686217613550" duration="2234000" />
+      <workItem from="1686217613550" duration="5532000" />
+      <workItem from="1686224719112" duration="7854000" />
     </task>
     <servers />
   </component>
