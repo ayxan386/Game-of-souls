@@ -124,6 +124,8 @@ MonoBehaviour:
   tileCheckPoint: {fileID: 7019383234924877748}
   vCamera: {fileID: 1708541027516869088}
   playerAnimator: {fileID: 5038566429421152318}
+  playerUiPrefab: {fileID: -1422942321453518156, guid: 924814e76a6c4734384367e80e2cb0a3,
+    type: 3}
 --- !u!1 &1177860744951117890
 GameObject:
   m_ObjectHideFlags: 0

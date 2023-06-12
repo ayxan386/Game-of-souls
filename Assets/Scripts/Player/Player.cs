@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using Cinemachine;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(CharacterController))]
 public class Player : MonoBehaviour
@@ -11,17 +12,39 @@ public class Player : MonoBehaviour
     [SerializeField] private Transform tileCheckPoint;
     [SerializeField] private CinemachineVirtualCamera vCamera;
     [SerializeField] private Animator playerAnimator;
+    [SerializeField] private PlayerUIDisplay playerUiPrefab;
+
+    private PlayerUIDisplay playerUiDisplay;
 
     private CharacterController cc;
     private Transform targetPoint;
 
     public CinemachineVirtualCamera PlayerView => vCamera;
+    public int CurrentHealth { get; private set; }
+    public int MaxHealth { get; private set; }
+    public int SoulCount { get; private set; }
+    public string DisplayName { get; private set; }
 
     public static event Action<string> OnPlayerPositionReached;
 
     private void Awake()
     {
         cc = GetComponent<CharacterController>();
+    }
+
+    private void Start()
+    {
+        MaxHealth = DataManager.PlayerStartingHealth;
+        CurrentHealth = MaxHealth;
+        SoulCount = 0;
+        DisplayName = "Player " + Random.Range(1, 5);
+        playerUiDisplay = Instantiate(playerUiPrefab, PlayerManager.Instance.PlayerUIParent);
+        UpdateUI();
+    }
+
+    private void UpdateUI()
+    {
+        playerUiDisplay.UpdateUI(this);
     }
 
     public void MoveToTile(int roll)
@@ -70,5 +93,10 @@ public class Player : MonoBehaviour
             Gizmos.color = Color.green;
             Gizmos.DrawSphere(targetPoint.position, 0.3f);
         }
+    }
+
+    public void UpdateStateOfPlayer(bool state)
+    {
+        playerUiDisplay.ToggleState(state);
     }
 }

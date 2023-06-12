@@ -3,22 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="bbb7bee6-7010-45a3-b266-75b2c8bfcf5a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Game of souls/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Game of souls/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ImportAssets/LOW POLY CHARACTERS CUSTOMIZABLEMODULAR ( MALE AND FEMALE )/Animations(Pattern_Unity)/Anim_Controller/Shara_Animation_Controller.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ImportAssets/LOW POLY CHARACTERS CUSTOMIZABLEMODULAR ( MALE AND FEMALE )/Animations(Pattern_Unity)/Anim_Controller/Shara_Animation_Controller.controller" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ImportAssets/LOW POLY CHARACTERS CUSTOMIZABLEMODULAR ( MALE AND FEMALE )/Animations(Pattern_Unity)/Animation/HumanoidIdle.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ImportAssets/LOW POLY CHARACTERS CUSTOMIZABLEMODULAR ( MALE AND FEMALE )/Animations(Pattern_Unity)/Animation/HumanoidIdle.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ImportAssets/LOW POLY CHARACTERS CUSTOMIZABLEMODULAR ( MALE AND FEMALE )/Animations(Pattern_Unity)/Animation/HumanoidRun.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ImportAssets/LOW POLY CHARACTERS CUSTOMIZABLEMODULAR ( MALE AND FEMALE )/Animations(Pattern_Unity)/Animation/HumanoidRun.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ImportAssets/LOW POLY CHARACTERS CUSTOMIZABLEMODULAR ( MALE AND FEMALE )/Characters/JHOW/Materials/Skin_Presets/Jhow_Vareation_Skin_Ma_3.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ImportAssets/LOW POLY CHARACTERS CUSTOMIZABLEMODULAR ( MALE AND FEMALE )/Characters/JHOW/Materials/Skin_Presets/Jhow_Vareation_Skin_Ma_3.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ImportAssets/LOW POLY CHARACTERS CUSTOMIZABLEMODULAR ( MALE AND FEMALE )/Characters/JHOW/Materials/Skin_Presets/Jhow_Vareation_Skin_Mat_1.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ImportAssets/LOW POLY CHARACTERS CUSTOMIZABLEMODULAR ( MALE AND FEMALE )/Characters/JHOW/Materials/Skin_Presets/Jhow_Vareation_Skin_Mat_1.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ImportAssets/LOW POLY CHARACTERS CUSTOMIZABLEMODULAR ( MALE AND FEMALE )/Characters/JHOW/Materials/Skin_Presets/Jhow_Vareation_Skin_Mat_2.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ImportAssets/LOW POLY CHARACTERS CUSTOMIZABLEMODULAR ( MALE AND FEMALE )/Characters/JHOW/Materials/Skin_Presets/Jhow_Vareation_Skin_Mat_2.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ImportAssets/LOW POLY CHARACTERS CUSTOMIZABLEMODULAR ( MALE AND FEMALE )/Characters/JHOW/Materials/Skin_Presets/Jhow_Vareation_Skin_Mat_4.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ImportAssets/LOW POLY CHARACTERS CUSTOMIZABLEMODULAR ( MALE AND FEMALE )/Characters/JHOW/Materials/Skin_Presets/Jhow_Vareation_Skin_Mat_4.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ImportAssets/LOW POLY CHARACTERS CUSTOMIZABLEMODULAR ( MALE AND FEMALE )/Characters/JHOW/Mesh/Jhow_Customize_Character.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ImportAssets/LOW POLY CHARACTERS CUSTOMIZABLEMODULAR ( MALE AND FEMALE )/Characters/JHOW/Mesh/Jhow_Customize_Character.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ImportAssets/LOW POLY CHARACTERS CUSTOMIZABLEMODULAR ( MALE AND FEMALE )/Characters/SHARA/Materials/Skin_Presets/Shara_Mat_Skin_1.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ImportAssets/LOW POLY CHARACTERS CUSTOMIZABLEMODULAR ( MALE AND FEMALE )/Characters/SHARA/Materials/Skin_Presets/Shara_Mat_Skin_1.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ImportAssets/LOW POLY CHARACTERS CUSTOMIZABLEMODULAR ( MALE AND FEMALE )/Characters/SHARA/Materials/Skin_Presets/Shara_Mat_Skin_2.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ImportAssets/LOW POLY CHARACTERS CUSTOMIZABLEMODULAR ( MALE AND FEMALE )/Characters/SHARA/Materials/Skin_Presets/Shara_Mat_Skin_2.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ImportAssets/LOW POLY CHARACTERS CUSTOMIZABLEMODULAR ( MALE AND FEMALE )/Characters/SHARA/Materials/Skin_Presets/Shara_Mat_Skin_3.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ImportAssets/LOW POLY CHARACTERS CUSTOMIZABLEMODULAR ( MALE AND FEMALE )/Characters/SHARA/Materials/Skin_Presets/Shara_Mat_Skin_3.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ImportAssets/LOW POLY CHARACTERS CUSTOMIZABLEMODULAR ( MALE AND FEMALE )/Characters/SHARA/Materials/Skin_Presets/Shara_Mat_Skin_4.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ImportAssets/LOW POLY CHARACTERS CUSTOMIZABLEMODULAR ( MALE AND FEMALE )/Characters/SHARA/Materials/Skin_Presets/Shara_Mat_Skin_4.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ImportAssets/LOW POLY CHARACTERS CUSTOMIZABLEMODULAR ( MALE AND FEMALE )/Characters/SHARA/Materials/Skin_Presets/Shara_Mat_Skin_5.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ImportAssets/LOW POLY CHARACTERS CUSTOMIZABLEMODULAR ( MALE AND FEMALE )/Characters/SHARA/Materials/Skin_Presets/Shara_Mat_Skin_5.mat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefab/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefab/Player.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/BasicBoardLayout.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/BasicBoardLayout.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Player.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
     </list>
@@ -31,8 +20,10 @@
     <setting file="file://$PROJECT_DIR$/../Capitalist mobile/Assets/Scripts/GameControl/PlayerManager.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/BoardLayout/PathManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/BoardLayout/PathTile.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameControl/DataManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/Player.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/PlayerManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/PlayerUIDisplay.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -108,7 +99,7 @@
       <workItem from="1686217613550" duration="5532000" />
       <workItem from="1686224719112" duration="7854000" />
       <workItem from="1686481009571" duration="1139000" />
-      <workItem from="1686482268138" duration="669000" />
+      <workItem from="1686482268138" duration="5528000" />
     </task>
     <servers />
   </component>
