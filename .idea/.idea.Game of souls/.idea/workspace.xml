@@ -3,11 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="bbb7bee6-7010-45a3-b266-75b2c8bfcf5a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Game of souls/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Game of souls/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/BasicBoardLayout.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/BasicBoardLayout.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/BoardLayout/PathManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/BoardLayout/PathManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/BoardLayout/PathTile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/BoardLayout/PathTile.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Player.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/Packages/com.unity.sequences/Settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/Packages/com.unity.sequences/Settings.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,7 +94,7 @@
       <workItem from="1686217613550" duration="5532000" />
       <workItem from="1686224719112" duration="7854000" />
       <workItem from="1686481009571" duration="1139000" />
-      <workItem from="1686482268138" duration="6903000" />
+      <workItem from="1686482268138" duration="7996000" />
     </task>
     <servers />
   </component>

@@ -119,7 +119,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5b7c7a6eb99ab4488e8fb3520e7b634, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minDistance: 0.18
+  minDistance: 0.1
+  closeEnoughDistance: 0.75
   playerMovementSpeed: 1.5
   tileCheckPoint: {fileID: 7019383234924877748}
   vCamera: {fileID: 1708541027516869088}

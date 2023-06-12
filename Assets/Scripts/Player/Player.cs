@@ -8,6 +8,7 @@ using Random = UnityEngine.Random;
 public class Player : MonoBehaviour
 {
     [SerializeField] private float minDistance;
+    [SerializeField] private float closeEnoughDistance;
     [SerializeField] private float playerMovementSpeed;
     [SerializeField] private Transform tileCheckPoint;
     [SerializeField] private CinemachineVirtualCamera vCamera;
@@ -69,15 +70,27 @@ public class Player : MonoBehaviour
                 cc.Move(dir * (playerMovementSpeed * Time.deltaTime));
                 dir.y = 0;
                 transform.forward = Vector3.Lerp(transform.forward, dir, 0.15f);
-                yield return null;
+                if (CloseToCurrentTarget() && i + 1 < diceRoll)
+                {
+                    break;
+                }
+                else
+                {
+                    yield return null;
+                }
             } while (!CheckIfReached());
 
-            playerAnimator.SetBool("running", false);
             PathManager.Instance.PlayerReachedNextTile(DisplayName);
             print("Tile reached");
         }
 
+        playerAnimator.SetBool("running", false);
         OnPlayerPositionReached?.Invoke(this);
+    }
+
+    private bool CloseToCurrentTarget()
+    {
+        return Vector3.Distance(tileCheckPoint.position, targetPoint.position) <= closeEnoughDistance;
     }
 
     private bool CheckIfReached()
