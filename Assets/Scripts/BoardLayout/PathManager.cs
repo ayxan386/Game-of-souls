@@ -20,11 +20,14 @@ public class PathManager : MonoBehaviour
     private void Start()
     {
         PathTile.OnNextTileSelected += PathTileOnSelected;
+        Player.OnPlayerPositionReached += OnPlayerPositionReached;
     }
+
 
     private void OnDestroy()
     {
-        PathTile.OnNextTileSelected += PathTileOnSelected;
+        PathTile.OnNextTileSelected -= PathTileOnSelected;
+        Player.OnPlayerPositionReached -= OnPlayerPositionReached;
     }
 
     private void PathTileOnSelected(PathTile obj)
@@ -53,5 +56,22 @@ public class PathManager : MonoBehaviour
     public void StartPlayerAtPosition(string playerId, PathTile tile)
     {
         playerPositions[playerId] = tile;
+    }
+
+    private void OnPlayerPositionReached(Player player)
+    {
+        var playersCurrentTile = playerPositions[player.DisplayName];
+        switch (playersCurrentTile.Type)
+        {
+            case TileType.SoulAwarding:
+                player.UpdateSoulCount(playersCurrentTile.Value);
+                break;
+            case TileType.HealthDamaging:
+            case TileType.HealthHealing:
+                player.UpdateHealth(playersCurrentTile.Value);
+                break;
+        }
+
+        PlayerManager.Instance.AllowPlayerSwitch = true;
     }
 }

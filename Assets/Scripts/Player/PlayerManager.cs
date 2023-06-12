@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
@@ -6,6 +7,8 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private PathTile startingTile;
     [SerializeField] private Transform playerUIParent;
     private int currentPlayer;
+
+    public bool AllowPlayerSwitch { get; set; }
 
     public static PlayerManager Instance { get; private set; }
 
@@ -20,7 +23,7 @@ public class PlayerManager : MonoBehaviour
     {
         foreach (var player in players)
         {
-            PathManager.Instance.StartPlayerAtPosition(player.name, startingTile);
+            PathManager.Instance.StartPlayerAtPosition(player.DisplayName, startingTile);
             print("Player positioned");
         }
 
@@ -29,12 +32,19 @@ public class PlayerManager : MonoBehaviour
         ActivatePlayer();
     }
 
-    private void OnPlayerPositionReached(string obj)
+    private void OnPlayerPositionReached(Player player)
     {
+        StartCoroutine(WaitForEvent());
+    }
+
+    private IEnumerator WaitForEvent()
+    {
+        yield return new WaitUntil(() => AllowPlayerSwitch);
         players[currentPlayer].PlayerView.Priority = 5;
         players[currentPlayer].UpdateStateOfPlayer(false);
         currentPlayer = (currentPlayer + 1) % players.Length;
         ActivatePlayer();
+        AllowPlayerSwitch = false;
     }
 
     private void ActivatePlayer()

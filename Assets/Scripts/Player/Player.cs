@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
     public int SoulCount { get; private set; }
     public string DisplayName { get; private set; }
 
-    public static event Action<string> OnPlayerPositionReached;
+    public static event Action<Player> OnPlayerPositionReached;
 
     private void Awake()
     {
@@ -56,7 +56,7 @@ public class Player : MonoBehaviour
     {
         for (int i = 0; i < diceRoll; i++)
         {
-            PathManager.Instance.SearchForNextTile(name);
+            PathManager.Instance.SearchForNextTile(DisplayName);
             yield return new WaitUntil(() => PathManager.Instance.IsSelected);
 
             var pathTile = PathManager.Instance.GetNextTileForPlayer();
@@ -73,11 +73,11 @@ public class Player : MonoBehaviour
             } while (!CheckIfReached());
 
             playerAnimator.SetBool("running", false);
-            PathManager.Instance.PlayerReachedNextTile(name);
+            PathManager.Instance.PlayerReachedNextTile(DisplayName);
             print("Tile reached");
         }
 
-        OnPlayerPositionReached?.Invoke(name);
+        OnPlayerPositionReached?.Invoke(this);
     }
 
     private bool CheckIfReached()
@@ -98,5 +98,18 @@ public class Player : MonoBehaviour
     public void UpdateStateOfPlayer(bool state)
     {
         playerUiDisplay.ToggleState(state);
+    }
+
+    public void UpdateSoulCount(int value)
+    {
+        SoulCount += value;
+        UpdateUI();
+    }
+
+    public void UpdateHealth(int value)
+    {
+        CurrentHealth += value;
+        CurrentHealth = Mathf.Clamp(CurrentHealth, 0, MaxHealth);
+        UpdateUI();
     }
 }

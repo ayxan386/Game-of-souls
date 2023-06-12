@@ -7,11 +7,19 @@ public class PathTile : MonoBehaviour
     [SerializeField] private PathTile[] nextTiles;
     [SerializeField] private MeshRenderer rend;
 
+    [Header("When player arrives")] [SerializeField]
+    private TileType tileType;
+
+    [SerializeField] private int value;
+
     private int currentPoint = 0;
     private int currentHighlight = 0;
     private bool isSelectable;
     private bool waitingForChoice;
     public static event Action<PathTile> OnNextTileSelected;
+
+    public TileType Type => tileType;
+    public int Value => value;
 
     private void Start()
     {
@@ -94,4 +102,13 @@ public class PathTile : MonoBehaviour
             }
         }
     }
+}
+
+
+public enum TileType
+{
+    None,
+    SoulAwarding,
+    HealthDamaging,
+    HealthHealing
 }
