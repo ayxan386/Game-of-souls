@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using Cinemachine;
 using UnityEngine;
-using Random = UnityEngine.Random;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController))]
 public class Player : MonoBehaviour
@@ -14,31 +14,29 @@ public class Player : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera vCamera;
     [SerializeField] private Animator playerAnimator;
     [SerializeField] private PlayerUIDisplay playerUiPrefab;
+    [SerializeField] private CharacterController cc;
 
     private PlayerUIDisplay playerUiDisplay;
 
-    private CharacterController cc;
     private Transform targetPoint;
+    private bool currentState;
 
     public CinemachineVirtualCamera PlayerView => vCamera;
     public int CurrentHealth { get; private set; }
     public int MaxHealth { get; private set; }
     public int SoulCount { get; private set; }
-    public string DisplayName { get; private set; }
+    public string DisplayName { get; set; }
 
     public static event Action<Player> OnPlayerPositionReached;
+    public static event Action<int> OnPlayerChoiceChanged;
+    public static event Action<int> OnPlayerTileSelected;
 
-    private void Awake()
-    {
-        cc = GetComponent<CharacterController>();
-    }
 
     private void Start()
     {
         MaxHealth = DataManager.PlayerStartingHealth;
         CurrentHealth = MaxHealth;
         SoulCount = 0;
-        DisplayName = "Player " + Random.Range(1, 5);
         playerUiDisplay = Instantiate(playerUiPrefab, PlayerManager.Instance.PlayerUIParent);
         UpdateUI();
     }
@@ -70,17 +68,20 @@ public class Player : MonoBehaviour
                 cc.Move(dir * (playerMovementSpeed * Time.deltaTime));
                 dir.y = 0;
                 transform.forward = Vector3.Lerp(transform.forward, dir, 0.15f);
-                if (CloseToCurrentTarget() && i + 1 < diceRoll)
+                if (!pathTile.HasChoices && CloseToCurrentTarget() && i + 1 < diceRoll)
                 {
                     break;
                 }
-                else
-                {
-                    yield return null;
-                }
+
+                yield return null;
             } while (!CheckIfReached());
 
             PathManager.Instance.PlayerReachedNextTile(DisplayName);
+            if (pathTile.HasChoices)
+            {
+                playerAnimator.SetBool("running", false);
+            }
+
             print("Tile reached");
         }
 
@@ -110,7 +111,9 @@ public class Player : MonoBehaviour
 
     public void UpdateStateOfPlayer(bool state)
     {
-        playerUiDisplay.ToggleState(state);
+        currentState = state;
+        if (playerUiDisplay)
+            playerUiDisplay.ToggleState(state);
     }
 
     public void UpdateSoulCount(int value)
@@ -124,5 +127,36 @@ public class Player : MonoBehaviour
         CurrentHealth += value;
         CurrentHealth = Mathf.Clamp(CurrentHealth, 0, MaxHealth);
         UpdateUI();
+    }
+
+    private void OnDiceRoll()
+    {
+        if (currentState)
+        {
+            DiceRotationManager.Instance.RollDice();
+        }
+    }
+
+    private void OnTileSelectionChanged(InputValue inputValue)
+    {
+        if (currentState)
+        {
+            OnPlayerChoiceChanged?.Invoke((int)inputValue.Get<float>());
+        }
+    }
+
+    private void OnTileSelected()
+    {
+        if (currentState)
+        {
+            OnPlayerTileSelected?.Invoke(0);
+        }
+    }
+
+    public void TeleportToPosition(Vector3 pos)
+    {
+        cc.enabled = false;
+        transform.position = pos + (transform.position - tileCheckPoint.position);
+        cc.enabled = true;
     }
 }

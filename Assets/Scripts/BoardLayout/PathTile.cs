@@ -18,17 +18,24 @@ public class PathTile : MonoBehaviour
     private bool waitingForChoice;
     public static event Action<PathTile> OnNextTileSelected;
 
+    public bool HasChoices => nextTiles.Length > 1;
+
     public TileType Type => tileType;
     public int Value => value;
 
     private void Start()
     {
         OnNextTileSelected += OnOtherTileSelected;
+        Player.OnPlayerChoiceChanged += OnPlayerChoiceChanged;
+        Player.OnPlayerTileSelected += OnPlayerTileSelected;
     }
+
 
     private void OnDestroy()
     {
         OnNextTileSelected -= OnOtherTileSelected;
+        Player.OnPlayerChoiceChanged -= OnPlayerChoiceChanged;
+        Player.OnPlayerTileSelected -= OnPlayerTileSelected;
     }
 
 
@@ -86,21 +93,21 @@ public class PathTile : MonoBehaviour
         }
     }
 
-    private void Update()
+
+    private void OnPlayerChoiceChanged(int obj)
     {
-        if (waitingForChoice)
-        {
-            if (Input.GetKey(KeyCode.A))
-            {
-                if (currentHighlight >= 0) nextTiles[currentHighlight].SetSelectable();
-                currentHighlight = (currentHighlight + 1) % nextTiles.Length;
-                nextTiles[currentHighlight].SetHighlight();
-            }
-            else if (Input.GetKey(KeyCode.Space))
-            {
-                OnNextTileSelected?.Invoke(nextTiles[currentHighlight]);
-            }
-        }
+        if (!waitingForChoice) return;
+        if (currentHighlight >= 0) nextTiles[currentHighlight].SetSelectable();
+        currentHighlight = (currentHighlight + obj + nextTiles.Length) % nextTiles.Length;
+        nextTiles[currentHighlight].SetHighlight();
+    }
+
+
+    private void OnPlayerTileSelected(int obj)
+    {
+        if (!waitingForChoice) return;
+        
+        OnNextTileSelected?.Invoke(nextTiles[currentHighlight]);
     }
 }
 

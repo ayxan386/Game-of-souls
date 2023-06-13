@@ -1,11 +1,14 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerManager : MonoBehaviour
 {
-    [SerializeField] private Player[] players;
+    [SerializeField] private List<Player> players;
     [SerializeField] private PathTile startingTile;
     [SerializeField] private Transform playerUIParent;
+    [SerializeField] private Transform playerParent;
     private int currentPlayer;
 
     public bool AllowPlayerSwitch { get; set; }
@@ -23,13 +26,11 @@ public class PlayerManager : MonoBehaviour
     {
         foreach (var player in players)
         {
-            PathManager.Instance.StartPlayerAtPosition(player.DisplayName, startingTile);
             print("Player positioned");
         }
 
         DiceRotationManager.OnDiceRolled += OnDiceRolled;
         Player.OnPlayerPositionReached += OnPlayerPositionReached;
-        ActivatePlayer();
     }
 
     private void OnPlayerPositionReached(Player player)
@@ -42,7 +43,7 @@ public class PlayerManager : MonoBehaviour
         yield return new WaitUntil(() => AllowPlayerSwitch);
         players[currentPlayer].PlayerView.Priority = 5;
         players[currentPlayer].UpdateStateOfPlayer(false);
-        currentPlayer = (currentPlayer + 1) % players.Length;
+        currentPlayer = (currentPlayer + 1) % players.Count;
         ActivatePlayer();
         AllowPlayerSwitch = false;
     }
@@ -56,5 +57,22 @@ public class PlayerManager : MonoBehaviour
     private void OnDiceRolled(int diceRoll)
     {
         players[currentPlayer].MoveToTile(diceRoll);
+    }
+
+
+    private void OnPlayerJoined(PlayerInput newPlayer)
+    {
+        var player = newPlayer.transform.GetComponent<Player>();
+        newPlayer.transform.SetParent(playerParent);
+        player.DisplayName = "Player " + newPlayer.playerIndex;
+
+        players.Add(player);
+        PathManager.Instance.StartPlayerAtPosition(player.DisplayName, startingTile);
+        player.TeleportToPosition(startingTile.GetNextPoint().position);
+
+        if (players.Count == 1)
+        {
+            ActivatePlayer();
+        }
     }
 }
