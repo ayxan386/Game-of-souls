@@ -15,6 +15,7 @@ public class DiceRotationManager : MonoBehaviour
 
     public static DiceRotationManager Instance { get; private set; }
     public static event Action<int> OnDiceRolled;
+    public bool CanRoll { get; set; }
 
     private void Awake()
     {
@@ -25,6 +26,8 @@ public class DiceRotationManager : MonoBehaviour
     [ContextMenu("Roll dice")]
     public void RollDice()
     {
+        if(!CanRoll) return;
+        
         var diceRoll = Random.Range(rollRange.x, rollRange.y);
         StartCoroutine(RotationAnimation(diceRoll));
     }

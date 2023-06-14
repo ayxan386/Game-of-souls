@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GridManager : MonoBehaviour
 {
@@ -32,6 +33,7 @@ public class GridManager : MonoBehaviour
 
     private IEnumerator GamePhase()
     {
+        yield return new WaitUntil(() => ChaseGreen_PlayerManager.PlayersReady);
         while (true)
         {
             SelectSafeBlocks();
@@ -46,6 +48,8 @@ public class GridManager : MonoBehaviour
 
             if (eliminatedCount == ChaseGreen_PlayerController.Players.Count)
             {
+                SceneManager.UnloadSceneAsync(SceneManager.GetSceneByName("Minigame1_ChaseGreen"));
+                PlayerManager.Instance.MinigameFinished();
                 yield break;
             }
         }

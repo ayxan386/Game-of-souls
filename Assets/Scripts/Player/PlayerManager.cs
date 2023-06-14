@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -9,11 +10,14 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private PathTile startingTile;
     [SerializeField] private Transform playerUIParent;
     [SerializeField] private Transform playerParent;
+    [SerializeField] private GameObject boardScene;
     private int currentPlayer;
 
     public bool AllowPlayerSwitch { get; set; }
 
     public static PlayerManager Instance { get; private set; }
+
+    public List<Player> Players => players;
 
     public Transform PlayerUIParent => playerUIParent;
 
@@ -52,11 +56,13 @@ public class PlayerManager : MonoBehaviour
     {
         players[currentPlayer].PlayerView.Priority = 15;
         players[currentPlayer].UpdateStateOfPlayer(true);
+        DiceRotationManager.Instance.CanRoll = true;
     }
 
     private void OnDiceRolled(int diceRoll)
     {
         players[currentPlayer].MoveToTile(diceRoll);
+        DiceRotationManager.Instance.CanRoll = false;
     }
 
 
@@ -74,5 +80,17 @@ public class PlayerManager : MonoBehaviour
         {
             ActivatePlayer();
         }
+    }
+
+    [ContextMenu("Load minigame")]
+    public void LoadMiniGame()
+    {
+        boardScene.SetActive(false);
+        SceneManager.LoadScene("Minigame1_ChaseGreen", LoadSceneMode.Additive);
+    }
+
+    public void MinigameFinished()
+    {
+        boardScene.SetActive(true);
     }
 }

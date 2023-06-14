@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Cinemachine;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -15,6 +16,8 @@ public class Player : MonoBehaviour
     [SerializeField] private Animator playerAnimator;
     [SerializeField] private PlayerUIDisplay playerUiPrefab;
     [SerializeField] private CharacterController cc;
+
+    [SerializeField] private TextMeshPro playerInWorldName;
 
     private PlayerUIDisplay playerUiDisplay;
 
@@ -44,6 +47,7 @@ public class Player : MonoBehaviour
     private void UpdateUI()
     {
         playerUiDisplay.UpdateUI(this);
+        playerInWorldName.text = "P" + DisplayName.Split(" ")[1];
     }
 
     public void MoveToTile(int roll)
@@ -114,6 +118,16 @@ public class Player : MonoBehaviour
         currentState = state;
         if (playerUiDisplay)
             playerUiDisplay.ToggleState(state);
+        else
+        {
+            StartCoroutine(TryToUpdateState(state));
+        }
+    }
+
+    private IEnumerator TryToUpdateState(bool state)
+    {
+        yield return new WaitForSeconds(3f);
+        UpdateStateOfPlayer(state);
     }
 
     public void UpdateSoulCount(int value)
