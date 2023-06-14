@@ -1,9 +1,11 @@
 using System.Collections;
+using System.Linq;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class GridManager : MonoBehaviour
+public class ChaseGreen_GameManager : MonoBehaviour
 {
+    [Header("Loading")] [SerializeField] private GameObject loadingScreen;
+
     [Header("Grid generation")] [SerializeField]
     private GameObject gridBlock;
 
@@ -20,6 +22,13 @@ public class GridManager : MonoBehaviour
     [SerializeField] private float duration;
     [SerializeField] [Range(0, 1f)] private float colorAnimationFactor;
 
+    [Header("Post game phase")] [SerializeField]
+    private int[] soulAwards;
+
+    [SerializeField] private float waitDuration;
+    [SerializeField] private GameObject awardScreen;
+    [SerializeField] private PlayerAwardUI[] playerAwardUis;
+
     private MeshRenderer[,] gridMesh;
     private Vector2Int[] safeBlocks;
     private int eliminatedCount;
@@ -27,6 +36,7 @@ public class GridManager : MonoBehaviour
 
     private void Start()
     {
+        loadingScreen.SetActive(true);
         GenerateGrid();
         StartCoroutine(GamePhase());
     }
@@ -34,6 +44,7 @@ public class GridManager : MonoBehaviour
     private IEnumerator GamePhase()
     {
         yield return new WaitUntil(() => ChaseGreen_PlayerManager.PlayersReady);
+        loadingScreen.SetActive(false);
         while (true)
         {
             SelectSafeBlocks();
@@ -46,12 +57,43 @@ public class GridManager : MonoBehaviour
 
             CheckPlayerPositions();
 
-            if (eliminatedCount == ChaseGreen_PlayerController.Players.Count)
+            if (eliminatedCount == PlayerSubManager.PlayerRoots.Count - 1)
             {
-                SceneManager.UnloadSceneAsync(SceneManager.GetSceneByName("Minigame1_ChaseGreen"));
-                PlayerManager.Instance.MinigameFinished();
+                AwardPlayers();
+                yield return new WaitForSeconds(waitDuration);
+                ResetPlayers();
+                MiniGameManager.Instance.MinigameFinished();
                 yield break;
             }
+        }
+    }
+
+    private void ResetPlayers()
+    {
+        foreach (var playerRoot in PlayerSubManager.PlayerRoots)
+        {
+            playerRoot.ChaseGreenPlayer.Eliminated = false;
+            playerRoot.UnLoadedChaseTheGreen();
+        }
+    }
+
+    private void AwardPlayers()
+    {
+        awardScreen.SetActive(true);
+
+        foreach (var t in playerAwardUis)
+        {
+            t.gameObject.SetActive(false);
+        }
+
+        foreach (var playerRoot in PlayerSubManager.PlayerRoots)
+        {
+            var player = playerRoot.ChaseGreenPlayer;
+            var soulAward = soulAwards[player.EliminationIndex];
+            playerAwardUis[player.EliminationIndex].gameObject.SetActive(true);
+            playerAwardUis[player.EliminationIndex]
+                .UpdateUI(player.EliminationIndex + 1, playerRoot.PlayerId, soulAward);
+            PlayerManager.Instance.AwardPlayerWithSouls(playerRoot.PlayerId, soulAward);
         }
     }
 
@@ -60,7 +102,7 @@ public class GridManager : MonoBehaviour
     {
         var safeBlockCount = Random.Range(safeBlockCountRange.x, safeBlockCountRange.y);
         safeBlocks = new Vector2Int[safeBlockCount];
-        for (int i = 0; i < safeBlockCount; i++)
+        for (var i = 0; i < safeBlockCount; i++)
         {
             safeBlocks[i] = new Vector2Int(Random.Range(0, gridSize.x), Random.Range(0, gridSize.y));
         }
@@ -69,42 +111,28 @@ public class GridManager : MonoBehaviour
 
     private void ColorGrid(float phase)
     {
-        for (int x = 0; x < gridSize.x; x++)
+        for (var x = 0; x < gridSize.x; x++)
         {
-            for (int y = 0; y < gridSize.y; y++)
+            for (var y = 0; y < gridSize.y; y++)
             {
-                if (IsSafeBlock(x, y))
-                {
-                    gridMesh[x, y].material.color = safeBlockColor;
-                }
-                else
-                {
-                    gridMesh[x, y].material.color =
-                        Color.Lerp(otherBlocksColorStart, otherBlocksColorEnd, phase);
-                }
+                gridMesh[x, y].material.color = IsSafeBlock(x, y)
+                    ? safeBlockColor
+                    : Color.Lerp(otherBlocksColorStart, otherBlocksColorEnd, phase);
             }
         }
     }
 
     private bool IsSafeBlock(int x, int y)
     {
-        foreach (var safeBlock in safeBlocks)
-        {
-            if (x == safeBlock.x && y == safeBlock.y)
-            {
-                return true;
-            }
-        }
-
-        return false;
+        return safeBlocks.Any(safeBlock => x == safeBlock.x && y == safeBlock.y);
     }
 
     private void GenerateGrid()
     {
         gridMesh = new MeshRenderer[gridSize.x, gridSize.y];
-        for (int x = 0; x < gridSize.x; x++)
+        for (var x = 0; x < gridSize.x; x++)
         {
-            for (int y = 0; y < gridSize.y; y++)
+            for (var y = 0; y < gridSize.y; y++)
             {
                 var position = transform.position
                                + new Vector3(blockSize.x * (x - gridSize.x / 2), 0, blockSize.y * (y - gridSize.y / 2))
@@ -120,11 +148,15 @@ public class GridManager : MonoBehaviour
 
     private void CheckPlayerPositions()
     {
-        foreach (var player in ChaseGreen_PlayerController.Players)
+        foreach (var playerRoot in PlayerSubManager.PlayerRoots)
         {
-            var x = Mathf.RoundToInt((player.position.x + blockSize.x * gridSize.x / 2) /
+            var player = playerRoot.ChaseGreenPlayer;
+            if (player.Eliminated) continue;
+
+            var playerPos = player.transform.position;
+            var x = Mathf.RoundToInt((playerPos.x + blockSize.x * gridSize.x / 2) /
                                      (blockSize.x + blockSpacing.x));
-            var y = Mathf.RoundToInt((player.position.z + blockSize.y * gridSize.y / 2) /
+            var y = Mathf.RoundToInt((playerPos.z + blockSize.y * gridSize.y / 2) /
                                      (blockSize.y + blockSpacing.y));
 
             if (IsSafeBlock(x, y))
@@ -133,8 +165,11 @@ public class GridManager : MonoBehaviour
             }
             else
             {
-                player.gameObject.SetActive(false);
+                player.Eliminated = true;
+                player.EliminationIndex = PlayerSubManager.PlayerRoots.Count - eliminatedCount - 1;
+                print($"Player {player.name} eliminated {player.EliminationIndex}");
                 eliminatedCount++;
+                player.gameObject.SetActive(false);
             }
         }
     }

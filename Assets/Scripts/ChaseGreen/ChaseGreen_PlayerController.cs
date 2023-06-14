@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,20 +10,13 @@ public class ChaseGreen_PlayerController : MonoBehaviour
 
     private Vector3 movementVector;
 
-    public static List<Transform> Players;
-
-    private void Awake()
-    {
-        if (Players == null)
-        {
-            Players = new List<Transform>();
-        }
-
-        Players.Add(transform);
-    }
+    public int EliminationIndex { get; set; }
+    public bool Eliminated { get; set; }
 
     void Update()
     {
+        if (!ChaseGreen_PlayerManager.PlayersReady) return;
+
         animator.SetBool("running", movementVector.sqrMagnitude > 0);
         cc.SimpleMove(movementVector);
 
@@ -36,5 +28,12 @@ public class ChaseGreen_PlayerController : MonoBehaviour
         var vec = inputValue.Get<Vector2>();
         vec.Normalize();
         movementVector = new Vector3(vec.x, 0, vec.y) * speed;
+    }
+
+    public void TeleportToPosition(Vector3 pos)
+    {
+        cc.enabled = false;
+        transform.position = pos;
+        cc.enabled = true;
     }
 }

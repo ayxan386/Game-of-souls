@@ -41,7 +41,6 @@ public class Player : MonoBehaviour
         CurrentHealth = MaxHealth;
         SoulCount = 0;
         playerUiDisplay = Instantiate(playerUiPrefab, PlayerManager.Instance.PlayerUIParent);
-        UpdateUI();
     }
 
     private void UpdateUI()
@@ -115,9 +114,11 @@ public class Player : MonoBehaviour
 
     public void UpdateStateOfPlayer(bool state)
     {
-        currentState = state;
         if (playerUiDisplay)
+        {
+            currentState = state;
             playerUiDisplay.ToggleState(state);
+        }
         else
         {
             StartCoroutine(TryToUpdateState(state));
@@ -126,7 +127,7 @@ public class Player : MonoBehaviour
 
     private IEnumerator TryToUpdateState(bool state)
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(0.5f);
         UpdateStateOfPlayer(state);
     }
 

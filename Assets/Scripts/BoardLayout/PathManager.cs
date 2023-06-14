@@ -65,13 +65,19 @@ public class PathManager : MonoBehaviour
         {
             case TileType.SoulAwarding:
                 player.UpdateSoulCount(playersCurrentTile.Value);
+                PlayerManager.Instance.EndPlayerTurn();
                 break;
             case TileType.HealthDamaging:
             case TileType.HealthHealing:
                 player.UpdateHealth(playersCurrentTile.Value);
+                PlayerManager.Instance.EndPlayerTurn();
+                break;
+            case TileType.MiniGameLoading:
+                MiniGameManager.Instance.LoadMiniGame(playersCurrentTile.MiniGame);
+                break;
+            default:
+                PlayerManager.Instance.EndPlayerTurn();
                 break;
         }
-
-        PlayerManager.Instance.AllowPlayerSwitch = true;
     }
 }

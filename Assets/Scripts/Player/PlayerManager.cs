@@ -2,24 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 
 public class PlayerManager : MonoBehaviour
 {
     [SerializeField] private List<Player> players;
     [SerializeField] private PathTile startingTile;
     [SerializeField] private Transform playerUIParent;
-    [SerializeField] private Transform playerParent;
-    [SerializeField] private GameObject boardScene;
-    private int currentPlayer;
-
-    public bool AllowPlayerSwitch { get; set; }
+    [SerializeField] private PlayerInputManager playerInputManager;
 
     public static PlayerManager Instance { get; private set; }
 
-    public List<Player> Players => players;
-
     public Transform PlayerUIParent => playerUIParent;
+
+    private int currentPlayer;
 
     private void Awake()
     {
@@ -28,28 +23,41 @@ public class PlayerManager : MonoBehaviour
 
     private void Start()
     {
-        foreach (var player in players)
+        DiceRotationManager.OnDiceRolled += OnDiceRolled;
+    }
+
+    private void OnDisable()
+    {
+        DiceRotationManager.OnDiceRolled -= OnDiceRolled;
+    }
+
+    private IEnumerator WaitThenSetUp(PlayerInput playerInput)
+    {
+        yield return new WaitForSeconds(0.2f);
+        var playerSubManager = playerInput.GetComponent<PlayerSubManager>();
+        var player = playerSubManager.BoardPlayer;
+        player.DisplayName = playerSubManager.PlayerId;
+
+        players.Add(player);
+        PathManager.Instance.StartPlayerAtPosition(player.DisplayName, startingTile);
+        player.TeleportToPosition(startingTile.GetNextPoint().position);
+
+        if (players.Count == 1)
         {
-            print("Player positioned");
+            ActivatePlayer();
         }
 
-        DiceRotationManager.OnDiceRolled += OnDiceRolled;
-        Player.OnPlayerPositionReached += OnPlayerPositionReached;
+        player.UpdateSoulCount(0);
     }
 
-    private void OnPlayerPositionReached(Player player)
+    public void EndPlayerTurn()
     {
-        StartCoroutine(WaitForEvent());
-    }
-
-    private IEnumerator WaitForEvent()
-    {
-        yield return new WaitUntil(() => AllowPlayerSwitch);
         players[currentPlayer].PlayerView.Priority = 5;
         players[currentPlayer].UpdateStateOfPlayer(false);
+        print("Ended player turn");
         currentPlayer = (currentPlayer + 1) % players.Count;
+        print("Current player " + currentPlayer);
         ActivatePlayer();
-        AllowPlayerSwitch = false;
     }
 
     private void ActivatePlayer()
@@ -61,36 +69,18 @@ public class PlayerManager : MonoBehaviour
 
     private void OnDiceRolled(int diceRoll)
     {
+        playerInputManager.DisableJoining();
         players[currentPlayer].MoveToTile(diceRoll);
         DiceRotationManager.Instance.CanRoll = false;
     }
 
-
-    private void OnPlayerJoined(PlayerInput newPlayer)
+    public void OnPlayerJoined(PlayerInput newPlayer)
     {
-        var player = newPlayer.transform.GetComponent<Player>();
-        newPlayer.transform.SetParent(playerParent);
-        player.DisplayName = "Player " + newPlayer.playerIndex;
-
-        players.Add(player);
-        PathManager.Instance.StartPlayerAtPosition(player.DisplayName, startingTile);
-        player.TeleportToPosition(startingTile.GetNextPoint().position);
-
-        if (players.Count == 1)
-        {
-            ActivatePlayer();
-        }
+        StartCoroutine(WaitThenSetUp(newPlayer));
     }
 
-    [ContextMenu("Load minigame")]
-    public void LoadMiniGame()
+    public void AwardPlayerWithSouls(string playerName, int soulCount)
     {
-        boardScene.SetActive(false);
-        SceneManager.LoadScene("Minigame1_ChaseGreen", LoadSceneMode.Additive);
-    }
-
-    public void MinigameFinished()
-    {
-        boardScene.SetActive(true);
+        players.Find(player => player.DisplayName == playerName).UpdateSoulCount(soulCount);
     }
 }

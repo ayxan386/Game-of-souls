@@ -11,6 +11,7 @@ public class PathTile : MonoBehaviour
     private TileType tileType;
 
     [SerializeField] private int value;
+    [SerializeField] private MiniGames miniGame;
 
     private int currentPoint = 0;
     private int currentHighlight = 0;
@@ -22,6 +23,7 @@ public class PathTile : MonoBehaviour
 
     public TileType Type => tileType;
     public int Value => value;
+    public MiniGames MiniGame => miniGame;
 
     private void Start()
     {
@@ -106,7 +108,7 @@ public class PathTile : MonoBehaviour
     private void OnPlayerTileSelected(int obj)
     {
         if (!waitingForChoice) return;
-        
+
         OnNextTileSelected?.Invoke(nextTiles[currentHighlight]);
     }
 }
@@ -117,5 +119,6 @@ public enum TileType
     None,
     SoulAwarding,
     HealthDamaging,
-    HealthHealing
+    HealthHealing,
+    MiniGameLoading
 }
