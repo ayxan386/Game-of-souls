@@ -26,7 +26,7 @@ public class PlayerManager : MonoBehaviour
         DiceRotationManager.OnDiceRolled += OnDiceRolled;
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         DiceRotationManager.OnDiceRolled -= OnDiceRolled;
     }

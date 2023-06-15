@@ -2,18 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bbb7bee6-7010-45a3-b266-75b2c8bfcf5a" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/ChaseGreen/GameManager.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/ChaseGreen/PlayerController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/ChaseGreen/PlayerManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Game of souls/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Game of souls/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefab/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefab/Player.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefab/UI elements/PlayerAward.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefab/UI elements/PlayerAward.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Minigame1_ChaseGreen.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Minigame1_ChaseGreen.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Multiplayer Players.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Multiplayer Players.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/BoardLayout/PathManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/BoardLayout/PathManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/BoardLayout/PathTile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/BoardLayout/PathTile.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ChaseGreen/ChaseGreen_PlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ChaseGreen/ChaseGreen_PlayerController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ChaseGreen/ChaseGreen_PlayerManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ChaseGreen/ChaseGreen_PlayerManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ChaseGreen/GridManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ChaseGreen/ChaseGreen_GameManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ChaseGreen/GridManager.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ChaseGreen/ChaseGreen_GameManager.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Player.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ChaseGreen/ChaseGreen_GameManager.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ChaseGreen/ChaseGreen_GameManager.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ChaseGreen/GameManager.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ChaseGreen/ChaseGreen_PlayerController.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ChaseGreen/ChaseGreen_PlayerController.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ChaseGreen/PlayerController.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ChaseGreen/ChaseGreen_PlayerManager.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ChaseGreen/ChaseGreen_PlayerManager.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ChaseGreen/PlayerManager.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DiceRotation/DiceRotationManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DiceRotation/DiceRotationManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerSubManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerSubManager.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,17 +24,19 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/791ff9cde3774de3ae4c9c15c284f3d6134e18/a6/ae14d9c9/Component.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../Capitalist mobile/Assets/Scripts/GameControl/PlayerManager.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/BoardLayout/PathManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/BoardLayout/PathTile.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/ChaseGreen/ChaseGreen_GameManager.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/ChaseGreen/ChaseGreen_PlayerController.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/ChaseGreen/ChaseGreen_PlayerManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/ChaseGreen/GameManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/ChaseGreen/PlayerController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/ChaseGreen/PlayerManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameControl/DataManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameControl/MiniGameManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/Player.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/PlayerAwardUI.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/PlayerManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/PlayerMiniGameUI.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/PlayerSubManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/PlayerUIDisplay.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -110,7 +115,7 @@
       <workItem from="1686224719112" duration="7854000" />
       <workItem from="1686481009571" duration="1139000" />
       <workItem from="1686482268138" duration="16231000" />
-      <workItem from="1686735680305" duration="13439000" />
+      <workItem from="1686735680305" duration="18200000" />
     </task>
     <servers />
   </component>
