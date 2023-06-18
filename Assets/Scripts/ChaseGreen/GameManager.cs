@@ -31,6 +31,7 @@ namespace ChaseGreen
         [SerializeField] private float duration;
         [SerializeField] [Range(0, 1f)] private float colorAnimationFactor;
         [SerializeField] private int survivalBonus;
+        [SerializeField] private AudioSource sfxAudioSource;
 
         [Header("Post game phase")] [SerializeField]
         private int[] soulAwards;
@@ -44,6 +45,7 @@ namespace ChaseGreen
         private Dictionary<string, PlayerRoundData> roundData;
 
         public static GameManager Instance;
+        public AudioSource AudioSource => sfxAudioSource;
 
         private void Start()
         {

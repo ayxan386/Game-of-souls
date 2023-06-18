@@ -44,6 +44,7 @@ namespace ChaseGreen
                 {
                     if (collectible.TryGetComponent(out Collectible coll))
                     {
+                        coll.PickedUp();
                         RoundData.UpdateScore(coll.AwardAmount);
                         Destroy(coll.gameObject);
                     }
