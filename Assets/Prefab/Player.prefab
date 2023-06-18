@@ -482,7 +482,7 @@ RectTransform:
   m_GameObject: {fileID: 8836232002033234403}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: -0.06}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 0.9999999, z: 0.9999999}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6032239730944569901}
@@ -490,7 +490,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.637, y: -0.9}
+  m_AnchoredPosition: {x: -1.6370001, y: -0.9}
   m_SizeDelta: {x: 1.729, y: 4.308}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &7378541243397067564
@@ -634,24 +634,19 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1177860743677085816}
     m_Modifications:
+    - target: {fileID: 6752012721654749953, guid: 345c72ca3bcfe7e4c8afe0c4b165b772,
+        type: 3}
+      propertyPath: radius
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6752012721654749953, guid: 345c72ca3bcfe7e4c8afe0c4b165b772,
+        type: 3}
+      propertyPath: collectibleLayer.m_Bits
+      value: 128
+      objectReference: {fileID: 0}
     - target: {fileID: 6752012721654749955, guid: 345c72ca3bcfe7e4c8afe0c4b165b772,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6752012721654749955, guid: 345c72ca3bcfe7e4c8afe0c4b165b772,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6752012721654749955, guid: 345c72ca3bcfe7e4c8afe0c4b165b772,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6752012721654749955, guid: 345c72ca3bcfe7e4c8afe0c4b165b772,
-        type: 3}
-      propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6752012721654749955, guid: 345c72ca3bcfe7e4c8afe0c4b165b772,
@@ -714,8 +709,7 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 6752012721654749952, guid: 345c72ca3bcfe7e4c8afe0c4b165b772, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 345c72ca3bcfe7e4c8afe0c4b165b772, type: 3}
 --- !u!1 &6320354069989121931 stripped
 GameObject:

@@ -41,11 +41,14 @@ namespace ChaseGreen
 
         private MeshRenderer[,] gridMesh;
         private Vector2Int[] safeBlocks;
-        private int eliminatedCount;
         private Dictionary<string, PlayerRoundData> roundData;
+
+        public static GameManager Instance;
 
         private void Start()
         {
+            Instance = this;
+            PlayerManager.PlayersReady = false;
             loadingScreen.SetActive(true);
             GenerateGrid();
             InitialPlayerSetup();
@@ -111,6 +114,7 @@ namespace ChaseGreen
                     gameUi = playerMiniGameUI
                 };
                 roundData[playerRoot.PlayerId] = playerRoundData;
+                playerRoot.ChaseGreenPlayer.RoundData = playerRoundData;
             }
         }
 
@@ -261,6 +265,17 @@ namespace ChaseGreen
                     player.gameObject.SetActive(false);
                 }
             }
+        }
+
+        public Vector3[] GetGridCornerPositions()
+        {
+            return new Vector3[4]
+            {
+                gridMesh[0, 0].transform.position,
+                gridMesh[0, gridSize.y - 1].transform.position,
+                gridMesh[gridSize.x - 1, 0].transform.position,
+                gridMesh[gridSize.x - 1, gridSize.y - 1].transform.position,
+            };
         }
     }
 }

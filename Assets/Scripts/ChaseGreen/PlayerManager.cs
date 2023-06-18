@@ -17,6 +17,7 @@ namespace ChaseGreen
             {
                 player.LoadedChaseTheGreen();
                 player.ChaseGreenPlayer.TeleportToPosition(spawnPosition.position);
+                player.ChaseGreenPlayer.InWorldName.text = player.PlayerId;
             }
 
             yield return new WaitForSeconds(2f);

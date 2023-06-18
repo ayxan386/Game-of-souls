@@ -17,6 +17,7 @@ public class PathTile : MonoBehaviour
     private int currentHighlight = 0;
     private bool isSelectable;
     private bool waitingForChoice;
+    private Color initialColor;
     public static event Action<PathTile> OnNextTileSelected;
 
     public bool HasChoices => nextTiles.Length > 1;
@@ -30,6 +31,7 @@ public class PathTile : MonoBehaviour
         OnNextTileSelected += OnOtherTileSelected;
         Player.OnPlayerChoiceChanged += OnPlayerChoiceChanged;
         Player.OnPlayerTileSelected += OnPlayerTileSelected;
+        initialColor = rend.material.color;
     }
 
 
@@ -81,7 +83,7 @@ public class PathTile : MonoBehaviour
     private void OnOtherTileSelected(PathTile obj)
     {
         isSelectable = false;
-        rend.material.color = Color.black;
+        rend.material.color = initialColor;
         currentHighlight = -1;
         waitingForChoice = false;
     }

@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,9 +9,18 @@ namespace ChaseGreen
         [SerializeField] private float speed;
         [SerializeField] private Animator animator;
         [SerializeField] private CharacterController cc;
+        [SerializeField] private TextMeshPro inWorldName;
         [SerializeField] [Range(0, 1f)] private float rotationFactor;
 
+        [Header("Collectibles")] [SerializeField]
+        private float radius;
+
+        [SerializeField] private LayerMask collectibleLayer;
+
         private Vector3 movementVector;
+
+        public TextMeshPro InWorldName => inWorldName;
+        public PlayerRoundData RoundData { get; set; }
 
         void Update()
         {
@@ -20,6 +30,25 @@ namespace ChaseGreen
             cc.SimpleMove(movementVector);
 
             transform.forward = Vector3.Lerp(transform.forward, movementVector.normalized, rotationFactor);
+
+
+            CheckForCollectibles();
+        }
+
+        private void CheckForCollectibles()
+        {
+            var collectibles = Physics.OverlapSphere(transform.position, radius, collectibleLayer);
+            if (collectibles.Length > 0)
+            {
+                foreach (var collectible in collectibles)
+                {
+                    if (collectible.TryGetComponent(out Collectible coll))
+                    {
+                        RoundData.UpdateScore(coll.AwardAmount);
+                        Destroy(coll.gameObject);
+                    }
+                }
+            }
         }
 
         private void OnDisable()
