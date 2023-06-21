@@ -23,12 +23,15 @@ public class Player : MonoBehaviour
 
     private Transform targetPoint;
     private bool currentState;
+    [SerializeField] private Vector3 gravity;
 
     public CinemachineVirtualCamera PlayerView => vCamera;
     public int CurrentHealth { get; private set; }
     public int MaxHealth { get; private set; }
     public int SoulCount { get; private set; }
     public string DisplayName { get; set; }
+    public PathTile Position { get; set; }
+    public PathTile PrevPosition { get; set; }
 
     public static event Action<Player> OnPlayerPositionReached;
     public static event Action<int> OnPlayerChoiceChanged;
@@ -58,7 +61,7 @@ public class Player : MonoBehaviour
     {
         for (int i = 0; i < diceRoll; i++)
         {
-            PathManager.Instance.SearchForNextTile(DisplayName);
+            PathManager.Instance.SearchForNextTile(this);
             yield return new WaitUntil(() => PathManager.Instance.IsSelected);
 
             var pathTile = PathManager.Instance.GetNextTileForPlayer();
@@ -68,7 +71,7 @@ public class Player : MonoBehaviour
             {
                 var dir = -(transform.position - targetPoint.position);
                 dir.Normalize();
-                cc.Move(dir * (playerMovementSpeed * Time.deltaTime));
+                cc.Move(dir * (playerMovementSpeed * Time.deltaTime) + gravity * Time.deltaTime);
                 dir.y = 0;
                 transform.forward = Vector3.Lerp(transform.forward, dir, 0.15f);
                 if (!pathTile.HasChoices && CloseToCurrentTarget() && i + 1 < diceRoll)
@@ -79,7 +82,7 @@ public class Player : MonoBehaviour
                 yield return null;
             } while (!CheckIfReached());
 
-            PathManager.Instance.PlayerReachedNextTile(DisplayName);
+            PathManager.Instance.PlayerReachedNextTile(this);
             if (pathTile.HasChoices)
             {
                 playerAnimator.SetBool("running", false);

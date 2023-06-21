@@ -39,7 +39,7 @@ public class PlayerManager : MonoBehaviour
         player.DisplayName = playerSubManager.PlayerId;
 
         players.Add(player);
-        PathManager.Instance.StartPlayerAtPosition(player.DisplayName, startingTile);
+        player.Position = startingTile;
         player.TeleportToPosition(startingTile.GetNextPoint().position);
 
         if (players.Count == 1)

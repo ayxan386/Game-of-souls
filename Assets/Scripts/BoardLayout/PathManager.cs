@@ -1,10 +1,7 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PathManager : MonoBehaviour
 {
-    private Dictionary<string, PathTile> playerPositions;
-
     public static PathManager Instance { get; private set; }
 
     private PathTile lastSelected;
@@ -14,7 +11,6 @@ public class PathManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        playerPositions = new Dictionary<string, PathTile>();
     }
 
     private void Start()
@@ -36,10 +32,11 @@ public class PathManager : MonoBehaviour
         IsSelected = true;
     }
 
-    public void SearchForNextTile(string playerId)
+    public void SearchForNextTile(Player player)
     {
-        var playerPosition = playerPositions[playerId];
-        playerPosition.GetNextTile();
+        Instance.IsSelected = false;
+        var playerPosition = player.Position;
+        playerPosition.GetNextTile(player);
     }
 
     public PathTile GetNextTileForPlayer()
@@ -48,19 +45,15 @@ public class PathManager : MonoBehaviour
         return lastSelected;
     }
 
-    public void PlayerReachedNextTile(string playerId)
+    public void PlayerReachedNextTile(Player player)
     {
-        playerPositions[playerId] = lastSelected;
-    }
-
-    public void StartPlayerAtPosition(string playerId, PathTile tile)
-    {
-        playerPositions[playerId] = tile;
+        player.PrevPosition = player.Position;
+        player.Position = lastSelected;
     }
 
     private void OnPlayerPositionReached(Player player)
     {
-        var playersCurrentTile = playerPositions[player.DisplayName];
+        var playersCurrentTile = player.Position;
         switch (playersCurrentTile.Type)
         {
             case TileType.SoulAwarding:

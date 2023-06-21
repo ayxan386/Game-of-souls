@@ -1,11 +1,16 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PathTile : MonoBehaviour
 {
     [SerializeField] private Transform[] playerStandingPoints;
-    [SerializeField] private PathTile[] nextTiles;
+    [SerializeField] private List<PathTile> nextTiles;
+    [SerializeField] private List<PathTile> prevTiles;
     [SerializeField] private MeshRenderer rend;
+    [SerializeField] private bool startingTile;
 
     [Header("When player arrives")] [SerializeField]
     private TileType tileType;
@@ -13,14 +18,14 @@ public class PathTile : MonoBehaviour
     [SerializeField] private int value;
     [SerializeField] private MiniGames miniGame;
 
-    private int currentPoint = 0;
-    private int currentHighlight = 0;
-    private bool isSelectable;
+    private int currentPoint;
+    private int currentHighlight;
     private bool waitingForChoice;
     private Color initialColor;
+    private List<PathTile> lastPathDirection;
     public static event Action<PathTile> OnNextTileSelected;
 
-    public bool HasChoices => nextTiles.Length > 1;
+    public bool HasChoices => nextTiles.Count > 1 || prevTiles.Count > 1;
 
     public TileType Type => tileType;
     public int Value => value;
@@ -32,6 +37,13 @@ public class PathTile : MonoBehaviour
         Player.OnPlayerChoiceChanged += OnPlayerChoiceChanged;
         Player.OnPlayerTileSelected += OnPlayerTileSelected;
         initialColor = rend.material.color;
+
+        if (startingTile) return;
+
+        foreach (var nextTile in nextTiles)
+        {
+            nextTile.AddAsPrevTile(this);
+        }
     }
 
 
@@ -50,30 +62,51 @@ public class PathTile : MonoBehaviour
         return res;
     }
 
-    public void GetNextTile()
+    public void GetNextTile(Player player)
     {
         print("Asking for next tile");
-        if (nextTiles.Length == 1)
+
+        if (lastPathDirection == null)
         {
-            print("Only 1 tile found");
-            OnNextTileSelected?.Invoke(nextTiles[0]);
+            lastPathDirection = new List<PathTile>();
+            lastPathDirection.AddRange(nextTiles);
+            lastPathDirection.AddRange(prevTiles);
+            lastPathDirection = lastPathDirection.DistinctBy(tile => tile).ToList();
         }
-        else
+
+        if (player.PrevPosition)
+            print("Player came from: " + player.PrevPosition.name);
+
+        var numberOfOptions = lastPathDirection.Count(tile => tile != player.PrevPosition);
+        switch (numberOfOptions)
         {
-            print("Many tile found");
-            waitingForChoice = true;
-            foreach (var tile in nextTiles)
+            case 1:
+                print("Only 1 tile found");
+                OnNextTileSelected?.Invoke(lastPathDirection.Find(tile => tile != player.PrevPosition));
+                break;
+            case 0:
+                print("No tile found, returning back");
+                OnNextTileSelected?.Invoke(player.PrevPosition);
+                break;
+            default:
             {
-                tile.SetSelectable();
+                print("Many tile found");
+                waitingForChoice = true;
+                foreach (var tile in lastPathDirection.Where(tile => tile != player.PrevPosition))
+                {
+                    tile.SetSelectable();
+                }
+
+                break;
             }
         }
     }
 
     private void SetSelectable()
     {
-        isSelectable = true;
         rend.material.color = Color.yellow;
     }
+
 
     private void SetHighlight()
     {
@@ -82,28 +115,17 @@ public class PathTile : MonoBehaviour
 
     private void OnOtherTileSelected(PathTile obj)
     {
-        isSelectable = false;
         rend.material.color = initialColor;
         currentHighlight = -1;
         waitingForChoice = false;
     }
 
-    private void OnDrawGizmos()
-    {
-        if (isSelectable)
-        {
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawSphere(transform.position, 0.3f);
-        }
-    }
-
-
     private void OnPlayerChoiceChanged(int obj)
     {
         if (!waitingForChoice) return;
-        if (currentHighlight >= 0) nextTiles[currentHighlight].SetSelectable();
-        currentHighlight = (currentHighlight + obj + nextTiles.Length) % nextTiles.Length;
-        nextTiles[currentHighlight].SetHighlight();
+        if (currentHighlight >= 0) lastPathDirection[currentHighlight].SetSelectable();
+        currentHighlight = (currentHighlight + obj + lastPathDirection.Count) % lastPathDirection.Count;
+        lastPathDirection[currentHighlight].SetHighlight();
     }
 
 
@@ -111,7 +133,12 @@ public class PathTile : MonoBehaviour
     {
         if (!waitingForChoice) return;
 
-        OnNextTileSelected?.Invoke(nextTiles[currentHighlight]);
+        OnNextTileSelected?.Invoke(lastPathDirection[currentHighlight]);
+    }
+
+    private void AddAsPrevTile(PathTile pathTile)
+    {
+        prevTiles.Add(pathTile);
     }
 }
 
