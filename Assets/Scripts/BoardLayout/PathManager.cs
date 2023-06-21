@@ -73,4 +73,14 @@ public class PathManager : MonoBehaviour
                 break;
         }
     }
+
+    [ContextMenu("Create path")]
+    public void CreatePath()
+    {
+        var pathTiles = FindObjectsOfType<PathTile>();
+        foreach (var pathTile in pathTiles)
+        {
+            pathTile.FindNearbyTiles();
+        }
+    }
 }
