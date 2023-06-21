@@ -3,18 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+[Serializable]
 public class PathTile : MonoBehaviour
 {
     [Header("Tile discovery")] [SerializeField]
     private float maxDistance;
-
     [SerializeField] private LayerMask pathTileLayer;
-
-    [SerializeField] private Transform[] playerStandingPoints;
     [SerializeField] private List<PathTile> connectedTiles;
+    
+    [Header("When player arrives")]
+    [SerializeField] private Transform[] playerStandingPoints;
     [SerializeField] private MeshRenderer rend;
 
-    [Header("When player arrives")] [SerializeField]
+    [SerializeField]
     private TileType tileType;
 
     [SerializeField] private int value;
@@ -31,6 +32,12 @@ public class PathTile : MonoBehaviour
     public TileType Type => tileType;
     public int Value => value;
     public MiniGames MiniGame => miniGame;
+    
+    public List<PathTile> ConnectedTiles
+    {
+        get => connectedTiles;
+        set => connectedTiles = value;
+    }
 
     private void Start()
     {
@@ -121,15 +128,24 @@ public class PathTile : MonoBehaviour
         OnNextTileSelected?.Invoke(connectedTiles[currentHighlight]);
     }
 
-    private void OnDrawGizmos()
+    private void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.red;
-       
-        Gizmos.DrawWireSphere(transform.position, maxDistance);
+        if (connectedTiles == null) return;
+        
+        Gizmos.color = Color.green;
+        foreach (var connectedTile in connectedTiles)
+        {
+            Gizmos.DrawSphere(connectedTile.transform.position, 0.5f);
+        }
     }
 
     public void FindNearbyTiles()
     {
+        connectedTiles = new List<PathTile>();
+        if (!name.Contains("type"))
+        {
+            name += "type: " + rend.sharedMaterial.name;
+        }
         var nearbyTiles = Physics.OverlapSphere(transform.position, maxDistance, pathTileLayer);
         foreach (var nearbyTile in nearbyTiles)
         {
@@ -141,7 +157,9 @@ public class PathTile : MonoBehaviour
                 connectedTiles.Add(otherTile);
             }
         }
+
     }
+    
 }
 
 
@@ -151,5 +169,6 @@ public enum TileType
     SoulAwarding,
     HealthDamaging,
     HealthHealing,
-    MiniGameLoading
+    MiniGameLoading,
+    Shop
 }

@@ -1,10 +1,18 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class PathManager : MonoBehaviour
 {
+    [SerializeField] private PathTile startingTile;
+    [SerializeField] private LevelPath path;
+    private Dictionary<string, List<string>> buffer;
     public static PathManager Instance { get; private set; }
 
     private PathTile lastSelected;
+    private Queue<PathTile> visualizeOrder;
 
     public bool IsSelected { get; private set; }
 
@@ -17,6 +25,8 @@ public class PathManager : MonoBehaviour
     {
         PathTile.OnNextTileSelected += PathTileOnSelected;
         Player.OnPlayerPositionReached += OnPlayerPositionReached;
+
+        LoadPath(); 
     }
 
 
@@ -82,5 +92,97 @@ public class PathManager : MonoBehaviour
         {
             pathTile.FindNearbyTiles();
         }
+    }
+    
+    [ContextMenu("Load path")]
+    public void LoadPath()
+    {
+        var pathTiles = FindObjectsOfType<PathTile>();
+        var dic = new SerializedDictionary<string, PathTile>();
+        foreach (var pathTile in pathTiles)
+        {
+            dic[ToKey(pathTile)] = pathTile;
+        }
+
+        foreach (var pathTile in pathTiles)
+        {
+            var pathData = path.Path.Find(data => data.key == ToKey(pathTile));
+            if (pathData != null)
+            {
+                var connectedTiles = pathData.connectedTileKeys.Select(hashes => dic[hashes]).ToList();
+                pathTile.ConnectedTiles = connectedTiles;
+            }
+            else
+            {
+                print("Missing path for " + pathTile.name);
+            }
+        }
+    }
+
+    [ContextMenu("Save path")]
+    public void SavePath()
+    {
+        buffer = new SerializedDictionary<string, List<string>>();
+        var pathTiles = FindObjectsOfType<PathTile>();
+        foreach (var pathTile in pathTiles)
+        {
+            buffer[ToKey(pathTile)] = pathTile.ConnectedTiles.ConvertAll(ToKey);
+        }
+
+        path.Path = new List<PathData>(buffer.Count);
+
+        foreach (var bufferPair in buffer)
+        {
+            path.Path.Add(new PathData
+            {
+                key = bufferPair.Key,
+                connectedTileKeys = bufferPair.Value
+            });
+        }
+    }
+
+    [ContextMenu("Visualize path")]
+    public void VisualizePath()
+    {
+        StartCoroutine(SlowlyVisualizePath());
+    }
+
+    private IEnumerator SlowlyVisualizePath()
+    {
+        visualizeOrder = new Queue<PathTile>();
+        var visitedTiles = new HashSet<string>();
+        visitedTiles.Add(ToKey(startingTile));
+        visualizeOrder.Enqueue(startingTile);
+        PathTile top;
+        while (visualizeOrder.TryDequeue(out top))
+        {
+            foreach (var connectedTile in top.ConnectedTiles.Where(connectedTile =>
+                         !visitedTiles.Contains(ToKey(connectedTile))))
+            {
+                print("Visited tile at: " + connectedTile.transform.position);
+                visualizeOrder.Enqueue(connectedTile);
+                visitedTiles.Add(ToKey(connectedTile));
+            }
+
+            yield return new WaitForSeconds(1.0f);
+        }
+        
+        print("Number of visited tiles: " + visitedTiles.Count);
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (visualizeOrder == null) return;
+
+        Gizmos.color = Color.yellow;
+        foreach (var pathTile in visualizeOrder)
+        {
+            Gizmos.DrawSphere(pathTile.transform.position, 0.5f);
+        }
+    }
+
+    private static string ToKey(PathTile pathTile)
+    {
+        return pathTile.transform.position.GetHashCode().ToString();
     }
 }

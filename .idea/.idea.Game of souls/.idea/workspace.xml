@@ -2,12 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bbb7bee6-7010-45a3-b266-75b2c8bfcf5a" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/BoardLayout/LevelPath.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/BoardLayout/LevelPath.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Game of souls/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Game of souls/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefab/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefab/Player.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Box.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Box.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/MainScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MainScene.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/BoardLayout/PathManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/BoardLayout/PathManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/BoardLayout/PathTile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/BoardLayout/PathTile.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,7 +112,7 @@
       <workItem from="1686482268138" duration="16231000" />
       <workItem from="1686735680305" duration="19614000" />
       <workItem from="1687108663618" duration="4673000" />
-      <workItem from="1687255131118" duration="5430000" />
+      <workItem from="1687255131118" duration="11620000" />
     </task>
     <servers />
   </component>

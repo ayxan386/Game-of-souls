@@ -331,7 +331,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5842638589448109022}
   m_LocalRotation: {x: 0.40965608, y: -0, z: -0, w: 0.91224}
-  m_LocalPosition: {x: 0, y: 9.488449, z: -7.7007704}
+  m_LocalPosition: {x: 0.000000019252147, y: 6.12949, z: -4.9746575}
   m_LocalScale: {x: 2.7502751, y: 2.7502747, z: 2.7502747}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -403,8 +403,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8502100837919399862}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.42243, y: 0.079986, z: 0.019487}
+  m_LocalScale: {x: 1.548, y: 1.548, z: 1.548}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1177860744951117891}
@@ -429,7 +429,7 @@ CharacterController:
   m_Height: 2
   m_Radius: 0.5
   m_SlopeLimit: 45
-  m_StepOffset: 0.3
+  m_StepOffset: 0.6
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
@@ -447,7 +447,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minDistance: 0.1
   closeEnoughDistance: 0.75
-  playerMovementSpeed: 1.5
+  playerMovementSpeed: 2.2
   tileCheckPoint: {fileID: 7019383234924877748}
   vCamera: {fileID: 1708541027516869088}
   playerAnimator: {fileID: 5038566429421152318}
@@ -482,8 +482,8 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8836232002033234403}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: -0.06}
-  m_LocalScale: {x: 1, y: 0.9999999, z: 0.9999999}
+  m_LocalPosition: {x: 0, y: 0, z: -0.061418}
+  m_LocalScale: {x: 0.726, y: 0.72599995, z: 0.72599995}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6032239730944569901}
@@ -491,7 +491,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.6370001, y: -0.9}
+  m_AnchoredPosition: {x: -1.6302, y: -0.9}
   m_SizeDelta: {x: 1.729, y: 4.308}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &7378541243397067564

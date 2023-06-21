@@ -1642,16 +1642,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9892c40ff8f3a1f4da29855d0b01a71d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxDistance: 7
+  maxDistance: 5.5
   pathTileLayer:
     serializedVersion: 2
     m_Bits: 256
+  connectedTiles: []
   playerStandingPoints:
   - {fileID: 6525988199992154690}
   - {fileID: 8339265431093353660}
   - {fileID: 5436027301136996707}
   - {fileID: 3041263398631402326}
-  connectedTiles: []
   rend: {fileID: 1677275161589391619}
   tileType: 0
   value: 15
