@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bbb7bee6-7010-45a3-b266-75b2c8bfcf5a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerSkinCustom.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerSkinCustom.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Game of souls/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Game of souls/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ImportAssets/LOW POLY CHARACTERS CUSTOMIZABLEMODULAR ( MALE AND FEMALE )/API_Customization/_Scripts/CustomizeID.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ImportAssets/LOW POLY CHARACTERS CUSTOMIZABLEMODULAR ( MALE AND FEMALE )/API_Customization/_Scripts/CustomizeID.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ImportAssets/LOW POLY CHARACTERS CUSTOMIZABLEMODULAR ( MALE AND FEMALE )/API_Customization/_Scripts/CustomizeScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ImportAssets/LOW POLY CHARACTERS CUSTOMIZABLEMODULAR ( MALE AND FEMALE )/API_Customization/_Scripts/CustomizeScript.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/MainMenu.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MainMenu.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/Packages/com.unity.probuilder/Settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/Packages/com.unity.probuilder/Settings.json" afterDir="false" />
-    </list>
+    <list default="true" id="bbb7bee6-7010-45a3-b266-75b2c8bfcf5a" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -114,7 +106,7 @@
       <workItem from="1687108663618" duration="4673000" />
       <workItem from="1687255131118" duration="13067000" />
       <workItem from="1687351295615" duration="867000" />
-      <workItem from="1687427875055" duration="2182000" />
+      <workItem from="1687427875055" duration="2814000" />
     </task>
     <servers />
   </component>
