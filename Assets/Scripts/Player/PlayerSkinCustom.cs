@@ -1,30 +1,30 @@
 ﻿using UnityEngine;
 
-public class CustomizeScript : MonoBehaviour
+public class PlayerSkinCustom : MonoBehaviour
 {
-    // Start is called before the first frame update
-    [HideInInspector]
-    public int IDHair, IDHat, IDAcessories, IDAcessories2, IDAcessories3, IDGloves, IDShirts, IDBottoms, IDShoes, IDSkin;
-    [Header ("Meshs of all Objects in Scene")]
+    [HideInInspector] public int IDHair,
+        IDHat,
+        IDAcessories,
+        IDAcessories2,
+        IDAcessories3,
+        IDGloves,
+        IDShirts,
+        IDBottoms,
+        IDShoes,
+        IDSkin;
+
+    [Header("Meshs of all Objects in Scene")]
     public GameObject[] Hairs;
+
     public GameObject[] Hats, Acessories1, Acessories2, Acessories3, Gloves, Shirts, Bottoms, Shoes;
-    [Header ("This is the UI objects with the CustomizeID script")]
-    public GameObject HairUI;
-    public GameObject HatUI, Acessories1UI, Acessories2UI, Acessories3UI, GlovesUI, ShirtsUI, BottomsUI, ShoesUI, SkinUI;
 
     public GameObject BodyObject;
     public Material[] SkinMaterials;
 
 
-    public void Update()
+    public void Start()
     {
-        // //Load scenegame when press "e".
-        // if (Input.GetKeyDown("e"))
-        // {
-        //     SceneManager.LoadScene("GameSceneExample");
-        // }
-        // //------------------------------------------
-        CheckIDS();
+        LoadIds();
         ChangeHair();
         ChangeHat();
         ChangeAcessories();
@@ -37,6 +37,20 @@ public class CustomizeScript : MonoBehaviour
         ChangeSkin();
     }
 
+    private void LoadIds()
+    {
+        IDHair = PlayerPrefs.GetInt("HairID");
+        IDHat = PlayerPrefs.GetInt("HatID");
+        IDAcessories = PlayerPrefs.GetInt("Acessories1ID");
+        IDAcessories2 = PlayerPrefs.GetInt("Acessories2ID");
+        IDAcessories3 = PlayerPrefs.GetInt("Acessories3ID");
+        IDGloves = PlayerPrefs.GetInt("GlovesID");
+        IDShirts = PlayerPrefs.GetInt("ShirtsID");
+        IDBottoms = PlayerPrefs.GetInt("BottomsID");
+        IDShoes = PlayerPrefs.GetInt("ShoesID");
+        IDSkin = PlayerPrefs.GetInt("SkinID");
+    }
+
     void ChangeHair()
     {
         for (int i = 0; i < Hairs.Length; i++)
@@ -46,6 +60,7 @@ public class CustomizeScript : MonoBehaviour
                 Hairs[i].SetActive(true);
             }
         }
+
         for (int i = 0; i < Hairs.Length; i++)
         {
             if (Hairs[i].activeInHierarchy && i != IDHair)
@@ -54,6 +69,7 @@ public class CustomizeScript : MonoBehaviour
             }
         }
     }
+
     void ChangeHat()
     {
         for (int i = 0; i < Hats.Length; i++)
@@ -63,6 +79,7 @@ public class CustomizeScript : MonoBehaviour
                 Hats[i].SetActive(true);
             }
         }
+
         for (int i = 0; i < Hats.Length; i++)
         {
             if (Hats[i].activeInHierarchy && i != IDHat)
@@ -71,6 +88,7 @@ public class CustomizeScript : MonoBehaviour
             }
         }
     }
+
     void ChangeAcessories()
     {
         for (int i = 0; i < Acessories1.Length; i++)
@@ -80,6 +98,7 @@ public class CustomizeScript : MonoBehaviour
                 Acessories1[i].SetActive(true);
             }
         }
+
         for (int i = 0; i < Acessories1.Length; i++)
         {
             if (Acessories1[i].activeInHierarchy && i != IDAcessories)
@@ -88,6 +107,7 @@ public class CustomizeScript : MonoBehaviour
             }
         }
     }
+
     void ChangeAcessories2()
     {
         for (int i = 0; i < Acessories2.Length; i++)
@@ -97,6 +117,7 @@ public class CustomizeScript : MonoBehaviour
                 Acessories2[i].SetActive(true);
             }
         }
+
         for (int i = 0; i < Acessories2.Length; i++)
         {
             if (Acessories2[i].activeInHierarchy && i != IDAcessories2)
@@ -105,6 +126,7 @@ public class CustomizeScript : MonoBehaviour
             }
         }
     }
+
     void ChangeAcessories3()
     {
         for (int i = 0; i < Acessories3.Length; i++)
@@ -114,6 +136,7 @@ public class CustomizeScript : MonoBehaviour
                 Acessories3[i].SetActive(true);
             }
         }
+
         for (int i = 0; i < Acessories3.Length; i++)
         {
             if (Acessories3[i].activeInHierarchy && i != IDAcessories3)
@@ -122,6 +145,7 @@ public class CustomizeScript : MonoBehaviour
             }
         }
     }
+
     void ChangeGloves()
     {
         for (int i = 0; i < Gloves.Length; i++)
@@ -131,6 +155,7 @@ public class CustomizeScript : MonoBehaviour
                 Gloves[i].SetActive(true);
             }
         }
+
         for (int i = 0; i < Gloves.Length; i++)
         {
             if (Gloves[i].activeInHierarchy && i != IDGloves)
@@ -139,6 +164,7 @@ public class CustomizeScript : MonoBehaviour
             }
         }
     }
+
     void ChangeShirts()
     {
         for (int i = 0; i < Shirts.Length; i++)
@@ -148,6 +174,7 @@ public class CustomizeScript : MonoBehaviour
                 Shirts[i].SetActive(true);
             }
         }
+
         for (int i = 0; i < Shirts.Length; i++)
         {
             if (Shirts[i].activeInHierarchy && i != IDShirts)
@@ -156,6 +183,7 @@ public class CustomizeScript : MonoBehaviour
             }
         }
     }
+
     void ChangeBottoms()
     {
         for (int i = 0; i < Bottoms.Length; i++)
@@ -165,6 +193,7 @@ public class CustomizeScript : MonoBehaviour
                 Bottoms[i].SetActive(true);
             }
         }
+
         for (int i = 0; i < Bottoms.Length; i++)
         {
             if (Bottoms[i].activeInHierarchy && i != IDBottoms)
@@ -173,6 +202,7 @@ public class CustomizeScript : MonoBehaviour
             }
         }
     }
+
     void ChangeShoes()
     {
         for (int i = 0; i < Shoes.Length; i++)
@@ -182,6 +212,7 @@ public class CustomizeScript : MonoBehaviour
                 Shoes[i].SetActive(true);
             }
         }
+
         for (int i = 0; i < Shoes.Length; i++)
         {
             if (Shoes[i].activeInHierarchy && i != IDShoes)
@@ -190,24 +221,12 @@ public class CustomizeScript : MonoBehaviour
             }
         }
     }
+
     public void ChangeSkin()
     {
         for (int i = 0; i < IDSkin; i++)
         {
             BodyObject.GetComponent<SkinnedMeshRenderer>().material = SkinMaterials[i];
         }
-    }
-    void CheckIDS()
-    {
-        IDHair = HairUI.GetComponent<CustomizeID>().ID;
-        IDHat = HatUI.GetComponent<CustomizeID>().ID;
-        IDAcessories = Acessories1UI.GetComponent<CustomizeID>().ID;
-        IDAcessories2 = Acessories2UI.GetComponent<CustomizeID>().ID;
-        IDAcessories3 = Acessories3UI.GetComponent<CustomizeID>().ID;
-        IDGloves = GlovesUI.GetComponent<CustomizeID>().ID;
-        IDShirts = ShirtsUI.GetComponent<CustomizeID>().ID;
-        IDBottoms = BottomsUI.GetComponent<CustomizeID>().ID;
-        IDShoes = ShoesUI.GetComponent<CustomizeID>().ID;
-        IDSkin = SkinUI.GetComponent<CustomizeID>().ID;
     }
 }
