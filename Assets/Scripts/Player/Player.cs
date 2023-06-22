@@ -149,6 +149,8 @@ public class Player : MonoBehaviour
 
     private void OnDiceRoll()
     {
+        if (!PlayerManager.Instance.GameStarted) return;
+        print($"Dice roll input: {currentState}");
         if (currentState)
         {
             DiceRotationManager.Instance.RollDice();

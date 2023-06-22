@@ -20,7 +20,6 @@ public class PlayerSubManager : MonoBehaviour
     private void Start()
     {
         PlayerRoots ??= new List<PlayerSubManager>();
-
         PlayerRoots.Add(this);
         BoardPlayer = boardPlayer.GetComponent<Player>();
         ChaseGreenPlayer = chaseGreenPlayer.GetComponent<PlayerController>();

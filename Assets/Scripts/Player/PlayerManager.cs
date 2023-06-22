@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -9,6 +10,13 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private PathTile startingTile;
     [SerializeField] private Transform playerUIParent;
     [SerializeField] private PlayerInputManager playerInputManager;
+    [Header("Joining")] [SerializeField] private Transform joiningIndicator;
+    [SerializeField] private PlayerJoinedIndicator joiningPrefab;
+    [SerializeField] private Button startButton;
+    [SerializeField] private GameObject connectionMenu;
+    [SerializeField] private Color[] playerColors;
+
+    public bool GameStarted { get; private set; }
 
     public static PlayerManager Instance { get; private set; }
 
@@ -41,12 +49,6 @@ public class PlayerManager : MonoBehaviour
         players.Add(player);
         player.Position = startingTile;
         player.TeleportToPosition(startingTile.GetNextPoint().position);
-
-        if (players.Count == 1)
-        {
-            ActivatePlayer();
-        }
-
         player.UpdateSoulCount(0);
     }
 
@@ -76,7 +78,18 @@ public class PlayerManager : MonoBehaviour
 
     public void OnPlayerJoined(PlayerInput newPlayer)
     {
+        startButton.interactable = true;
+        Instantiate(joiningPrefab, joiningIndicator).Display(
+            "Player " + (newPlayer.playerIndex + 1),
+            playerColors[newPlayer.playerIndex % playerColors.Length]);
         StartCoroutine(WaitThenSetUp(newPlayer));
+    }
+
+    public void StartGame()
+    {
+        connectionMenu.SetActive(false);
+        GameStarted = true;
+        ActivatePlayer();
     }
 
     public void AwardPlayerWithSouls(string playerName, int soulCount)
