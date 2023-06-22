@@ -74,7 +74,7 @@ public class Player : MonoBehaviour
                 cc.Move(dir * (playerMovementSpeed * Time.deltaTime) + gravity * Time.deltaTime);
                 dir.y = 0;
                 transform.forward = Vector3.Lerp(transform.forward, dir, 0.15f);
-                if (!pathTile.HasChoices && CloseToCurrentTarget() && i + 1 < diceRoll)
+                if (!pathTile.HasChoices(this) && CloseToCurrentTarget() && i + 1 < diceRoll)
                 {
                     break;
                 }
@@ -83,7 +83,7 @@ public class Player : MonoBehaviour
             } while (!CheckIfReached());
 
             PathManager.Instance.PlayerReachedNextTile(this);
-            if (pathTile.HasChoices)
+            if (pathTile.HasChoices(this))
             {
                 playerAnimator.SetBool("running", false);
             }

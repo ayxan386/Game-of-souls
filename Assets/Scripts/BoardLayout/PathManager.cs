@@ -26,7 +26,7 @@ public class PathManager : MonoBehaviour
         PathTile.OnNextTileSelected += PathTileOnSelected;
         Player.OnPlayerPositionReached += OnPlayerPositionReached;
 
-        LoadPath(); 
+        LoadPath();
     }
 
 
@@ -93,7 +93,7 @@ public class PathManager : MonoBehaviour
             pathTile.FindNearbyTiles();
         }
     }
-    
+
     [ContextMenu("Load path")]
     public void LoadPath()
     {
@@ -109,7 +109,7 @@ public class PathManager : MonoBehaviour
             var pathData = path.Path.Find(data => data.key == ToKey(pathTile));
             if (pathData != null)
             {
-                var connectedTiles = pathData.connectedTileKeys.Select(hashes => dic[hashes]).ToList();
+                var connectedTiles = pathData.connectedTileKeys.Distinct().Select(hashes => dic[hashes]).ToList();
                 pathTile.ConnectedTiles = connectedTiles;
             }
             else
@@ -166,7 +166,7 @@ public class PathManager : MonoBehaviour
 
             yield return new WaitForSeconds(1.0f);
         }
-        
+
         print("Number of visited tiles: " + visitedTiles.Count);
     }
 

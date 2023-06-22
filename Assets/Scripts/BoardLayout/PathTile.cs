@@ -8,15 +8,16 @@ public class PathTile : MonoBehaviour
 {
     [Header("Tile discovery")] [SerializeField]
     private float maxDistance;
+
     [SerializeField] private LayerMask pathTileLayer;
     [SerializeField] private List<PathTile> connectedTiles;
-    
-    [Header("When player arrives")]
-    [SerializeField] private Transform[] playerStandingPoints;
+
+    [Header("When player arrives")] [SerializeField]
+    private Transform[] playerStandingPoints;
+
     [SerializeField] private MeshRenderer rend;
 
-    [SerializeField]
-    private TileType tileType;
+    [SerializeField] private TileType tileType;
 
     [SerializeField] private int value;
     [SerializeField] private MiniGames miniGame;
@@ -25,14 +26,13 @@ public class PathTile : MonoBehaviour
     private int currentHighlight;
     private bool waitingForChoice;
     private Color initialColor;
+    private PathTile prevTile;
     public static event Action<PathTile> OnNextTileSelected;
-
-    public bool HasChoices => connectedTiles.Count > 1;
 
     public TileType Type => tileType;
     public int Value => value;
     public MiniGames MiniGame => miniGame;
-    
+
     public List<PathTile> ConnectedTiles
     {
         get => connectedTiles;
@@ -70,12 +70,15 @@ public class PathTile : MonoBehaviour
         if (player.PrevPosition)
             print("Player came from: " + player.PrevPosition.name);
 
-        var numberOfOptions = connectedTiles.Count(tile => tile != player.PrevPosition);
+        prevTile = player.PrevPosition;
+        var numberOfOptions = connectedTiles.Count(tile => !ReferenceEquals(tile, player.PrevPosition));
+
+        print("Number of visitable tiles: " + numberOfOptions);
         switch (numberOfOptions)
         {
             case 1:
                 print("Only 1 tile found");
-                OnNextTileSelected?.Invoke(connectedTiles.Find(tile => tile != player.PrevPosition));
+                OnNextTileSelected?.Invoke(connectedTiles.Find(tile => !ReferenceEquals(tile, player.PrevPosition)));
                 break;
             case 0:
                 print("No tile found, returning back");
@@ -93,6 +96,12 @@ public class PathTile : MonoBehaviour
                 break;
             }
         }
+    }
+
+    public bool HasChoices(Player player)
+    {
+        var numberOfOptions = connectedTiles.Count(tile => !ReferenceEquals(tile, player.Position));
+        return numberOfOptions > 1;
     }
 
     private void SetSelectable()
@@ -117,8 +126,11 @@ public class PathTile : MonoBehaviour
     {
         if (!waitingForChoice) return;
         if (currentHighlight >= 0) connectedTiles[currentHighlight].SetSelectable();
-        currentHighlight = (currentHighlight + obj + connectedTiles.Count) % connectedTiles.Count;
-        connectedTiles[currentHighlight].SetHighlight();
+        do
+        {
+            currentHighlight = (currentHighlight + obj + connectedTiles.Count) % connectedTiles.Count;
+            connectedTiles[currentHighlight].SetHighlight();
+        } while (connectedTiles[currentHighlight] == prevTile);
     }
 
     private void OnPlayerTileSelected(int obj)
@@ -131,7 +143,7 @@ public class PathTile : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         if (connectedTiles == null) return;
-        
+
         Gizmos.color = Color.green;
         foreach (var connectedTile in connectedTiles)
         {
@@ -146,20 +158,19 @@ public class PathTile : MonoBehaviour
         {
             name += "type: " + rend.sharedMaterial.name;
         }
+
         var nearbyTiles = Physics.OverlapSphere(transform.position, maxDistance, pathTileLayer);
         foreach (var nearbyTile in nearbyTiles)
         {
             if (!nearbyTile.TryGetComponent(out PathTile otherTile)) continue;
-            
+
             var dir = (nearbyTile.transform.position - transform.position).normalized;
             if (Physics.Raycast(transform.position, dir, maxDistance, pathTileLayer))
             {
                 connectedTiles.Add(otherTile);
             }
         }
-
     }
-    
 }
 
 
