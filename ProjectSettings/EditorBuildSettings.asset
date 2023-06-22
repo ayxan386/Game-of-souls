@@ -8,6 +8,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainScene.unity
     guid: 9fa3d43f05209de49a97796b04a39838
+  - enabled: 1
+    path: Assets/Scenes/Multiplayer Players.unity
+    guid: 471ad3cda256a06408c2a4bb696321f4
+  - enabled: 1
+    path: Assets/Scenes/Minigame1_ChaseGreen.unity
+    guid: bb917384db3d0d74f9e0bfc9b87ae5f8
+  - enabled: 1
+    path: Assets/Scenes/MainScene testing.unity
+    guid: 26bee8f241fcb2046b1a3e6d4f01c7cb
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 7ff66d3fa06a2c442afcca09eb2381b1,
       type: 2}

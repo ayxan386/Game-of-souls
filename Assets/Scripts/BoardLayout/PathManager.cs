@@ -1,30 +1,39 @@
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class PathManager : MonoBehaviour
 {
-    private Dictionary<string, PathTile> playerPositions;
-
+    [SerializeField] private PathTile startingTile;
+    [SerializeField] private LevelPath path;
+    private Dictionary<string, List<string>> buffer;
     public static PathManager Instance { get; private set; }
 
     private PathTile lastSelected;
+    private Queue<PathTile> visualizeOrder;
 
     public bool IsSelected { get; private set; }
 
     private void Awake()
     {
         Instance = this;
-        playerPositions = new Dictionary<string, PathTile>();
     }
 
     private void Start()
     {
         PathTile.OnNextTileSelected += PathTileOnSelected;
+        Player.OnPlayerPositionReached += OnPlayerPositionReached;
+
+        LoadPath();
     }
+
 
     private void OnDestroy()
     {
-        PathTile.OnNextTileSelected += PathTileOnSelected;
+        PathTile.OnNextTileSelected -= PathTileOnSelected;
+        Player.OnPlayerPositionReached -= OnPlayerPositionReached;
     }
 
     private void PathTileOnSelected(PathTile obj)
@@ -33,10 +42,11 @@ public class PathManager : MonoBehaviour
         IsSelected = true;
     }
 
-    public void SearchForNextTile(string playerId)
+    public void SearchForNextTile(Player player)
     {
-        var playerPosition = playerPositions[playerId];
-        playerPosition.GetNextTile();
+        Instance.IsSelected = false;
+        var playerPosition = player.Position;
+        playerPosition.GetNextTile(player);
     }
 
     public PathTile GetNextTileForPlayer()
@@ -45,13 +55,134 @@ public class PathManager : MonoBehaviour
         return lastSelected;
     }
 
-    public void PlayerReachedNextTile(string playerId)
+    public void PlayerReachedNextTile(Player player)
     {
-        playerPositions[playerId] = lastSelected;
+        player.PrevPosition = player.Position;
+        player.Position = lastSelected;
     }
 
-    public void StartPlayerAtPosition(string playerId, PathTile tile)
+    private void OnPlayerPositionReached(Player player)
     {
-        playerPositions[playerId] = tile;
+        var playersCurrentTile = player.Position;
+        switch (playersCurrentTile.Type)
+        {
+            case TileType.SoulAwarding:
+                player.UpdateSoulCount(playersCurrentTile.Value);
+                PlayerManager.Instance.EndPlayerTurn();
+                break;
+            case TileType.HealthDamaging:
+            case TileType.HealthHealing:
+                player.UpdateHealth(playersCurrentTile.Value);
+                PlayerManager.Instance.EndPlayerTurn();
+                break;
+            case TileType.MiniGameLoading:
+                MiniGameManager.Instance.LoadMiniGame(playersCurrentTile.MiniGame);
+                break;
+            default:
+                PlayerManager.Instance.EndPlayerTurn();
+                break;
+        }
+    }
+
+    [ContextMenu("Create path")]
+    public void CreatePath()
+    {
+        var pathTiles = FindObjectsOfType<PathTile>();
+        foreach (var pathTile in pathTiles)
+        {
+            pathTile.FindNearbyTiles();
+        }
+    }
+
+    [ContextMenu("Load path")]
+    public void LoadPath()
+    {
+        var pathTiles = FindObjectsOfType<PathTile>();
+        var dic = new SerializedDictionary<string, PathTile>();
+        foreach (var pathTile in pathTiles)
+        {
+            dic[ToKey(pathTile)] = pathTile;
+        }
+
+        foreach (var pathTile in pathTiles)
+        {
+            var pathData = path.Path.Find(data => data.key == ToKey(pathTile));
+            if (pathData != null)
+            {
+                var connectedTiles = pathData.connectedTileKeys.Distinct().Select(hashes => dic[hashes]).ToList();
+                pathTile.ConnectedTiles = connectedTiles;
+            }
+            else
+            {
+                print("Missing path for " + pathTile.name);
+            }
+        }
+    }
+
+    [ContextMenu("Save path")]
+    public void SavePath()
+    {
+        buffer = new SerializedDictionary<string, List<string>>();
+        var pathTiles = FindObjectsOfType<PathTile>();
+        foreach (var pathTile in pathTiles)
+        {
+            buffer[ToKey(pathTile)] = pathTile.ConnectedTiles.ConvertAll(ToKey);
+        }
+
+        path.Path = new List<PathData>(buffer.Count);
+
+        foreach (var bufferPair in buffer)
+        {
+            path.Path.Add(new PathData
+            {
+                key = bufferPair.Key,
+                connectedTileKeys = bufferPair.Value
+            });
+        }
+    }
+
+    [ContextMenu("Visualize path")]
+    public void VisualizePath()
+    {
+        StartCoroutine(SlowlyVisualizePath());
+    }
+
+    private IEnumerator SlowlyVisualizePath()
+    {
+        visualizeOrder = new Queue<PathTile>();
+        var visitedTiles = new HashSet<string>();
+        visitedTiles.Add(ToKey(startingTile));
+        visualizeOrder.Enqueue(startingTile);
+        PathTile top;
+        while (visualizeOrder.TryDequeue(out top))
+        {
+            foreach (var connectedTile in top.ConnectedTiles.Where(connectedTile =>
+                         !visitedTiles.Contains(ToKey(connectedTile))))
+            {
+                print("Visited tile at: " + connectedTile.transform.position);
+                visualizeOrder.Enqueue(connectedTile);
+                visitedTiles.Add(ToKey(connectedTile));
+            }
+
+            yield return new WaitForSeconds(1.0f);
+        }
+
+        print("Number of visited tiles: " + visitedTiles.Count);
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (visualizeOrder == null) return;
+
+        Gizmos.color = Color.yellow;
+        foreach (var pathTile in visualizeOrder)
+        {
+            Gizmos.DrawSphere(pathTile.transform.position, 0.5f);
+        }
+    }
+
+    private static string ToKey(PathTile pathTile)
+    {
+        return pathTile.transform.position.GetHashCode().ToString();
     }
 }

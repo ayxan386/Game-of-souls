@@ -1,26 +1,57 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
+[Serializable]
 public class PathTile : MonoBehaviour
 {
-    [SerializeField] private Transform[] playerStandingPoints;
-    [SerializeField] private PathTile[] nextTiles;
+    [Header("Tile discovery")] [SerializeField]
+    private float maxDistance;
+
+    [SerializeField] private LayerMask pathTileLayer;
+    [SerializeField] private List<PathTile> connectedTiles;
+
+    [Header("When player arrives")] [SerializeField]
+    private Transform[] playerStandingPoints;
+
     [SerializeField] private MeshRenderer rend;
 
-    private int currentPoint = 0;
-    private int currentHighlight = 0;
-    private bool isSelectable;
+    [SerializeField] private TileType tileType;
+
+    [SerializeField] private int value;
+    [SerializeField] private MiniGames miniGame;
+
+    private int currentPoint;
+    private int currentHighlight;
     private bool waitingForChoice;
+    private Color initialColor;
+    private PathTile prevTile;
     public static event Action<PathTile> OnNextTileSelected;
+
+    public TileType Type => tileType;
+    public int Value => value;
+    public MiniGames MiniGame => miniGame;
+
+    public List<PathTile> ConnectedTiles
+    {
+        get => connectedTiles;
+        set => connectedTiles = value;
+    }
 
     private void Start()
     {
         OnNextTileSelected += OnOtherTileSelected;
+        Player.OnPlayerChoiceChanged += OnPlayerChoiceChanged;
+        Player.OnPlayerTileSelected += OnPlayerTileSelected;
+        initialColor = rend.material.color;
     }
 
     private void OnDestroy()
     {
         OnNextTileSelected -= OnOtherTileSelected;
+        Player.OnPlayerChoiceChanged -= OnPlayerChoiceChanged;
+        Player.OnPlayerTileSelected -= OnPlayerTileSelected;
     }
 
 
@@ -31,30 +62,53 @@ public class PathTile : MonoBehaviour
         return res;
     }
 
-    public void GetNextTile()
+    public void GetNextTile(Player player)
     {
         print("Asking for next tile");
-        if (nextTiles.Length == 1)
+
+
+        if (player.PrevPosition)
+            print("Player came from: " + player.PrevPosition.name);
+
+        prevTile = player.PrevPosition;
+        var numberOfOptions = connectedTiles.Count(tile => !ReferenceEquals(tile, player.PrevPosition));
+
+        print("Number of visitable tiles: " + numberOfOptions);
+        switch (numberOfOptions)
         {
-            print("Only 1 tile found");
-            OnNextTileSelected?.Invoke(nextTiles[0]);
-        }
-        else
-        {
-            print("Many tile found");
-            waitingForChoice = true;
-            foreach (var tile in nextTiles)
+            case 1:
+                print("Only 1 tile found");
+                OnNextTileSelected?.Invoke(connectedTiles.Find(tile => !ReferenceEquals(tile, player.PrevPosition)));
+                break;
+            case 0:
+                print("No tile found, returning back");
+                OnNextTileSelected?.Invoke(player.PrevPosition);
+                break;
+            default:
             {
-                tile.SetSelectable();
+                print("Many tile found");
+                waitingForChoice = true;
+                foreach (var tile in connectedTiles.Where(tile => tile != player.PrevPosition))
+                {
+                    tile.SetSelectable();
+                }
+
+                break;
             }
         }
     }
 
+    public bool HasChoices(Player player)
+    {
+        var numberOfOptions = connectedTiles.Count(tile => !ReferenceEquals(tile, player.Position));
+        return numberOfOptions > 1;
+    }
+
     private void SetSelectable()
     {
-        isSelectable = true;
         rend.material.color = Color.yellow;
     }
+
 
     private void SetHighlight()
     {
@@ -63,35 +117,69 @@ public class PathTile : MonoBehaviour
 
     private void OnOtherTileSelected(PathTile obj)
     {
-        isSelectable = false;
-        rend.material.color = Color.black;
+        rend.material.color = initialColor;
         currentHighlight = -1;
         waitingForChoice = false;
     }
 
-    private void OnDrawGizmos()
+    private void OnPlayerChoiceChanged(int obj)
     {
-        if (isSelectable)
+        if (!waitingForChoice) return;
+        if (currentHighlight >= 0) connectedTiles[currentHighlight].SetSelectable();
+        do
         {
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawSphere(transform.position, 0.3f);
+            currentHighlight = (currentHighlight + obj + connectedTiles.Count) % connectedTiles.Count;
+            connectedTiles[currentHighlight].SetHighlight();
+        } while (connectedTiles[currentHighlight] == prevTile);
+    }
+
+    private void OnPlayerTileSelected(int obj)
+    {
+        if (!waitingForChoice) return;
+
+        OnNextTileSelected?.Invoke(connectedTiles[currentHighlight]);
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (connectedTiles == null) return;
+
+        Gizmos.color = Color.green;
+        foreach (var connectedTile in connectedTiles)
+        {
+            Gizmos.DrawSphere(connectedTile.transform.position, 0.5f);
         }
     }
 
-    private void Update()
+    public void FindNearbyTiles()
     {
-        if (waitingForChoice)
+        connectedTiles = new List<PathTile>();
+        if (!name.Contains("type"))
         {
-            if (Input.GetKey(KeyCode.A))
+            name += "type: " + rend.sharedMaterial.name;
+        }
+
+        var nearbyTiles = Physics.OverlapSphere(transform.position, maxDistance, pathTileLayer);
+        foreach (var nearbyTile in nearbyTiles)
+        {
+            if (!nearbyTile.TryGetComponent(out PathTile otherTile)) continue;
+
+            var dir = (nearbyTile.transform.position - transform.position).normalized;
+            if (Physics.Raycast(transform.position, dir, maxDistance, pathTileLayer))
             {
-                if (currentHighlight >= 0) nextTiles[currentHighlight].SetSelectable();
-                currentHighlight = (currentHighlight + 1) % nextTiles.Length;
-                nextTiles[currentHighlight].SetHighlight();
-            }
-            else if (Input.GetKey(KeyCode.Space))
-            {
-                OnNextTileSelected?.Invoke(nextTiles[currentHighlight]);
+                connectedTiles.Add(otherTile);
             }
         }
     }
+}
+
+
+public enum TileType
+{
+    None,
+    SoulAwarding,
+    HealthDamaging,
+    HealthHealing,
+    MiniGameLoading,
+    Shop
 }

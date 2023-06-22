@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 
 public class CustomizeScript : MonoBehaviour
 {
@@ -17,19 +14,16 @@ public class CustomizeScript : MonoBehaviour
 
     public GameObject BodyObject;
     public Material[] SkinMaterials;
-    void Start()
-    {
 
-    }
 
     public void Update()
     {
-        //Load scenegame when press "e".
-        if (Input.GetKeyDown("e"))
-        {
-            SceneManager.LoadScene("GameSceneExample");
-        }
-        //------------------------------------------
+        // //Load scenegame when press "e".
+        // if (Input.GetKeyDown("e"))
+        // {
+        //     SceneManager.LoadScene("GameSceneExample");
+        // }
+        // //------------------------------------------
         CheckIDS();
         ChangeHair();
         ChangeHat();
