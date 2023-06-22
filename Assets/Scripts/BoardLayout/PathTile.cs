@@ -126,11 +126,13 @@ public class PathTile : MonoBehaviour
     {
         if (!waitingForChoice) return;
         if (currentHighlight >= 0) connectedTiles[currentHighlight].SetSelectable();
-        do
+        while (true)
         {
             currentHighlight = (currentHighlight + obj + connectedTiles.Count) % connectedTiles.Count;
             connectedTiles[currentHighlight].SetHighlight();
-        } while (connectedTiles[currentHighlight] == prevTile);
+            print("I'm in a loop");
+            if (prevTile == null || connectedTiles[currentHighlight] != prevTile) break;
+        }
     }
 
     private void OnPlayerTileSelected(int obj)

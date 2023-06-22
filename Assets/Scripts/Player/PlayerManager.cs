@@ -44,7 +44,10 @@ public class PlayerManager : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         var playerSubManager = playerInput.GetComponent<PlayerSubManager>();
         var player = playerSubManager.BoardPlayer;
-        player.DisplayName = playerSubManager.PlayerId;
+        player.UpdateIndicator(
+            playerSubManager.PlayerId,
+            playerColors[playerInput.playerIndex % playerColors.Length]
+        );
 
         players.Add(player);
         player.Position = startingTile;

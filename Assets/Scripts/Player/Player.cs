@@ -16,14 +16,18 @@ public class Player : MonoBehaviour
     [SerializeField] private Animator playerAnimator;
     [SerializeField] private PlayerUIDisplay playerUiPrefab;
     [SerializeField] private CharacterController cc;
+    [SerializeField] private Vector3 gravity;
 
-    [SerializeField] private TextMeshPro playerInWorldName;
+    [Header("In world indicators")] [SerializeField]
+    private TextMeshPro playerInWorldName;
+
+    [SerializeField] private MeshRenderer colorIndicator;
+    [SerializeField] private Light colorLightIndicator;
 
     private PlayerUIDisplay playerUiDisplay;
 
     private Transform targetPoint;
     private bool currentState;
-    [SerializeField] private Vector3 gravity;
 
     public CinemachineVirtualCamera PlayerView => vCamera;
     public int CurrentHealth { get; private set; }
@@ -73,7 +77,7 @@ public class Player : MonoBehaviour
                 dir.Normalize();
                 cc.Move(dir * (playerMovementSpeed * Time.deltaTime) + gravity * Time.deltaTime);
                 dir.y = 0;
-                transform.forward = Vector3.Lerp(transform.forward, dir, 0.15f);
+                transform.forward = Vector3.Lerp(transform.forward, dir, 0.09f);
                 if (!pathTile.HasChoices(this) && CloseToCurrentTarget() && i + 1 < diceRoll)
                 {
                     break;
@@ -178,5 +182,12 @@ public class Player : MonoBehaviour
         cc.enabled = false;
         transform.position = pos + (transform.position - tileCheckPoint.position);
         cc.enabled = true;
+    }
+
+    public void UpdateIndicator(string fullName, Color color)
+    {
+        DisplayName = fullName;
+        colorIndicator.material.color = color;
+        colorLightIndicator.color = color;
     }
 }
