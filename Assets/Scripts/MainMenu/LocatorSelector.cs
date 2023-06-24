@@ -8,15 +8,24 @@ public class LocatorSelector : MonoBehaviour
 {
     private bool active = false;
 
+    int currentLocale;
+
     private void Start()
     {
         int ID = PlayerPrefs.GetInt("LocaleKey",0);
         ChangeLocale(ID);
+        currentLocale = ID;
     }
 
     public void ChangeLocale(int localeID)
     {
         StartCoroutine(SetLocale(localeID));
+        currentLocale = localeID;
+    }
+
+    public int GetLocale()
+    {
+        return currentLocale;
     }
 
     IEnumerator SetLocale(int _localeID)
@@ -24,5 +33,6 @@ public class LocatorSelector : MonoBehaviour
         yield return LocalizationSettings.InitializationOperation;
         LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[_localeID];
         PlayerPrefs.SetInt("LocaleKey", _localeID);
+        currentLocale = _localeID;
     }
 }

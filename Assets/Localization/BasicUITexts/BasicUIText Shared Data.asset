@@ -95,6 +95,10 @@ MonoBehaviour:
     m_Key: BODY
     m_Metadata:
       m_Items: []
+  - m_Id: 6632568238936064
+    m_Key: PLAYER1
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
