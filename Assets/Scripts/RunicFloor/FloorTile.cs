@@ -37,6 +37,7 @@ namespace RunicFloor
 
         public void StartCounter()
         {
+            if(!GameManager.Instance.GameRunning) return;
             if (!counterStarted)
                 GameManager.Instance.AudioSource.PlayOneShot(crackingSound);
             counterStarted = true;

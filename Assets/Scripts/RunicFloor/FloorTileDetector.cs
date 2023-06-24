@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace RunicFloor
@@ -10,21 +9,22 @@ namespace RunicFloor
 
         void FixedUpdate()
         {
+            if (!GameManager.Instance.GameRunning) return;
+            
             var detectedColliders = Physics.OverlapSphere(transform.position, radius, detectionLayer);
             foreach (var detectedCollider in detectedColliders)
             {
+                if (detectedCollider.CompareTag("Respawn"))
+                {
+                    GameManager.Instance.PlayerTouchedLava(
+                        transform.parent.GetComponent<ThirdPersonController>());
+                }
+
                 if (detectedCollider.TryGetComponent(out FloorTile floorTile))
                 {
                     floorTile.StartCounter();
                 }
             }
-        }
-
-
-        private void OnDrawGizmos()
-        {
-            Gizmos.color = Color.cyan;
-            Gizmos.DrawSphere(transform.position, radius);
         }
     }
 }

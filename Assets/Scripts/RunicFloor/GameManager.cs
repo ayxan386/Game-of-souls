@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,15 +10,18 @@ namespace RunicFloor
 
         [Header("Grid generation")] [SerializeField]
         private GameObject gridBlock;
+
         [SerializeField] private Vector2Int gridSize;
         [SerializeField] private Vector2 blockSize;
         [SerializeField] private Vector2 blockSpacing;
         [SerializeField] private Transform[] floorOrigins;
 
-        [Header("Player UI display")] [SerializeField]
-        private PlayerMiniGameUI playerMiniGameUIPrefab;
+        [Header("Player")] [SerializeField] private PlayerMiniGameUI playerMiniGameUIPrefab;
+
+        [SerializeField] private Transform spawnPoint;
         [SerializeField] private Transform playerUiHolder;
         [SerializeField] private AudioSource sfxAudioSource;
+        [SerializeField] private Color eliminationColor;
 
         [Header("Post game phase")] [SerializeField]
         private int[] soulAwards;
@@ -28,14 +32,22 @@ namespace RunicFloor
 
         private Dictionary<string, PlayerRoundData> roundData;
         public static GameManager Instance;
+        private int playerRoundScore;
         public AudioSource AudioSource => sfxAudioSource;
 
-        private void Start()
+        public bool GameRunning { get; private set; }
+
+        private IEnumerator Start()
         {
             Instance = this;
-            // loadingScreen.SetActive(true);
+            GameRunning = false;
+            loadingScreen.SetActive(true);
             GenerateGrid();
-            // InitialPlayerSetup();
+            yield return new WaitUntil(() => PlayerSubManager.PlayerRoots != null);
+            InitialPlayerSetup();
+            yield return new WaitForSeconds(0.5f);
+            loadingScreen.SetActive(false);
+            GameRunning = true;
         }
 
         private void UnloadMiniGamePlayer()
@@ -49,8 +61,11 @@ namespace RunicFloor
         private void InitialPlayerSetup()
         {
             roundData = new Dictionary<string, PlayerRoundData>();
+            playerRoundScore = PlayerSubManager.PlayerRoots.Count;
             foreach (var playerRoot in PlayerSubManager.PlayerRoots)
             {
+                playerRoot.SwitchTo3rdPerson();
+                playerRoot.ThirdPersonController.TeleportToPosition(spawnPoint.position);
                 var playerMiniGameUI = Instantiate(playerMiniGameUIPrefab, playerUiHolder);
                 playerMiniGameUI.UpdateUI(playerRoot.PlayerId, 0, Color.clear);
 
@@ -62,7 +77,7 @@ namespace RunicFloor
                     gameUi = playerMiniGameUI
                 };
                 roundData[playerRoot.PlayerId] = playerRoundData;
-                playerRoot.ChaseGreenPlayer.RoundData = playerRoundData;
+                playerRoot.ThirdPersonController.RoundData = playerRoundData;
             }
         }
 
@@ -155,5 +170,45 @@ namespace RunicFloor
             }
         }
 
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.green;
+            foreach (var floorOrigin in floorOrigins)
+            {
+                for (var x = 0; x < gridSize.x; x++)
+                {
+                    for (var y = 0; y < gridSize.y; y++)
+                    {
+                        var position = floorOrigin.position
+                                       + new Vector3(blockSize.x * (x - gridSize.x / 2), 0,
+                                           blockSize.y * (y - gridSize.y / 2))
+                                       + new Vector3(blockSpacing.x * x, 0, blockSpacing.y * y);
+                        Gizmos.DrawSphere(position, 0.5f);
+                    }
+                }
+            }
+        }
+
+        private IEnumerator GameFinished()
+        {
+            AwardPlayers();
+            yield return new WaitForSeconds(waitDuration);
+            UnloadMiniGamePlayer();
+            MiniGameManager.Instance.MinigameFinished();
+        }
+
+        public void PlayerTouchedLava(ThirdPersonController player)
+        {
+            var playerRoundData = roundData[player.RoundData.playerName];
+            playerRoundData.place = playerRoundScore--;
+            playerRoundData.gameUi.UpdateUI(playerRoundData.playerName, playerRoundData.place,
+                eliminationColor, "Eliminated");
+
+            if (playerRoundScore <= 1)
+            {
+                GameRunning = false;
+                StartCoroutine(GameFinished());
+            }
+        }
     }
 }
