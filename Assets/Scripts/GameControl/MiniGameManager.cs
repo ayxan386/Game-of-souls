@@ -32,6 +32,7 @@ public class MiniGameManager : MonoBehaviour
 
     public void MinigameFinished()
     {
+        inputManager.splitScreen = false;
         var asyncOperation = SceneManager.UnloadSceneAsync(SceneManager.GetSceneByName(CurrentMiniGameName));
         StartCoroutine(WaitForUnLoad(asyncOperation));
     }
