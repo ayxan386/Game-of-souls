@@ -44,9 +44,12 @@ public class PlayerManager : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         var playerSubManager = playerInput.GetComponent<PlayerSubManager>();
         var player = playerSubManager.BoardPlayer;
+        var playerColor = playerColors[playerInput.playerIndex % playerColors.Length];
+        playerSubManager.ColorIndicator = playerColor;
+        
         player.UpdateIndicator(
             playerSubManager.PlayerId,
-            playerColors[playerInput.playerIndex % playerColors.Length]
+            playerColor
         );
 
         players.Add(player);

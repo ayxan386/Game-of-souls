@@ -201,6 +201,7 @@ namespace RunicFloor
         {
             var playerRoundData = roundData[player.RoundData.playerName];
             playerRoundData.place = playerRoundScore--;
+            playerRoundData.score = PlayerSubManager.PlayerRoots.Count - playerRoundScore;
             playerRoundData.gameUi.UpdateUI(playerRoundData.playerName, playerRoundData.place,
                 eliminationColor, "Eliminated");
 

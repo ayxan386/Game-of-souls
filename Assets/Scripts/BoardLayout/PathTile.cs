@@ -36,7 +36,7 @@ public class PathTile : MonoBehaviour
     public List<PathTile> ConnectedTiles
     {
         get => connectedTiles;
-        set => connectedTiles = value;
+        set => connectedTiles = value.ToHashSet().ToList();
     }
 
     private void Start()
@@ -100,7 +100,7 @@ public class PathTile : MonoBehaviour
 
     public bool HasChoices(Player player)
     {
-        var numberOfOptions = connectedTiles.Count(tile => !ReferenceEquals(tile, player.Position));
+        var numberOfOptions = connectedTiles.Distinct().Count(tile => !ReferenceEquals(tile, player.Position));
         return numberOfOptions > 1;
     }
 
@@ -172,6 +172,11 @@ public class PathTile : MonoBehaviour
                 connectedTiles.Add(otherTile);
             }
         }
+    }
+
+    public override int GetHashCode()
+    {
+        return transform.position.GetHashCode();
     }
 }
 

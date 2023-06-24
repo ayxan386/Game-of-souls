@@ -126,6 +126,10 @@ public class PathManager : MonoBehaviour
         var pathTiles = FindObjectsOfType<PathTile>();
         foreach (var pathTile in pathTiles)
         {
+            if (pathTile.ConnectedTiles.Count > 2)
+            {
+                print($"Path tile {pathTile.transform.parent.name} has {pathTile.ConnectedTiles.Count} connections");
+            }
             buffer[ToKey(pathTile)] = pathTile.ConnectedTiles.ConvertAll(ToKey);
         }
 

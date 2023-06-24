@@ -2872,7 +2872,7 @@ MonoBehaviour:
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: 3rdPerson
+  m_DefaultActionMap: BoardControl
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 894081553745717091}
 --- !u!114 &1598101534029055183
@@ -21648,7 +21648,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3078059489580473268
 Transform:
   m_ObjectHideFlags: 0
@@ -21708,6 +21708,9 @@ MonoBehaviour:
   jumpForce: 3
   gravityFactor: 7
   animator: {fileID: 3254114631460707380}
+  playerInWorldName: {fileID: 3486416849574494127}
+  colorIndicator: {fileID: 5202419052787755138}
+  colorLightIndicator: {fileID: 7835639385774064851}
 --- !u!1 &7580600386663760371
 GameObject:
   m_ObjectHideFlags: 0
@@ -23832,7 +23835,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6032239730944569901
 Transform:
   m_ObjectHideFlags: 0

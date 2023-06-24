@@ -20,6 +20,7 @@ public class PlayerSubManager : MonoBehaviour
     public ThirdPersonController ThirdPersonController => player3rdPerson;
 
     public string PlayerId { get; private set; }
+    public Color ColorIndicator { get; set; }
 
     private void Start()
     {
@@ -46,6 +47,7 @@ public class PlayerSubManager : MonoBehaviour
 
     public void SwitchTo3rdPerson()
     {
+        player3rdPerson.UpdateIndicator(PlayerId, ColorIndicator);
         playerInput.SwitchCurrentActionMap("3rdPerson");
         boardPlayer.SetActive(false);
         player3rdPerson.gameObject.SetActive(true);
