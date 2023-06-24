@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using ChaseGreen;
 using UnityEngine;
@@ -8,6 +9,7 @@ public class PlayerSubManager : MonoBehaviour
     [SerializeField] private PlayerInput playerInput;
     [SerializeField] private GameObject boardPlayer;
     [SerializeField] private GameObject chaseGreenPlayer;
+    [SerializeField] private GameObject player3rdPerson;
 
     public static List<PlayerSubManager> PlayerRoots;
 
@@ -38,5 +40,31 @@ public class PlayerSubManager : MonoBehaviour
         playerInput.SwitchCurrentActionMap("BoardControl");
         boardPlayer.SetActive(true);
         chaseGreenPlayer.SetActive(false);
+    }
+
+    public void SwitchTo3rdPerson()
+    {
+        playerInput.SwitchCurrentActionMap("BoardControl");
+        boardPlayer.SetActive(false);
+        player3rdPerson.SetActive(true);
+    }
+
+    public void SwitchFrom3rdPerson()
+    {
+        playerInput.SwitchCurrentActionMap("BoardControl");
+        boardPlayer.SetActive(true);
+        player3rdPerson.SetActive(false);
+    }
+
+
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.E))
+        {
+            SwitchTo3rdPerson();
+        }  else if (Input.GetKey(KeyCode.Q))
+        {
+           SwitchFrom3rdPerson(); 
+        }
     }
 }
