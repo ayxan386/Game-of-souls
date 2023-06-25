@@ -102,6 +102,10 @@ MonoBehaviour:
     m_Localized: JUGADOR1
     m_Metadata:
       m_Items: []
+  - m_Id: 7320556341755904
+    m_Localized: Hecho
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

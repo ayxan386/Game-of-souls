@@ -2,11 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class MiniGameManager : MonoBehaviour
 {
     [SerializeField] private GameObject boardScene;
+    [SerializeField] private PlayerInputManager inputManager;
     [SerializeField] private List<MiniGameLoadingData> miniGameLoadingData;
 
     public static MiniGameManager Instance { get; set; }
@@ -22,6 +24,7 @@ public class MiniGameManager : MonoBehaviour
     public void LoadMiniGame(MiniGames miniGame)
     {
         var gameLoadingData = miniGameLoadingData.Find(data => data.miniGame == miniGame);
+        inputManager.splitScreen = gameLoadingData.isSplitScreen;
         CurrentMiniGameName = gameLoadingData.sceneName;
         boardScene.SetActive(false);
         SceneManager.LoadScene(CurrentMiniGameName, LoadSceneMode.Additive);
@@ -29,9 +32,8 @@ public class MiniGameManager : MonoBehaviour
 
     public void MinigameFinished()
     {
+        inputManager.splitScreen = false;
         var asyncOperation = SceneManager.UnloadSceneAsync(SceneManager.GetSceneByName(CurrentMiniGameName));
-        
-
         StartCoroutine(WaitForUnLoad(asyncOperation));
     }
 
@@ -46,7 +48,8 @@ public class MiniGameManager : MonoBehaviour
 
 public enum MiniGames
 {
-    ChaseGreen
+    ChaseGreen,
+    RunicFloor
 }
 
 [Serializable]
@@ -54,4 +57,5 @@ public class MiniGameLoadingData
 {
     public MiniGames miniGame;
     public string sceneName;
+    public bool isSplitScreen;
 }

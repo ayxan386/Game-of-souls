@@ -44,9 +44,12 @@ public class PlayerManager : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         var playerSubManager = playerInput.GetComponent<PlayerSubManager>();
         var player = playerSubManager.BoardPlayer;
+        var playerColor = playerColors[playerInput.playerIndex % playerColors.Length];
+        playerSubManager.ColorIndicator = playerColor;
+
         player.UpdateIndicator(
             playerSubManager.PlayerId,
-            playerColors[playerInput.playerIndex % playerColors.Length]
+            playerColor
         );
 
         players.Add(player);
@@ -91,6 +94,17 @@ public class PlayerManager : MonoBehaviour
     public void StartGame()
     {
         connectionMenu.SetActive(false);
+        StartCoroutine(CustomizeCharacter());
+    }
+
+    private IEnumerator CustomizeCharacter()
+    {
+        foreach (var player in players)
+        {
+            player.UpdateStateOfPlayer(false);
+            yield return new WaitUntil(() => player.IsCustomized);
+        }
+
         GameStarted = true;
         ActivatePlayer();
     }
@@ -98,5 +112,16 @@ public class PlayerManager : MonoBehaviour
     public void AwardPlayerWithSouls(string playerName, int soulCount)
     {
         players.Find(player => player.DisplayName == playerName).UpdateSoulCount(soulCount);
+    }
+
+    public void NextSelectable()
+    {
+        foreach (var selectable in Selectable.allSelectablesArray)
+        {
+            if (!selectable.IsInteractable()) continue;
+            
+            selectable.Select();
+            break;
+        }
     }
 }
