@@ -100,6 +100,7 @@ public class Player : MonoBehaviour
                 playerAnimator.SetBool("running", false);
             }
 
+
             print("Tile reached");
         }
 
