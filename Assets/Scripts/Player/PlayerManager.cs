@@ -46,7 +46,7 @@ public class PlayerManager : MonoBehaviour
         var player = playerSubManager.BoardPlayer;
         var playerColor = playerColors[playerInput.playerIndex % playerColors.Length];
         playerSubManager.ColorIndicator = playerColor;
-        
+
         player.UpdateIndicator(
             playerSubManager.PlayerId,
             playerColor
@@ -94,6 +94,17 @@ public class PlayerManager : MonoBehaviour
     public void StartGame()
     {
         connectionMenu.SetActive(false);
+        StartCoroutine(CustomizeCharacter());
+    }
+
+    private IEnumerator CustomizeCharacter()
+    {
+        foreach (var player in players)
+        {
+            player.UpdateStateOfPlayer(false);
+            yield return new WaitUntil(() => player.IsCustomized);
+        }
+
         GameStarted = true;
         ActivatePlayer();
     }

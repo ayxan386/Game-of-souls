@@ -10,6 +10,7 @@ public class PlayerSubManager : MonoBehaviour
     [SerializeField] private GameObject boardPlayer;
     [SerializeField] private GameObject chaseGreenPlayer;
     [SerializeField] private ThirdPersonController player3rdPerson;
+    [SerializeField] private GameObject customizationReference;
 
     public static List<PlayerSubManager> PlayerRoots;
 
@@ -18,6 +19,8 @@ public class PlayerSubManager : MonoBehaviour
     public PlayerController ChaseGreenPlayer { get; private set; }
 
     public ThirdPersonController ThirdPersonController => player3rdPerson;
+
+    public GameObject CustomizationCanvas => customizationReference;
 
     public string PlayerId { get; private set; }
     public Color ColorIndicator { get; set; }

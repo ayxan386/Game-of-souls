@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
     [SerializeField] private PlayerUIDisplay playerUiPrefab;
     [SerializeField] private CharacterController cc;
     [SerializeField] private Vector3 gravity;
+    [Header("Custom")] [SerializeField] private GameObject customizationMenu;
 
     [Header("In world indicators")] [SerializeField]
     private TextMeshPro playerInWorldName;
@@ -27,6 +28,7 @@ public class Player : MonoBehaviour
     private PlayerUIDisplay playerUiDisplay;
 
     private Transform targetPoint;
+    private bool isCustomized;
     private bool currentState;
 
     public CinemachineVirtualCamera PlayerView => vCamera;
@@ -37,10 +39,16 @@ public class Player : MonoBehaviour
     public PathTile Position { get; set; }
     public PathTile PrevPosition { get; set; }
 
+    public bool IsCustomized => isCustomized;
+
     public static event Action<Player> OnPlayerPositionReached;
     public static event Action<int> OnPlayerChoiceChanged;
     public static event Action<int> OnPlayerTileSelected;
 
+    private void OnEnable()
+    {
+        playerAnimator.transform.SetParent(transform, false);
+    }
 
     private void Start()
     {
@@ -121,6 +129,12 @@ public class Player : MonoBehaviour
 
     public void UpdateStateOfPlayer(bool state)
     {
+        if (!isCustomized)
+        {
+            StartCoroutine(CustomizePlayer(state));
+            return;
+        }
+
         if (playerUiDisplay)
         {
             currentState = state;
@@ -130,6 +144,14 @@ public class Player : MonoBehaviour
         {
             StartCoroutine(TryToUpdateState(state));
         }
+    }
+
+    private IEnumerator CustomizePlayer(bool state)
+    {
+        customizationMenu.SetActive(true);
+        yield return new WaitUntil(() => isCustomized);
+        customizationMenu.SetActive(false);
+        UpdateStateOfPlayer(state);
     }
 
     private IEnumerator TryToUpdateState(bool state)
@@ -189,5 +211,10 @@ public class Player : MonoBehaviour
         DisplayName = fullName;
         colorIndicator.material.color = color;
         colorLightIndicator.color = color;
+    }
+
+    public void CompleteCustomization()
+    {
+        isCustomized = true;
     }
 }

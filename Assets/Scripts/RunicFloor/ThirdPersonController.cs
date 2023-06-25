@@ -23,6 +23,12 @@ namespace RunicFloor
         private Vector2 inputVector;
         public PlayerRoundData RoundData { get; set; }
 
+
+        private void OnEnable()
+        {
+            animator.transform.SetParent(transform, false);
+        }
+
         void Update()
         {
             transform.Rotate(Vector3.up, rotationSpeed * Time.deltaTime * inputVector.x);
