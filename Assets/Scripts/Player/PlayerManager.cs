@@ -113,4 +113,15 @@ public class PlayerManager : MonoBehaviour
     {
         players.Find(player => player.DisplayName == playerName).UpdateSoulCount(soulCount);
     }
+
+    public void NextSelectable()
+    {
+        foreach (var selectable in Selectable.allSelectablesArray)
+        {
+            if (!selectable.IsInteractable()) continue;
+            
+            selectable.Select();
+            break;
+        }
+    }
 }

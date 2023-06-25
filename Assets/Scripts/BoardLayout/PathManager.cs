@@ -130,7 +130,8 @@ public class PathManager : MonoBehaviour
             {
                 print($"Path tile {pathTile.transform.parent.name} has {pathTile.ConnectedTiles.Count} connections");
             }
-            buffer[ToKey(pathTile)] = pathTile.ConnectedTiles.ConvertAll(ToKey);
+
+            buffer[ToKey(pathTile)] = pathTile.ConnectedTiles.ConvertAll(ToKey).Distinct().ToList();
         }
 
         path.Path = new List<PathData>(buffer.Count);
