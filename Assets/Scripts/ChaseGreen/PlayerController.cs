@@ -22,6 +22,11 @@ namespace ChaseGreen
         public TextMeshPro InWorldName => inWorldName;
         public PlayerRoundData RoundData { get; set; }
 
+        private void OnEnable()
+        {
+            animator.transform.SetParent(transform, false);
+        }
+
         void Update()
         {
             if (!PlayerManager.PlayersReady) return;

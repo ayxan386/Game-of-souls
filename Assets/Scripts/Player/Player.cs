@@ -16,14 +16,20 @@ public class Player : MonoBehaviour
     [SerializeField] private Animator playerAnimator;
     [SerializeField] private PlayerUIDisplay playerUiPrefab;
     [SerializeField] private CharacterController cc;
+    [SerializeField] private Vector3 gravity;
+    [Header("Custom")] [SerializeField] private GameObject customizationMenu;
 
-    [SerializeField] private TextMeshPro playerInWorldName;
+    [Header("In world indicators")] [SerializeField]
+    private TextMeshPro playerInWorldName;
+
+    [SerializeField] private MeshRenderer colorIndicator;
+    [SerializeField] private Light colorLightIndicator;
 
     private PlayerUIDisplay playerUiDisplay;
 
     private Transform targetPoint;
+    private bool isCustomized;
     private bool currentState;
-    [SerializeField] private Vector3 gravity;
 
     public CinemachineVirtualCamera PlayerView => vCamera;
     public int CurrentHealth { get; private set; }
@@ -33,10 +39,16 @@ public class Player : MonoBehaviour
     public PathTile Position { get; set; }
     public PathTile PrevPosition { get; set; }
 
+    public bool IsCustomized => isCustomized;
+
     public static event Action<Player> OnPlayerPositionReached;
     public static event Action<int> OnPlayerChoiceChanged;
     public static event Action<int> OnPlayerTileSelected;
 
+    private void OnEnable()
+    {
+        playerAnimator.transform.SetParent(transform, false);
+    }
 
     private void Start()
     {
@@ -73,7 +85,7 @@ public class Player : MonoBehaviour
                 dir.Normalize();
                 cc.Move(dir * (playerMovementSpeed * Time.deltaTime) + gravity * Time.deltaTime);
                 dir.y = 0;
-                transform.forward = Vector3.Lerp(transform.forward, dir, 0.15f);
+                transform.forward = Vector3.Lerp(transform.forward, dir, 0.09f);
                 if (!pathTile.HasChoices(this) && CloseToCurrentTarget() && i + 1 < diceRoll)
                 {
                     break;
@@ -87,6 +99,7 @@ public class Player : MonoBehaviour
             {
                 playerAnimator.SetBool("running", false);
             }
+
 
             print("Tile reached");
         }
@@ -117,6 +130,12 @@ public class Player : MonoBehaviour
 
     public void UpdateStateOfPlayer(bool state)
     {
+        if (!isCustomized)
+        {
+            StartCoroutine(CustomizePlayer(state));
+            return;
+        }
+
         if (playerUiDisplay)
         {
             currentState = state;
@@ -126,6 +145,14 @@ public class Player : MonoBehaviour
         {
             StartCoroutine(TryToUpdateState(state));
         }
+    }
+
+    private IEnumerator CustomizePlayer(bool state)
+    {
+        customizationMenu.SetActive(true);
+        yield return new WaitUntil(() => isCustomized);
+        customizationMenu.SetActive(false);
+        UpdateStateOfPlayer(state);
     }
 
     private IEnumerator TryToUpdateState(bool state)
@@ -149,6 +176,8 @@ public class Player : MonoBehaviour
 
     private void OnDiceRoll()
     {
+        if (!PlayerManager.Instance.GameStarted) return;
+        print($"Dice roll input: {currentState}");
         if (currentState)
         {
             DiceRotationManager.Instance.RollDice();
@@ -176,5 +205,17 @@ public class Player : MonoBehaviour
         cc.enabled = false;
         transform.position = pos + (transform.position - tileCheckPoint.position);
         cc.enabled = true;
+    }
+
+    public void UpdateIndicator(string fullName, Color color)
+    {
+        DisplayName = fullName;
+        colorIndicator.material.color = color;
+        colorLightIndicator.color = color;
+    }
+
+    public void CompleteCustomization()
+    {
+        isCustomized = true;
     }
 }

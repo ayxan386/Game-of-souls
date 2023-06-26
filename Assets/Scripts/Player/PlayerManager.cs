@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -9,6 +10,13 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private PathTile startingTile;
     [SerializeField] private Transform playerUIParent;
     [SerializeField] private PlayerInputManager playerInputManager;
+    [Header("Joining")] [SerializeField] private Transform joiningIndicator;
+    [SerializeField] private PlayerJoinedIndicator joiningPrefab;
+    [SerializeField] private Button startButton;
+    [SerializeField] private GameObject connectionMenu;
+    [SerializeField] private Color[] playerColors;
+
+    public bool GameStarted { get; private set; }
 
     public static PlayerManager Instance { get; private set; }
 
@@ -36,17 +44,17 @@ public class PlayerManager : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         var playerSubManager = playerInput.GetComponent<PlayerSubManager>();
         var player = playerSubManager.BoardPlayer;
-        player.DisplayName = playerSubManager.PlayerId;
+        var playerColor = playerColors[playerInput.playerIndex % playerColors.Length];
+        playerSubManager.ColorIndicator = playerColor;
+
+        player.UpdateIndicator(
+            playerSubManager.PlayerId,
+            playerColor
+        );
 
         players.Add(player);
         player.Position = startingTile;
         player.TeleportToPosition(startingTile.GetNextPoint().position);
-
-        if (players.Count == 1)
-        {
-            ActivatePlayer();
-        }
-
         player.UpdateSoulCount(0);
     }
 
@@ -76,11 +84,44 @@ public class PlayerManager : MonoBehaviour
 
     public void OnPlayerJoined(PlayerInput newPlayer)
     {
+        startButton.interactable = true;
+        Instantiate(joiningPrefab, joiningIndicator).Display(
+            "Player " + (newPlayer.playerIndex + 1),
+            playerColors[newPlayer.playerIndex % playerColors.Length]);
         StartCoroutine(WaitThenSetUp(newPlayer));
+    }
+
+    public void StartGame()
+    {
+        connectionMenu.SetActive(false);
+        StartCoroutine(CustomizeCharacter());
+    }
+
+    private IEnumerator CustomizeCharacter()
+    {
+        foreach (var player in players)
+        {
+            player.UpdateStateOfPlayer(false);
+            yield return new WaitUntil(() => player.IsCustomized);
+        }
+
+        GameStarted = true;
+        ActivatePlayer();
     }
 
     public void AwardPlayerWithSouls(string playerName, int soulCount)
     {
         players.Find(player => player.DisplayName == playerName).UpdateSoulCount(soulCount);
+    }
+
+    public void NextSelectable()
+    {
+        foreach (var selectable in Selectable.allSelectablesArray)
+        {
+            if (!selectable.IsInteractable()) continue;
+            
+            selectable.Select();
+            break;
+        }
     }
 }

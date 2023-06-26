@@ -46,9 +46,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boardScene: {fileID: 0}
+  inputManager: {fileID: 7388381315246406411}
   miniGameLoadingData:
   - miniGame: 0
     sceneName: Minigame1_ChaseGreen
+    isSplitScreen: 0
+  - miniGame: 1
+    sceneName: Minigame_RunicFloor
+    isSplitScreen: 1
 --- !u!114 &7388381315246406411
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -13,10 +13,8 @@ public class DiceRotationManager : MonoBehaviour
     [SerializeField] private int rotationSpeedFactor;
     [SerializeField] private List<DiceSideAnimation> sideAnimations;
 
-#if UNITY_EDITOR
     [SerializeField] private bool fixedRoll;
     [SerializeField] private int roll;
-#endif
 
     public static DiceRotationManager Instance { get; private set; }
     public static event Action<int> OnDiceRolled;
@@ -34,12 +32,10 @@ public class DiceRotationManager : MonoBehaviour
         if (!CanRoll) return;
 
         var diceRoll = Random.Range(rollRange.x, rollRange.y);
-#if UNITY_EDITOR
         if (fixedRoll)
         {
             diceRoll = roll;
         }
-#endif
         StartCoroutine(RotationAnimation(diceRoll));
     }
 
