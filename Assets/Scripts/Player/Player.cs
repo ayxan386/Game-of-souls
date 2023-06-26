@@ -48,6 +48,7 @@ public class Player : MonoBehaviour
     private void OnEnable()
     {
         playerAnimator.transform.SetParent(transform, false);
+        playerAnimator.SetBool("running", false);
     }
 
     private void Start()

@@ -27,6 +27,7 @@ namespace RunicFloor
         private void OnEnable()
         {
             animator.transform.SetParent(transform, false);
+            animator.SetBool("running", false);
         }
 
         void Update()
