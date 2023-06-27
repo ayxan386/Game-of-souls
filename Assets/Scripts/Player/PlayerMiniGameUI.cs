@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,6 +10,7 @@ public class PlayerMiniGameUI : MonoBehaviour
     [SerializeField] private Image coverImage;
     [SerializeField] private TextMeshProUGUI coverText;
     [SerializeField] private Image extraImage;
+    [SerializeField] private TextMeshProUGUI scoreIncrementText;
 
     public void UpdateUI(string playerName, int score, Color coverColor, string cover = "")
     {
@@ -19,12 +21,24 @@ public class PlayerMiniGameUI : MonoBehaviour
         coverText.text = cover;
     }
 
-    public void UpdateUI(string playerName, int score, Color coverColor, Sprite extraImageSprite)
+    //For rock paper scissors mini game
+    public void UpdateUI(string playerName, int score, Color coverColor, Sprite extraImageSprite, string scoreIncrement,
+        int incrementAlpha = 1)
     {
         playerNameText.text = playerName;
         scoreText.text = score.ToString();
         coverImage.color = coverColor;
         extraImage.sprite = extraImageSprite;
+        scoreIncrementText.alpha = incrementAlpha;
+        scoreIncrementText.text = scoreIncrement;
+
+        StartCoroutine(WaitThenHideIncrement());
+    }
+
+    private IEnumerator WaitThenHideIncrement()
+    {
+        yield return new WaitForSeconds(3f);
+        scoreIncrementText.alpha = 0;
     }
 }
 
@@ -49,8 +63,10 @@ public class PlayerRoundData
         gameUi.UpdateUI(playerName, score, eliminationColor);
     }
 
-    public void UpdateSprite(Sprite sprite)
+    public void UpdateSprite(Sprite sprite, int scoreIncrement)
     {
-        gameUi.UpdateUI(playerName, score, eliminationColor, sprite);
+        gameUi.UpdateUI(playerName, score, eliminationColor,
+            sprite, "+" + scoreIncrement,
+            scoreIncrement != 0 ? 1 : 0);
     }
 }
