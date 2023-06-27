@@ -1,4 +1,3 @@
-using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,7 +8,6 @@ namespace ChaseGreen
         [SerializeField] private float speed;
         [SerializeField] private Animator animator;
         [SerializeField] private CharacterController cc;
-        [SerializeField] private TextMeshPro inWorldName;
         [SerializeField] [Range(0, 1f)] private float rotationFactor;
 
         [Header("Collectibles")] [SerializeField]
@@ -19,12 +17,12 @@ namespace ChaseGreen
 
         private Vector3 movementVector;
 
-        public TextMeshPro InWorldName => inWorldName;
         public PlayerRoundData RoundData { get; set; }
 
         private void OnEnable()
         {
             animator.transform.SetParent(transform, false);
+            animator.SetBool("running", false);
         }
 
         void Update()

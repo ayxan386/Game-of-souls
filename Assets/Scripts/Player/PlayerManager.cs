@@ -14,7 +14,6 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private PlayerJoinedIndicator joiningPrefab;
     [SerializeField] private Button startButton;
     [SerializeField] private GameObject connectionMenu;
-    [SerializeField] private Color[] playerColors;
 
     public bool GameStarted { get; private set; }
 
@@ -44,15 +43,11 @@ public class PlayerManager : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         var playerSubManager = playerInput.GetComponent<PlayerSubManager>();
         var player = playerSubManager.BoardPlayer;
-        var playerColor = playerColors[playerInput.playerIndex % playerColors.Length];
-        playerSubManager.ColorIndicator = playerColor;
-
-        player.UpdateIndicator(
-            playerSubManager.PlayerId,
-            playerColor
-        );
-
+        player.DisplayName = playerSubManager.PlayerId;
         players.Add(player);
+        Instantiate(joiningPrefab, joiningIndicator).Display(
+            playerSubManager.PlayerId,
+            playerSubManager.ColorIndicator);
         player.Position = startingTile;
         player.TeleportToPosition(startingTile.GetNextPoint().position);
         player.UpdateSoulCount(0);
@@ -85,9 +80,7 @@ public class PlayerManager : MonoBehaviour
     public void OnPlayerJoined(PlayerInput newPlayer)
     {
         startButton.interactable = true;
-        Instantiate(joiningPrefab, joiningIndicator).Display(
-            "Player " + (newPlayer.playerIndex + 1),
-            playerColors[newPlayer.playerIndex % playerColors.Length]);
+
         StartCoroutine(WaitThenSetUp(newPlayer));
     }
 
@@ -119,7 +112,7 @@ public class PlayerManager : MonoBehaviour
         foreach (var selectable in Selectable.allSelectablesArray)
         {
             if (!selectable.IsInteractable()) continue;
-            
+
             selectable.Select();
             break;
         }

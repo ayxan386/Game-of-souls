@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using Cinemachine;
-using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -19,17 +18,16 @@ public class Player : MonoBehaviour
     [SerializeField] private Vector3 gravity;
     [Header("Custom")] [SerializeField] private GameObject customizationMenu;
 
-    [Header("In world indicators")] [SerializeField]
-    private TextMeshPro playerInWorldName;
-
-    [SerializeField] private MeshRenderer colorIndicator;
-    [SerializeField] private Light colorLightIndicator;
-
     private PlayerUIDisplay playerUiDisplay;
 
     private Transform targetPoint;
     private bool isCustomized;
     private bool currentState;
+
+    public Player(string displayName)
+    {
+        DisplayName = displayName;
+    }
 
     public CinemachineVirtualCamera PlayerView => vCamera;
     public int CurrentHealth { get; private set; }
@@ -48,6 +46,7 @@ public class Player : MonoBehaviour
     private void OnEnable()
     {
         playerAnimator.transform.SetParent(transform, false);
+        playerAnimator.SetBool("running", false);
     }
 
     private void Start()
@@ -61,7 +60,6 @@ public class Player : MonoBehaviour
     private void UpdateUI()
     {
         playerUiDisplay.UpdateUI(this);
-        playerInWorldName.text = "P" + DisplayName.Split(" ")[1];
     }
 
     public void MoveToTile(int roll)
@@ -205,13 +203,6 @@ public class Player : MonoBehaviour
         cc.enabled = false;
         transform.position = pos + (transform.position - tileCheckPoint.position);
         cc.enabled = true;
-    }
-
-    public void UpdateIndicator(string fullName, Color color)
-    {
-        DisplayName = fullName;
-        colorIndicator.material.color = color;
-        colorLightIndicator.color = color;
     }
 
     public void CompleteCustomization()

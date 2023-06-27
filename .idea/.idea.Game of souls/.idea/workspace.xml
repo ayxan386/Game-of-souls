@@ -2,11 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bbb7bee6-7010-45a3-b266-75b2c8bfcf5a" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/ClimbMinigame/GameManager.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/ClimbMinigame/GameManager.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Game of souls/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Game of souls/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/AddressableAssetsData/link.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/AddressableAssetsData/link.xml.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DiceRotation/DiceRotationManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DiceRotation/DiceRotationManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/Characters/MainCharacterController.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/Characters/MainCharacterController.controller" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Controls/MainControls.inputactions" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Controls/MainControls.inputactions" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefab/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefab/Player.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/MainScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MainScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Minigame_Climb.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Minigame_Climb.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Minigame_Climb.unity.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Minigame_Climb.unity.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ChaseGreen/PlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ChaseGreen/PlayerController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ChaseGreen/PlayerManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ChaseGreen/PlayerManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ClimbMinigame/Climb.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ClimbMinigame/Climb.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameControl/MiniGameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameControl/MiniGameManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Player.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerSubManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerSubManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/RunicFloor/ThirdPersonController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/RunicFloor/ThirdPersonController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,7 +75,7 @@
 }</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor &amp; Play">
     <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="$PROJECT_DIR$/../../Game build/Game of souls/v.0.9/Game of souls.exe" />
+      <option name="EXE_PATH" value="$PROJECT_DIR$/../../Game build/Game of souls/v.1.1 fixed 3/Game of souls.exe" />
       <option name="PROGRAM_PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="C:\Users\ayxan\Desktop\Game build\Game of souls\v.0.9" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -126,7 +139,9 @@
       <workItem from="1687427875055" duration="5360000" />
       <workItem from="1687436072957" duration="9048000" />
       <workItem from="1687551470964" duration="8071000" />
-      <workItem from="1687630173992" duration="7495000" />
+      <workItem from="1687630173992" duration="8713000" />
+      <workItem from="1687773755999" duration="7686000" />
+      <workItem from="1687859710218" duration="3649000" />
     </task>
     <servers />
   </component>
