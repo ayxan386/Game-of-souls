@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using R_P_S;
 using RunicFloor;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,6 +13,14 @@ public class PlayerSubManager : MonoBehaviour
     [SerializeField] private ThirdPersonController player3rdPerson;
     [SerializeField] private GameObject customizationReference;
     [SerializeField] private PlayerController rpsPlayerController;
+    [SerializeField] private Climb climbingPlayer;
+
+    [Header("Color indicator")] [SerializeField]
+    private MeshRenderer colorIndicator;
+
+    [SerializeField] private Light lightIndicator;
+    [SerializeField] private TextMeshPro inWorldName;
+    [SerializeField] private Color[] playerColors;
 
     public static List<PlayerSubManager> PlayerRoots;
 
@@ -23,11 +32,12 @@ public class PlayerSubManager : MonoBehaviour
 
     public PlayerController RpsPlayerController => rpsPlayerController;
 
-    public GameObject CustomizationCanvas => customizationReference;
+    public Climb ClimbingPlayer => climbingPlayer;
+
     public int PlayerIndex { get; private set; }
 
     public string PlayerId { get; private set; }
-    public Color ColorIndicator { get; set; }
+    public Color ColorIndicator { get; private set; }
 
     private void Start()
     {
@@ -37,6 +47,10 @@ public class PlayerSubManager : MonoBehaviour
         ChaseGreenPlayer = chaseGreenPlayer.GetComponent<ChaseGreen.PlayerController>();
         PlayerIndex = playerInput.playerIndex;
         PlayerId = "Player " + (playerInput.playerIndex + 1);
+        ColorIndicator = playerColors[PlayerIndex];
+        colorIndicator.material.color = ColorIndicator;
+        lightIndicator.color = ColorIndicator;
+        inWorldName.text = "P" + (PlayerIndex + 1);
     }
 
     public void LoadedChaseTheGreen()
@@ -55,7 +69,6 @@ public class PlayerSubManager : MonoBehaviour
 
     public void SwitchTo3rdPerson()
     {
-        player3rdPerson.UpdateIndicator(PlayerId, ColorIndicator);
         playerInput.SwitchCurrentActionMap("3rdPerson");
         boardPlayer.SetActive(false);
         player3rdPerson.gameObject.SetActive(true);
@@ -80,6 +93,20 @@ public class PlayerSubManager : MonoBehaviour
         playerInput.SwitchCurrentActionMap("BoardControl");
         boardPlayer.SetActive(true);
         rpsPlayerController.gameObject.SetActive(false);
+    }
+
+    public void SwitchToClimb()
+    {
+        climbingPlayer.gameObject.SetActive(true);
+        playerInput.SwitchCurrentActionMap("Climbing");
+        boardPlayer.SetActive(false);
+    }
+
+    public void SwitchFromClimb()
+    {
+        playerInput.SwitchCurrentActionMap("BoardControl");
+        boardPlayer.SetActive(true);
+        climbingPlayer.gameObject.SetActive(false);
     }
 
 

@@ -13,12 +13,6 @@ namespace RunicFloor
         [SerializeField] private float gravityFactor;
         [SerializeField] private Animator animator;
 
-        [Header("In world indicators")] [SerializeField]
-        private TextMeshPro playerInWorldName;
-
-        [SerializeField] private MeshRenderer colorIndicator;
-        [SerializeField] private Light colorLightIndicator;
-
         private Vector3 movementVector;
         private Vector2 inputVector;
         public PlayerRoundData RoundData { get; set; }
@@ -70,13 +64,6 @@ namespace RunicFloor
             cc.enabled = false;
             transform.position = pos;
             cc.enabled = true;
-        }
-
-        public void UpdateIndicator(string fullName, Color color)
-        {
-            playerInWorldName.text = "P" + fullName.Split(" ")[1];
-            colorIndicator.material.color = color;
-            colorLightIndicator.color = color;
         }
     }
 }

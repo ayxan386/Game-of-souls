@@ -1,29 +1,33 @@
-using System.Collections;
-using System.Collections.Generic;
+using ClimbMinigame;
 using UnityEngine;
 
 public class Climb : MonoBehaviour
 {
     [SerializeField] private float speed;
+    [SerializeField] private Animator animator;
+    [SerializeField] private PlayerSubManager subManager;
 
     private bool win;
 
-
-    void Awake()
+    private void OnEnable()
     {
+        animator.transform.SetParent(transform, false);
+        animator.SetBool("running", false);
+        animator.SetBool("climbing", true);
         win = false;
     }
 
-    void Update()
+    private void OnDisable()
     {
-        if (!win)
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                Debug.Log("Estoy subiendo");
-                transform.Translate(transform.up * speed * Time.deltaTime, Space.World);
-            }
-        }
+        animator.SetBool("climbing", false);
+    }
+
+    private void OnClimb()
+    {
+        if (win) return;
+
+        Debug.Log("Estoy subiendo");
+        transform.Translate(transform.up * speed * Time.deltaTime, Space.World);
     }
 
     void OnTriggerEnter(Collider other)
@@ -34,10 +38,11 @@ public class Climb : MonoBehaviour
         }
     }
 
-    public bool Win()
+    private void Win()
     {
         Debug.Log("He ganado");
         win = true;
-        return win;
+        animator.SetBool("climbing", false);
+        GameManager.Instance.OnWin(subManager);
     }
 }

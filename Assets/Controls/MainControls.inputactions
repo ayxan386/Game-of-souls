@@ -447,6 +447,45 @@
                     "isPartOfComposite": true
                 }
             ]
+        },
+        {
+            "name": "Climbing",
+            "id": "c41e6729-e0ef-4ab4-a128-d0de595def37",
+            "actions": [
+                {
+                    "name": "Climb",
+                    "type": "Button",
+                    "id": "aa019459-ea02-4908-9f28-3c086fb307b1",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "52667198-4f2f-4af9-a349-6e488aee45f2",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Climb",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "91659074-1838-4716-a2f1-501c88d14edb",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Climb",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

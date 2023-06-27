@@ -19,7 +19,10 @@ EditorBuildSettings:
     guid: bb917384db3d0d74f9e0bfc9b87ae5f8
   - enabled: 1
     path: Assets/Scenes/Minigame_Climb.unity
-    guid: 46ebd38951c42944fa3db5bf76c8f8f9
+    guid: 69d827ecc85c3f34b8eb4f7001c8ede6
+  - enabled: 1
+    path: Assets/Scenes/Minigame_Rock_Paper_Scissors.unity
+    guid: c17230fb5c005eb4a84828dc2ef7a9b2
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 7ff66d3fa06a2c442afcca09eb2381b1,
       type: 2}

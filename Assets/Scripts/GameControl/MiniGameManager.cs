@@ -49,7 +49,8 @@ public class MiniGameManager : MonoBehaviour
 public enum MiniGames
 {
     ChaseGreen,
-    RunicFloor
+    RunicFloor,
+    Climb
 }
 
 [Serializable]
