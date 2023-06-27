@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scenes/Minigame_Rock_Paper_Scissors.unity.meta
 guid: c17230fb5c005eb4a84828dc2ef7a9b2
+========
+guid: 46ebd38951c42944fa3db5bf76c8f8f9
+>>>>>>>> origin/BranchPlsHelpMeWithTheseScene:Assets/Scenes/Minigame_Climb.unity.meta
 DefaultImporter:
   externalObjects: {}
   userData: 
