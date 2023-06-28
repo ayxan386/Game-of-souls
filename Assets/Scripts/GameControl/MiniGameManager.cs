@@ -50,7 +50,8 @@ public enum MiniGames
 {
     ChaseGreen,
     RunicFloor,
-    Climb
+    Climb, 
+    RockPaperScissors
 }
 
 [Serializable]
