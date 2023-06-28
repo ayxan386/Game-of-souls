@@ -39,7 +39,7 @@ namespace R_P_S
         private IEnumerator Start()
         {
             loadingScreen.SetActive(true);
-            yield return new WaitForSeconds(9f);
+            yield return new WaitForSeconds(2f);
             loadingScreen.SetActive(false);
             InitialPlayerSetup();
             StartCoroutine(GamePhase());

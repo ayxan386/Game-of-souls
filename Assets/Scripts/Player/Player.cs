@@ -207,6 +207,8 @@ public class Player : MonoBehaviour
 
     public void CompleteCustomization()
     {
+        if (PlayerManager.Instance != null)
+            PlayerManager.Instance.NextSelectable();
         isCustomized = true;
     }
 }
