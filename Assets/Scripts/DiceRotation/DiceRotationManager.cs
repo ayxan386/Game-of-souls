@@ -29,8 +29,9 @@ public class DiceRotationManager : MonoBehaviour
     [ContextMenu("Roll dice")]
     public void RollDice()
     {
+        
         if (!CanRoll) return;
-
+        transform.GetComponent<AudioSource>().Play();
         var diceRoll = Random.Range(rollRange.x, rollRange.y);
         if (fixedRoll)
         {
