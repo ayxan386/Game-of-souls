@@ -114,16 +114,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9892c40ff8f3a1f4da29855d0b01a71d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxDistance: 0
+  pathTileLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  connectedTiles: []
   playerStandingPoints:
   - {fileID: 358096127749881701}
   - {fileID: 3815915187809929990}
   - {fileID: 4195147294459671912}
   - {fileID: 8101390827493543315}
-  nextTiles: []
   rend: {fileID: 358096127645914270}
   tileType: 0
   value: 0
   miniGame: 0
+  arrowPrefab: {fileID: 710770260010956207, guid: a5ce5ce1079546a43a7a87504fd1cfb5,
+    type: 3}
+  spawnOffset: 0.3
+  selectedColor: {r: 0.22463512, g: 1, b: 0, a: 1}
+  defaultColor: {r: 0.9435382, g: 1, b: 0, a: 1}
 --- !u!1 &358096127749881702
 GameObject:
   m_ObjectHideFlags: 0
