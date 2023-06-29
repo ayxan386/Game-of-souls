@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
     [SerializeField] private PlayerUIDisplay playerUiPrefab;
     [SerializeField] private CharacterController cc;
     [SerializeField] private Vector3 gravity;
+    [SerializeField] private Transform arrowBasePoint;
     [Header("Custom")] [SerializeField] private GameObject customizationMenu;
 
     private PlayerUIDisplay playerUiDisplay;
@@ -36,6 +37,7 @@ public class Player : MonoBehaviour
     public string DisplayName { get; set; }
     public PathTile Position { get; set; }
     public PathTile PrevPosition { get; set; }
+    public Transform ArrowBasePoint => arrowBasePoint;
 
     public bool IsCustomized => isCustomized;
 
@@ -184,9 +186,10 @@ public class Player : MonoBehaviour
 
     private void OnTileSelectionChanged(InputValue inputValue)
     {
-        if (currentState)
+        var value = Mathf.RoundToInt(inputValue.Get<float>());
+        if (currentState && value != 0)
         {
-            OnPlayerChoiceChanged?.Invoke((int)inputValue.Get<float>());
+            OnPlayerChoiceChanged?.Invoke(value);
         }
     }
 

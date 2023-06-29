@@ -2,15 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bbb7bee6-7010-45a3-b266-75b2c8bfcf5a" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/BoardLayout/DirectionIndicator.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/BoardLayout/DirectionIndicator.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Game of souls/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Game of souls/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefab/Board/PathTile.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefab/Board/PathTile.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefab/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefab/Player.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefab/R_P_S/PlayerDisplay.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefab/R_P_S/PlayerDisplay.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Box.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Box.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/MainScene 2.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/MainScene 2.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/MainScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MainScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Minigame_Rock_Paper_Scissors.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Minigame_Rock_Paper_Scissors.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameControl/MiniGameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameControl/MiniGameManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/BoardLayout/PathTile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/BoardLayout/PathTile.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/Player.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/R_P_S/GameController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/R_P_S/GameController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/QualitySettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/QualitySettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/Packages/com.unity.probuilder/Settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/Packages/com.unity.probuilder/Settings.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,7 +69,7 @@
 }</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor &amp; Play">
     <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="$PROJECT_DIR$/../../Game build/Game of souls/v.1.1 fixed 3/Game of souls.exe" />
+      <option name="EXE_PATH" value="$PROJECT_DIR$/../../Game build/Game of souls/stable_v.1.0.1\Game of souls.exe" />
       <option name="PROGRAM_PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="C:\Users\ayxan\Desktop\Game build\Game of souls\v.0.9" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -133,7 +135,8 @@
       <workItem from="1687551470964" duration="8071000" />
       <workItem from="1687630173992" duration="8713000" />
       <workItem from="1687773755999" duration="7686000" />
-      <workItem from="1687859710218" duration="6636000" />
+      <workItem from="1687859710218" duration="6851000" />
+      <workItem from="1688033029254" duration="4072000" />
     </task>
     <servers />
   </component>

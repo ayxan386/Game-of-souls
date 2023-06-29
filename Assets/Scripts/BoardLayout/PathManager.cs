@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Rendering;
+using Random = UnityEngine.Random;
 
 public class PathManager : MonoBehaviour
 {
@@ -76,7 +78,8 @@ public class PathManager : MonoBehaviour
                 PlayerManager.Instance.EndPlayerTurn();
                 break;
             case TileType.MiniGameLoading:
-                MiniGameManager.Instance.LoadMiniGame(playersCurrentTile.MiniGame);
+                var values = Enum.GetValues(typeof(MiniGames)).Cast<MiniGames>().ToList();
+                MiniGameManager.Instance.LoadMiniGame(values[Random.Range(0, values.Count)]);
                 break;
             default:
                 PlayerManager.Instance.EndPlayerTurn();

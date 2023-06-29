@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using BoardLayout;
 using UnityEngine;
 
 [Serializable]
@@ -16,22 +17,23 @@ public class PathTile : MonoBehaviour
     private Transform[] playerStandingPoints;
 
     [SerializeField] private MeshRenderer rend;
-
     [SerializeField] private TileType tileType;
-
     [SerializeField] private int value;
-    [SerializeField] private MiniGames miniGame;
+
+    [Header("Direction indicator")] [SerializeField]
+    private DirectionIndicator arrowPrefab;
+
+    [SerializeField] private float spawnOffset;
 
     private int currentPoint;
     private int currentHighlight;
     private bool waitingForChoice;
-    private Color initialColor;
     private PathTile prevTile;
+    private List<DirectionIndicator> arrows;
     public static event Action<PathTile> OnNextTileSelected;
 
     public TileType Type => tileType;
     public int Value => value;
-    public MiniGames MiniGame => miniGame;
 
     public List<PathTile> ConnectedTiles
     {
@@ -44,7 +46,6 @@ public class PathTile : MonoBehaviour
         OnNextTileSelected += OnOtherTileSelected;
         Player.OnPlayerChoiceChanged += OnPlayerChoiceChanged;
         Player.OnPlayerTileSelected += OnPlayerTileSelected;
-        initialColor = rend.material.color;
     }
 
     private void OnDestroy()
@@ -65,15 +66,9 @@ public class PathTile : MonoBehaviour
     public void GetNextTile(Player player)
     {
         print("Asking for next tile");
-
-
-        if (player.PrevPosition)
-            print("Player came from: " + player.PrevPosition.name);
-
         prevTile = player.PrevPosition;
         var numberOfOptions = connectedTiles.Count(tile => !ReferenceEquals(tile, player.PrevPosition));
 
-        print("Number of visitable tiles: " + numberOfOptions);
         switch (numberOfOptions)
         {
             case 1:
@@ -88,9 +83,15 @@ public class PathTile : MonoBehaviour
             {
                 print("Many tile found");
                 waitingForChoice = true;
+                arrows = new List<DirectionIndicator>();
                 foreach (var tile in connectedTiles.Where(tile => tile != player.PrevPosition))
                 {
-                    tile.SetSelectable();
+                    var dir = (tile.transform.position - transform.position).normalized;
+                    var pos = player.ArrowBasePoint.position + dir * spawnOffset;
+                    var arrow = Instantiate(arrowPrefab, pos, Quaternion.LookRotation(dir));
+                    arrow.RelatedTile = tile;
+                    arrow.UnSelect();
+                    arrows.Add(arrow);
                 }
 
                 break;
@@ -104,42 +105,37 @@ public class PathTile : MonoBehaviour
         return numberOfOptions > 1;
     }
 
-    private void SetSelectable()
-    {
-        rend.material.color = Color.yellow;
-    }
-
-
-    private void SetHighlight()
-    {
-        rend.material.color = Color.green;
-    }
-
     private void OnOtherTileSelected(PathTile obj)
     {
-        rend.material.color = initialColor;
         currentHighlight = -1;
         waitingForChoice = false;
     }
 
-    private void OnPlayerChoiceChanged(int obj)
+    private void OnPlayerChoiceChanged(int dir)
     {
         if (!waitingForChoice) return;
-        if (currentHighlight >= 0) connectedTiles[currentHighlight].SetSelectable();
+        print($"Changing choice from {currentHighlight}");
+        var arrowsCount = arrows.Count;
+        print("Number of arrows: " + arrowsCount);
+        if (currentHighlight >= 0 && currentHighlight < arrowsCount) arrows[currentHighlight].UnSelect();
         while (true)
         {
-            currentHighlight = (currentHighlight + obj + connectedTiles.Count) % connectedTiles.Count;
-            connectedTiles[currentHighlight].SetHighlight();
-            print("I'm in a loop");
-            if (prevTile == null || connectedTiles[currentHighlight] != prevTile) break;
+            currentHighlight = (currentHighlight + dir + arrowsCount) % arrowsCount;
+            arrows[currentHighlight].Select();
+            print("in selection loop");
+            if (prevTile == null || !ReferenceEquals(arrows[currentHighlight].RelatedTile, prevTile)) break;
         }
     }
 
     private void OnPlayerTileSelected(int obj)
     {
         if (!waitingForChoice) return;
+        foreach (var arrow in arrows)
+        {
+            Destroy(arrow.gameObject);
+        }
 
-        OnNextTileSelected?.Invoke(connectedTiles[currentHighlight]);
+        OnNextTileSelected?.Invoke(arrows[currentHighlight].RelatedTile);
     }
 
     private void OnDrawGizmosSelected()
@@ -158,7 +154,7 @@ public class PathTile : MonoBehaviour
         connectedTiles = new List<PathTile>();
         if (!name.Contains("type"))
         {
-            name += "type: " + rend.sharedMaterial.name;
+            name += " type: " + rend.sharedMaterial.name;
         }
 
         var nearbyTiles = Physics.OverlapSphere(transform.position, maxDistance, pathTileLayer);
