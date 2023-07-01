@@ -18,6 +18,8 @@ public class PathManager : MonoBehaviour
 
     public bool IsSelected { get; private set; }
 
+    [SerializeField] GameObject PManager;
+
     private void Awake()
     {
         Instance = this;
@@ -27,10 +29,8 @@ public class PathManager : MonoBehaviour
     {
         PathTile.OnNextTileSelected += PathTileOnSelected;
         Player.OnPlayerPositionReached += OnPlayerPositionReached;
-
         LoadPath();
     }
-
 
     private void OnDestroy()
     {
@@ -71,19 +71,33 @@ public class PathManager : MonoBehaviour
             case TileType.SoulAwarding:
                 player.UpdateSoulCount(playersCurrentTile.Value);
                 PlayerManager.Instance.EndPlayerTurn();
+                LoadMinigame(player);
                 break;
             case TileType.HealthDamaging:
             case TileType.HealthHealing:
                 player.UpdateHealth(playersCurrentTile.Value);
                 PlayerManager.Instance.EndPlayerTurn();
+                LoadMinigame(player);
                 break;
-            case TileType.MiniGameLoading:
-                var values = Enum.GetValues(typeof(MiniGames)).Cast<MiniGames>().ToList();
-                MiniGameManager.Instance.LoadMiniGame(values[Random.Range(0, values.Count)]);
-                break;
+            //case TileType.MiniGameLoading:
+            //    var values = Enum.GetValues(typeof(MiniGames)).Cast<MiniGames>().ToList();
+            //    MiniGameManager.Instance.LoadMiniGame(values[Random.Range(0, values.Count)]);
+            //    break;
             default:
                 PlayerManager.Instance.EndPlayerTurn();
+                LoadMinigame(player);
                 break;
+        }
+    }
+
+
+    public void LoadMinigame(Player player)
+    {
+        if (PManager.GetComponent<PlayerManager>().GetIsLastTurn())
+        {
+            PManager.GetComponent<PlayerManager>().SetFalseIsLastTurn();
+            var values = Enum.GetValues(typeof(MiniGames)).Cast<MiniGames>().ToList();
+            MiniGameManager.Instance.LoadMiniGame(values[Random.Range(0, values.Count)]);
         }
     }
 

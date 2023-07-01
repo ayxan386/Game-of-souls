@@ -14,6 +14,10 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private PlayerJoinedIndicator joiningPrefab;
     [SerializeField] private Button startButton;
     [SerializeField] private GameObject connectionMenu;
+    public bool isLastPlayer;
+
+    public int turns;
+    public int MaxTurns;
 
     public bool GameStarted { get; private set; }
 
@@ -26,6 +30,9 @@ public class PlayerManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        isLastPlayer = false;
+        turns = 1;
+        MaxTurns = 5;
     }
 
     private void Start()
@@ -53,13 +60,42 @@ public class PlayerManager : MonoBehaviour
         player.UpdateSoulCount(0);
     }
 
+    public void EndAllTurnsController()
+    {
+        if (currentPlayer == players.Count-1)
+        {
+            Debug.Log("El current player es" + currentPlayer);
+            isLastPlayer = true;
+        }
+    }
+
+    public void SetFalseIsLastTurn()
+    {
+        isLastPlayer = false;
+    }
+
+    public bool GetIsLastTurn()
+    {
+        return isLastPlayer;
+    }
+
     public void EndPlayerTurn()
     {
+        Debug.Log("El comienzo de EndPlayerTurn es el personaje");
         players[currentPlayer].PlayerView.Priority = 5;
         players[currentPlayer].UpdateStateOfPlayer(false);
         print("Ended player turn");
+        EndAllTurnsController();
         currentPlayer = (currentPlayer + 1) % players.Count;
         print("Current player " + currentPlayer);
+        ActivatePlayer();
+    }
+
+    public void SetFirstPlayerTurn()
+    {
+        currentPlayer = (currentPlayer + 1) % players.Count;
+        print("Current player " + currentPlayer);
+        turns++;
         ActivatePlayer();
     }
 

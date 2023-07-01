@@ -10,6 +10,7 @@ public class MiniGameManager : MonoBehaviour
     [SerializeField] private GameObject boardScene;
     [SerializeField] private PlayerInputManager inputManager;
     [SerializeField] private List<MiniGameLoadingData> miniGameLoadingData;
+    [SerializeField] private PlayerManager PManager;
 
     public static MiniGameManager Instance { get; set; }
 
@@ -34,6 +35,7 @@ public class MiniGameManager : MonoBehaviour
     {
         inputManager.splitScreen = false;
         var asyncOperation = SceneManager.UnloadSceneAsync(SceneManager.GetSceneByName(CurrentMiniGameName));
+        PManager.SetFirstPlayerTurn();
         StartCoroutine(WaitForUnLoad(asyncOperation));
     }
 
