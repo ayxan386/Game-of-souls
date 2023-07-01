@@ -79,9 +79,15 @@ public class PlayerManager : MonoBehaviour
         return isLastPlayer;
     }
 
+
+    public void SetPlayerPriority()
+    {
+        players[0].PlayerView.Priority = 5;
+        players[0].UpdateStateOfPlayer(false);
+    }
+
     public void EndPlayerTurn()
     {
-        Debug.Log("El comienzo de EndPlayerTurn es el personaje");
         players[currentPlayer].PlayerView.Priority = 5;
         players[currentPlayer].UpdateStateOfPlayer(false);
         print("Ended player turn");
@@ -96,7 +102,9 @@ public class PlayerManager : MonoBehaviour
         currentPlayer = (currentPlayer + 1) % players.Count;
         print("Current player " + currentPlayer);
         turns++;
+        isLastPlayer = false;
         ActivatePlayer();
+
     }
 
     private void ActivatePlayer()

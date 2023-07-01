@@ -95,7 +95,6 @@ public class PathManager : MonoBehaviour
     {
         if (PManager.GetComponent<PlayerManager>().GetIsLastTurn())
         {
-            PManager.GetComponent<PlayerManager>().SetFalseIsLastTurn();
             var values = Enum.GetValues(typeof(MiniGames)).Cast<MiniGames>().ToList();
             MiniGameManager.Instance.LoadMiniGame(values[Random.Range(0, values.Count)]);
         }
