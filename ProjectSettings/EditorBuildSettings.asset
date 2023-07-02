@@ -23,4 +23,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Minigame_RunicFloor.unity
     guid: 62f81d842dff48544bf34edc71f59641
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: 7ff66d3fa06a2c442afcca09eb2381b1,
+      type: 2}
+    com.unity.localization.settings: {fileID: 11400000, guid: e43546af8f3d0114ea69fb77a05ea816,
+      type: 2}
