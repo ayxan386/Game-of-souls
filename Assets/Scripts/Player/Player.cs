@@ -40,6 +40,7 @@ public class Player : MonoBehaviour
     public PathTile Position { get; set; }
     public PathTile PrevPosition { get; set; }
     public Transform ArrowBasePoint => arrowBasePoint;
+    public Transform FootPoint => tileCheckPoint;
 
     public bool IsCustomized => isCustomized;
 
@@ -219,12 +220,25 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void TeleportToTile(PathTile tile)
+    {
+        TeleportToPosition(tile.GetNextPoint().position);
+        Position = tile;
+        PrevPosition = tile;
+        Invoke(nameof(DelayedReachTile), 1.5f);
+    }
+
     public void TeleportToPosition(Vector3 pos)
     {
         cc.enabled = false;
         transform.position = pos + (transform.position - tileCheckPoint.position);
         transform.rotation = Quaternion.identity;
         cc.enabled = true;
+    }
+
+    private void DelayedReachTile()
+    {
+        OnPlayerPositionReached?.Invoke(this);
     }
 
     public void CompleteCustomization()
