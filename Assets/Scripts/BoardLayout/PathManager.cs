@@ -25,8 +25,6 @@ public class PathManager : MonoBehaviour
 
     public bool IsSelected { get; private set; }
 
-    [SerializeField] GameObject PManager;
-
     private void Awake()
     {
         Instance = this;
@@ -112,7 +110,7 @@ public class PathManager : MonoBehaviour
 
     public void LoadMinigame(Player player)
     {
-        if (PManager.GetComponent<PlayerManager>().GetIsLastTurn())
+        if (PlayerManager.Instance.GetIsLastTurn())
         {
             var values = Enum.GetValues(typeof(MiniGames)).Cast<MiniGames>().ToList();
             MiniGameManager.Instance.LoadMiniGame(values[Random.Range(0, values.Count)]);

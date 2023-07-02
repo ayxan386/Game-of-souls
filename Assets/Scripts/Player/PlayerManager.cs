@@ -1,4 +1,3 @@
-using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,9 +15,8 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private Button startButton;
     [SerializeField] private GameObject connectionMenu;
     [SerializeField] private AudioSource effectSource;
-    [SerializeField] private List<GameObject> podiumFinal;
-    [SerializeField] private GameObject WinningMenu;
-    [SerializeField] private GameObject   MainCamera;
+    [SerializeField] private PodiumPlayerManager podiumManager;
+
     public bool isLastPlayer;
 
     public int turns;
@@ -27,7 +25,7 @@ public class PlayerManager : MonoBehaviour
     public bool GameStarted { get; private set; }
 
     public static PlayerManager Instance { get; private set; }
-    
+
     public AudioSource SfxAudioSource => effectSource;
 
     public Transform PlayerUIParent => playerUIParent;
@@ -68,14 +66,14 @@ public class PlayerManager : MonoBehaviour
     public void SetPlayerToStartingPosition(Player player)
     {
         player.Position = startingTile;
-        player.TeleportToPosition(startingTile.GetNextPoint().position);
+        player.TeleportToPosition(startingTile.GetNextPoint().position, Quaternion.identity);
         player.UpdateSoulCount(0);
         player.ResetPlayerHealth();
     }
 
     public void EndAllTurnsController()
     {
-        if (currentPlayer == players.Count-1)
+        if (currentPlayer == players.Count - 1)
         {
             Debug.Log("El current player es" + currentPlayer);
             isLastPlayer = true;
@@ -110,7 +108,6 @@ public class PlayerManager : MonoBehaviour
         turns++;
         isLastPlayer = false;
         ActivatePlayer();
-
     }
 
     private void ActivatePlayer()
@@ -161,38 +158,14 @@ public class PlayerManager : MonoBehaviour
     {
         if (turns >= MaxTurns)
         {
-            WinCondition();
+            playerUIParent.gameObject.SetActive(false);
+            podiumManager.WinCondition();
             return true;
         }
+
         return false;
     }
-    public void WinCondition()
-    {
-        var maxSouls=0;
-        var winningPlayers= new List<Player>();
-        for(int i =0; i < players.Count; i++)
-        {
-            if (maxSouls < players[i].SoulCount)
-            {
-                maxSouls = players[i].SoulCount;
-            }
-        }
-        for(int i =0; i< players.Count; i++)
-        {
-            if (maxSouls == players[i].SoulCount)
-            {
-                winningPlayers.Add(players[i]);
-                players[i].PlayerView.Priority = 0;
-            }
-        }
-        for (int i=0; i < winningPlayers.Count; i++)
-        {
-            winningPlayers[i].TeleportToPosition(podiumFinal[i].transform.position);
-            winningPlayers[i].transform.Rotate(MainCamera.transform.position*(-1));
-            players[i].PlayerView.ForceCameraPosition(MainCamera.transform.position, MainCamera.transform.rotation);
-        }
-        WinningMenu.SetActive(true);
-    }
+
 
     public void NextSelectable()
     {

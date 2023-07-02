@@ -216,7 +216,7 @@ public class Player : MonoBehaviour
     private void OnTileSelected()
     {
         if (!PlayerManager.Instance.GameStarted || PauseMenuController.Instance.IsPaused) return;
-        
+
         if (currentState)
         {
             OnPlayerTileSelected?.Invoke(0);
@@ -225,17 +225,17 @@ public class Player : MonoBehaviour
 
     public void TeleportToTile(PathTile tile)
     {
-        TeleportToPosition(tile.GetNextPoint().position);
+        TeleportToPosition(tile.GetNextPoint().position, Quaternion.identity);
         Position = tile;
         PrevPosition = tile;
         Invoke(nameof(DelayedReachTile), 1.5f);
     }
 
-    public void TeleportToPosition(Vector3 pos)
+    public void TeleportToPosition(Vector3 pos, Quaternion playerRotation)
     {
         cc.enabled = false;
         transform.position = pos + (transform.position - tileCheckPoint.position);
-        transform.rotation = Quaternion.identity;
+        transform.rotation = playerRotation;
         cc.enabled = true;
     }
 
