@@ -35,7 +35,6 @@ public class MiniGameManager : MonoBehaviour
     {
         inputManager.splitScreen = false;
         var asyncOperation = SceneManager.UnloadSceneAsync(SceneManager.GetSceneByName(CurrentMiniGameName));
-        //PManager.SetFirstPlayerTurn();
         StartCoroutine(WaitForUnLoad(asyncOperation));
     }
 
@@ -44,7 +43,7 @@ public class MiniGameManager : MonoBehaviour
         yield return new WaitUntil(() => asyncOperation.isDone);
         boardScene.SetActive(true);
         PManager.SetFalseIsLastTurn();
-        PManager.SetPlayerPriority();
+        PManager.SetFirstPlayerTurn();
         //PlayerManager.Instance.EndPlayerTurn();
         print("Unload finished: allowing player switch");
     }

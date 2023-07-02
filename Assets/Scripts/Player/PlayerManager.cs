@@ -79,13 +79,6 @@ public class PlayerManager : MonoBehaviour
         return isLastPlayer;
     }
 
-
-    public void SetPlayerPriority()
-    {
-        players[0].PlayerView.Priority = 5;
-        players[0].UpdateStateOfPlayer(false);
-    }
-
     public void EndPlayerTurn()
     {
         players[currentPlayer].PlayerView.Priority = 5;
@@ -99,7 +92,7 @@ public class PlayerManager : MonoBehaviour
 
     public void SetFirstPlayerTurn()
     {
-        currentPlayer = (currentPlayer + 1) % players.Count;
+        currentPlayer = 0 % players.Count;
         print("Current player " + currentPlayer);
         turns++;
         isLastPlayer = false;
