@@ -13436,6 +13436,9 @@ MonoBehaviour:
   cc: {fileID: 4910528069998695268}
   gravity: {x: 0, y: -1, z: 0}
   arrowBasePoint: {fileID: 3147910106576414057}
+  dropFraction: 1
+  dropPrefab: {fileID: 1803005667269656508, guid: 18da4cd141e7e2f43b7a387cd74abfb5,
+    type: 3}
   customizationMenu: {fileID: 39916759639904902}
 --- !u!1 &8508114980474011479
 GameObject:

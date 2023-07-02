@@ -17,6 +17,8 @@ public class Player : MonoBehaviour
     [SerializeField] private CharacterController cc;
     [SerializeField] private Vector3 gravity;
     [SerializeField] private Transform arrowBasePoint;
+    [Header("Soul drop")] [SerializeField] private float dropFraction;
+    [SerializeField] private SoulDropCollectible dropPrefab;
     [Header("Custom")] [SerializeField] private GameObject customizationMenu;
 
     private PlayerUIDisplay playerUiDisplay;
@@ -171,6 +173,22 @@ public class Player : MonoBehaviour
     {
         CurrentHealth += value;
         CurrentHealth = Mathf.Clamp(CurrentHealth, 0, MaxHealth);
+
+        if (Mathf.Approximately(CurrentHealth, 0))
+        {
+            var dropCollectible = Instantiate(dropPrefab);
+            dropCollectible.SoulAmount = Mathf.RoundToInt(SoulCount * dropFraction);
+            SoulCount -= dropCollectible.SoulAmount;
+            dropCollectible.SetPosition(Position);
+            PlayerManager.Instance.SetPlayerToStartingPosition(this);
+        }
+
+        UpdateUI();
+    }
+
+    public void ResetPlayerHealth()
+    {
+        CurrentHealth = MaxHealth;
         UpdateUI();
     }
 
@@ -205,6 +223,7 @@ public class Player : MonoBehaviour
     {
         cc.enabled = false;
         transform.position = pos + (transform.position - tileCheckPoint.position);
+        transform.rotation = Quaternion.identity;
         cc.enabled = true;
     }
 

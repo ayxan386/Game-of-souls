@@ -14,10 +14,13 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private PlayerJoinedIndicator joiningPrefab;
     [SerializeField] private Button startButton;
     [SerializeField] private GameObject connectionMenu;
+    [SerializeField] private AudioSource effectSource;
 
     public bool GameStarted { get; private set; }
 
     public static PlayerManager Instance { get; private set; }
+    
+    public AudioSource SfxAudioSource => effectSource;
 
     public Transform PlayerUIParent => playerUIParent;
 
@@ -48,9 +51,15 @@ public class PlayerManager : MonoBehaviour
         Instantiate(joiningPrefab, joiningIndicator).Display(
             playerSubManager.PlayerId,
             playerSubManager.ColorIndicator);
+        SetPlayerToStartingPosition(player);
+    }
+
+    public void SetPlayerToStartingPosition(Player player)
+    {
         player.Position = startingTile;
         player.TeleportToPosition(startingTile.GetNextPoint().position);
         player.UpdateSoulCount(0);
+        player.ResetPlayerHealth();
     }
 
     public void EndPlayerTurn()
