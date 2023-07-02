@@ -25,6 +25,8 @@ public class PathManager : MonoBehaviour
 
     public bool IsSelected { get; private set; }
 
+    [SerializeField] GameObject PManager;
+
     private void Awake()
     {
         Instance = this;
@@ -34,10 +36,8 @@ public class PathManager : MonoBehaviour
     {
         PathTile.OnNextTileSelected += PathTileOnSelected;
         Player.OnPlayerPositionReached += OnPlayerPositionReached;
-
         LoadPath();
     }
-
 
     private void OnDestroy()
     {
@@ -78,11 +78,13 @@ public class PathManager : MonoBehaviour
             case TileType.SoulAwarding:
                 player.UpdateSoulCount(playersCurrentTile.Value);
                 PlayerManager.Instance.EndPlayerTurn();
+                LoadMinigame(player);
                 break;
             case TileType.HealthDamaging:
             case TileType.HealthHealing:
                 player.UpdateHealth(playersCurrentTile.Value);
                 PlayerManager.Instance.EndPlayerTurn();
+                LoadMinigame(player);
                 break;
             case TileType.MiniGameLoading:
                 var values = Enum.GetValues(typeof(MiniGames)).Cast<MiniGames>().ToList();
@@ -93,6 +95,7 @@ public class PathManager : MonoBehaviour
                 break;
             default:
                 PlayerManager.Instance.EndPlayerTurn();
+                LoadMinigame(player);
                 break;
         }
     }
@@ -105,6 +108,15 @@ public class PathManager : MonoBehaviour
         player.TeleportToTile(randomTile);
         PlayerManager.Instance.SfxAudioSource.PlayOneShot(teleportationSound);
         yield return new WaitForSeconds(1);
+    }
+
+    public void LoadMinigame(Player player)
+    {
+        if (PManager.GetComponent<PlayerManager>().GetIsLastTurn())
+        {
+            var values = Enum.GetValues(typeof(MiniGames)).Cast<MiniGames>().ToList();
+            MiniGameManager.Instance.LoadMiniGame(values[Random.Range(0, values.Count)]);
+        }
     }
 
     [ContextMenu("Create path")]

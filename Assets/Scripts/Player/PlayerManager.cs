@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,13 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private Button startButton;
     [SerializeField] private GameObject connectionMenu;
     [SerializeField] private AudioSource effectSource;
+    [SerializeField] private List<GameObject> podiumFinal;
+    [SerializeField] private GameObject WinningMenu;
+    [SerializeField] private GameObject   MainCamera;
+    public bool isLastPlayer;
+
+    public int turns;
+    public int MaxTurns;
 
     public bool GameStarted { get; private set; }
 
@@ -29,6 +37,9 @@ public class PlayerManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        isLastPlayer = false;
+        turns = 1;
+        //MaxTurns = 5;
     }
 
     private void Start()
@@ -62,14 +73,44 @@ public class PlayerManager : MonoBehaviour
         player.ResetPlayerHealth();
     }
 
+    public void EndAllTurnsController()
+    {
+        if (currentPlayer == players.Count-1)
+        {
+            Debug.Log("El current player es" + currentPlayer);
+            isLastPlayer = true;
+        }
+    }
+
+    public void SetFalseIsLastTurn()
+    {
+        isLastPlayer = false;
+    }
+
+    public bool GetIsLastTurn()
+    {
+        return isLastPlayer;
+    }
+
     public void EndPlayerTurn()
     {
         players[currentPlayer].PlayerView.Priority = 5;
         players[currentPlayer].UpdateStateOfPlayer(false);
         print("Ended player turn");
+        EndAllTurnsController();
         currentPlayer = (currentPlayer + 1) % players.Count;
         print("Current player " + currentPlayer);
         ActivatePlayer();
+    }
+
+    public void SetFirstPlayerTurn()
+    {
+        currentPlayer = 0 % players.Count;
+        print("Current player " + currentPlayer);
+        turns++;
+        isLastPlayer = false;
+        ActivatePlayer();
+
     }
 
     private void ActivatePlayer()
@@ -114,6 +155,43 @@ public class PlayerManager : MonoBehaviour
     public void AwardPlayerWithSouls(string playerName, int soulCount)
     {
         players.Find(player => player.DisplayName == playerName).UpdateSoulCount(soulCount);
+    }
+
+    public bool IsTheLastMinigame()
+    {
+        if (turns >= MaxTurns)
+        {
+            WinCondition();
+            return true;
+        }
+        return false;
+    }
+    public void WinCondition()
+    {
+        var maxSouls=0;
+        var winningPlayers= new List<Player>();
+        for(int i =0; i < players.Count; i++)
+        {
+            if (maxSouls < players[i].SoulCount)
+            {
+                maxSouls = players[i].SoulCount;
+            }
+        }
+        for(int i =0; i< players.Count; i++)
+        {
+            if (maxSouls == players[i].SoulCount)
+            {
+                winningPlayers.Add(players[i]);
+                players[i].PlayerView.Priority = 0;
+            }
+        }
+        for (int i=0; i < winningPlayers.Count; i++)
+        {
+            winningPlayers[i].TeleportToPosition(podiumFinal[i].transform.position);
+            winningPlayers[i].transform.Rotate(MainCamera.transform.position*(-1));
+            players[i].PlayerView.ForceCameraPosition(MainCamera.transform.position, MainCamera.transform.rotation);
+        }
+        WinningMenu.SetActive(true);
     }
 
     public void NextSelectable()
