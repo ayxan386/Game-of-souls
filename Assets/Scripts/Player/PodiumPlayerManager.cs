@@ -67,7 +67,7 @@ public class PodiumPlayerManager : MonoBehaviour
     {
         var characterController = player.GetComponent<CharacterController>();
         characterController.enabled = false;
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 2; i++)
         {
             player.transform.forward = dir;
             player.transform.position = position;

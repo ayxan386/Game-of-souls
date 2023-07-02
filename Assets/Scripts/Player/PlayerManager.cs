@@ -159,6 +159,7 @@ public class PlayerManager : MonoBehaviour
         if (turns >= MaxTurns)
         {
             playerUIParent.gameObject.SetActive(false);
+            GameStarted = false;
             podiumManager.WinCondition();
             return true;
         }
