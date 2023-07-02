@@ -42,10 +42,13 @@ public class MiniGameManager : MonoBehaviour
     {
         yield return new WaitUntil(() => asyncOperation.isDone);
         boardScene.SetActive(true);
-        PManager.SetFalseIsLastTurn();
-        PManager.SetFirstPlayerTurn();
-        //PlayerManager.Instance.EndPlayerTurn();
-        print("Unload finished: allowing player switch");
+        if (!PManager.IsTheLastMinigame())
+        {
+            PManager.SetFalseIsLastTurn();
+            PManager.SetFirstPlayerTurn();
+            //PlayerManager.Instance.EndPlayerTurn();
+            print("Unload finished: allowing player switch");
+        }
     }
 }
 

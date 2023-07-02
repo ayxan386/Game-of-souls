@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,9 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private PlayerJoinedIndicator joiningPrefab;
     [SerializeField] private Button startButton;
     [SerializeField] private GameObject connectionMenu;
+    [SerializeField] private List<GameObject> podiumFinal;
+    [SerializeField] private GameObject WinningMenu;
+    [SerializeField] private GameObject   MainCamera;
     public bool isLastPlayer;
 
     public int turns;
@@ -32,7 +36,7 @@ public class PlayerManager : MonoBehaviour
         Instance = this;
         isLastPlayer = false;
         turns = 1;
-        MaxTurns = 5;
+        //MaxTurns = 5;
     }
 
     private void Start()
@@ -142,6 +146,43 @@ public class PlayerManager : MonoBehaviour
     public void AwardPlayerWithSouls(string playerName, int soulCount)
     {
         players.Find(player => player.DisplayName == playerName).UpdateSoulCount(soulCount);
+    }
+
+    public bool IsTheLastMinigame()
+    {
+        if (turns >= MaxTurns)
+        {
+            WinCondition();
+            return true;
+        }
+        return false;
+    }
+    public void WinCondition()
+    {
+        var maxSouls=0;
+        var winningPlayers= new List<Player>();
+        for(int i =0; i < players.Count; i++)
+        {
+            if (maxSouls < players[i].SoulCount)
+            {
+                maxSouls = players[i].SoulCount;
+            }
+        }
+        for(int i =0; i< players.Count; i++)
+        {
+            if (maxSouls == players[i].SoulCount)
+            {
+                winningPlayers.Add(players[i]);
+                players[i].PlayerView.Priority = 0;
+            }
+        }
+        for (int i=0; i < winningPlayers.Count; i++)
+        {
+            winningPlayers[i].TeleportToPosition(podiumFinal[i].transform.position);
+            winningPlayers[i].transform.Rotate(MainCamera.transform.position*(-1));
+            players[i].PlayerView.ForceCameraPosition(MainCamera.transform.position, MainCamera.transform.rotation);
+        }
+        WinningMenu.SetActive(true);
     }
 
     public void NextSelectable()
