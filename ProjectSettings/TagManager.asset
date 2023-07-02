@@ -3,19 +3,20 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Win
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Dice
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
+  - BoardFigure
+  - Collectible
+  - Path
+  - FloorTile
+  - WinClimb
   - 
   - 
   - 

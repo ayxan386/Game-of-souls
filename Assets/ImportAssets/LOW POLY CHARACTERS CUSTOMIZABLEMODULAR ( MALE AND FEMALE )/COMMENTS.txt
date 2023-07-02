@@ -1,0 +1,14 @@
+Comments :
+
+1 All types of head customization, (Eyeglasses, Capeus, Hair ...) are located just off the head bone.
+
+2 Movement scripts are not included, only animations
+
+3 Saving your clothes is in real time, when you enter a new scene and the same prefab house starts with your last chosen clothes.
+
+4 Any questions my email: markusartcontact@gmail.com
+or
+
+@ markusart3d
+
+Thank you very much: D

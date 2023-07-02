@@ -14,7 +14,95 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_TableCollectionName: BasicUIText
   m_TableCollectionNameGuidString: b095bb852e84f36429e13c8141e9583d
-  m_Entries: []
+  m_Entries:
+  - m_Id: 485658226626560
+    m_Key: Play
+    m_Metadata:
+      m_Items: []
+  - m_Id: 487184533852160
+    m_Key: Settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 490482682859520
+    m_Key: Credits
+    m_Metadata:
+      m_Items: []
+  - m_Id: 490565625221120
+    m_Key: Exit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 495042247823360
+    m_Key: Back
+    m_Metadata:
+      m_Items: []
+  - m_Id: 874804480872448
+    m_Key: Resolution
+    m_Metadata:
+      m_Items: []
+  - m_Id: 916337447964672
+    m_Key: Volume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4494595162673152
+    m_Key: Body 1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4494677576552448
+    m_Key: Body 2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5204134698717184
+    m_Key: HAIR STYLE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5205540860104704
+    m_Key: HAT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5208361542127616
+    m_Key: ACESSORIES 1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5238494726492160
+    m_Key: ACESSORIES 2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5238625450364928
+    m_Key: ACESSORIES 3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5238702222905344
+    m_Key: GLOVES
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5238802852646912
+    m_Key: SHIRT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5238911166353408
+    m_Key: BOTTOMS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5239044276785152
+    m_Key: SHOES
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5239451828916224
+    m_Key: SKIN COLOR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5243489676988416
+    m_Key: BODY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6632568238936064
+    m_Key: PLAYER1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7320556341755904
+    m_Key: BTN_DONE
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

@@ -17,7 +17,95 @@ MonoBehaviour:
   m_SharedData: {fileID: 11400000, guid: b095bb852e84f36429e13c8141e9583d, type: 2}
   m_Metadata:
     m_Items: []
-  m_TableData: []
+  m_TableData:
+  - m_Id: 485658226626560
+    m_Localized: Play
+    m_Metadata:
+      m_Items: []
+  - m_Id: 487184533852160
+    m_Localized: Settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 490482682859520
+    m_Localized: Credits
+    m_Metadata:
+      m_Items: []
+  - m_Id: 490565625221120
+    m_Localized: Exit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 495042247823360
+    m_Localized: Back
+    m_Metadata:
+      m_Items: []
+  - m_Id: 874804480872448
+    m_Localized: Resolution
+    m_Metadata:
+      m_Items: []
+  - m_Id: 916337447964672
+    m_Localized: Volume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4494595162673152
+    m_Localized: Body 1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4494677576552448
+    m_Localized: Body 2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5204134698717184
+    m_Localized: HAIR STYLE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5205540860104704
+    m_Localized: HAT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5208361542127616
+    m_Localized: ACESSORIES 1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5238494726492160
+    m_Localized: ACESSORIES 2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5238625450364928
+    m_Localized: ACESSORIES 3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5238702222905344
+    m_Localized: GLOVES
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5238802852646912
+    m_Localized: SHIRT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5238911166353408
+    m_Localized: BOTTOMS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5239044276785152
+    m_Localized: SHOES
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5239451828916224
+    m_Localized: SKIN COLOR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5243489676988416
+    m_Localized: BODY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6632568238936064
+    m_Localized: PLAYER1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7320556341755904
+    m_Localized: Done
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
