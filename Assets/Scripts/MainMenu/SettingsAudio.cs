@@ -1,19 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.Audio;
+
 public class SettingsAudio : MonoBehaviour
 {
-
+    [SerializeField] private string groupName = "Master";
     public AudioMixer audioMixer;
-    
-    public void SetVolume (float volume)
+
+    private void Start()
     {
-        audioMixer.SetFloat("Master", volume);
+        if (PlayerPrefs.HasKey(groupName))
+        {
+            SetVolume(PlayerPrefs.GetFloat(groupName));
+        }
     }
-    
 
-
-
+    public void SetVolume(float volume)
+    {
+        PlayerPrefs.SetFloat(groupName, volume);
+        audioMixer.SetFloat(groupName, volume);
+    }
 }

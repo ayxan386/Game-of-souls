@@ -6,8 +6,6 @@ using UnityEngine.Localization.Settings;
 
 public class LocatorSelector : MonoBehaviour
 {
-    private bool active = false;
-
     int currentLocale;
 
     private void Start()

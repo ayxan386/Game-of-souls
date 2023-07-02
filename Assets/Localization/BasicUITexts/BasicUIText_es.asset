@@ -106,6 +106,22 @@ MonoBehaviour:
     m_Localized: Hecho
     m_Metadata:
       m_Items: []
+  - m_Id: 9851625515450368
+    m_Localized: Efectos de sonido
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9852231755956224
+    m_Localized: "M\xFAsica"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9852522115039232
+    m_Localized: Continuar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9852823647748096
+    m_Localized: "Men\xFA principal"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

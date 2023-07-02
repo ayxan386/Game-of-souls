@@ -195,7 +195,7 @@ public class Player : MonoBehaviour
 
     private void OnDiceRoll()
     {
-        if (!PlayerManager.Instance.GameStarted) return;
+        if (!PlayerManager.Instance.GameStarted || PauseMenuController.Instance.IsPaused) return;
         print($"Dice roll input: {currentState}");
         if (currentState)
         {
@@ -205,6 +205,7 @@ public class Player : MonoBehaviour
 
     private void OnTileSelectionChanged(InputValue inputValue)
     {
+        if (!PlayerManager.Instance.GameStarted || PauseMenuController.Instance.IsPaused) return;
         var value = Mathf.RoundToInt(inputValue.Get<float>());
         if (currentState && value != 0)
         {
@@ -214,6 +215,8 @@ public class Player : MonoBehaviour
 
     private void OnTileSelected()
     {
+        if (!PlayerManager.Instance.GameStarted || PauseMenuController.Instance.IsPaused) return;
+        
         if (currentState)
         {
             OnPlayerTileSelected?.Invoke(0);
