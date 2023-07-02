@@ -106,6 +106,7 @@ public class PathManager : MonoBehaviour
         player.TeleportToTile(randomTile);
         PlayerManager.Instance.SfxAudioSource.PlayOneShot(teleportationSound);
         yield return new WaitForSeconds(1);
+        LoadMinigame(player);
     }
 
     public void LoadMinigame(Player player)

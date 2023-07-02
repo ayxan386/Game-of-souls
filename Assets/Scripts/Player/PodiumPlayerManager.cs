@@ -76,5 +76,6 @@ public class PodiumPlayerManager : MonoBehaviour
         }
 
         characterController.enabled = true;
+        characterController.SimpleMove(Vector3.forward / 3);
     }
 }
