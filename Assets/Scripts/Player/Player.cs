@@ -17,6 +17,8 @@ public class Player : MonoBehaviour
     [SerializeField] private CharacterController cc;
     [SerializeField] private Vector3 gravity;
     [SerializeField] private Transform arrowBasePoint;
+    [Header("Soul drop")] [SerializeField] private float dropFraction;
+    [SerializeField] private SoulDropCollectible dropPrefab;
     [Header("Custom")] [SerializeField] private GameObject customizationMenu;
 
     private PlayerUIDisplay playerUiDisplay;
@@ -38,6 +40,7 @@ public class Player : MonoBehaviour
     public PathTile Position { get; set; }
     public PathTile PrevPosition { get; set; }
     public Transform ArrowBasePoint => arrowBasePoint;
+    public Transform FootPoint => tileCheckPoint;
 
     public bool IsCustomized => isCustomized;
 
@@ -171,12 +174,28 @@ public class Player : MonoBehaviour
     {
         CurrentHealth += value;
         CurrentHealth = Mathf.Clamp(CurrentHealth, 0, MaxHealth);
+
+        if (Mathf.Approximately(CurrentHealth, 0))
+        {
+            var dropCollectible = Instantiate(dropPrefab);
+            dropCollectible.SoulAmount = Mathf.RoundToInt(SoulCount * dropFraction);
+            SoulCount -= dropCollectible.SoulAmount;
+            dropCollectible.SetPosition(Position);
+            PlayerManager.Instance.SetPlayerToStartingPosition(this);
+        }
+
+        UpdateUI();
+    }
+
+    public void ResetPlayerHealth()
+    {
+        CurrentHealth = MaxHealth;
         UpdateUI();
     }
 
     private void OnDiceRoll()
     {
-        if (!PlayerManager.Instance.GameStarted) return;
+        if (!PlayerManager.Instance.GameStarted || PauseMenuController.Instance.IsPaused) return;
         print($"Dice roll input: {currentState}");
         if (currentState)
         {
@@ -186,6 +205,7 @@ public class Player : MonoBehaviour
 
     private void OnTileSelectionChanged(InputValue inputValue)
     {
+        if (!PlayerManager.Instance.GameStarted || PauseMenuController.Instance.IsPaused) return;
         var value = Mathf.RoundToInt(inputValue.Get<float>());
         if (currentState && value != 0)
         {
@@ -195,17 +215,33 @@ public class Player : MonoBehaviour
 
     private void OnTileSelected()
     {
+        if (!PlayerManager.Instance.GameStarted || PauseMenuController.Instance.IsPaused) return;
+
         if (currentState)
         {
             OnPlayerTileSelected?.Invoke(0);
         }
     }
 
-    public void TeleportToPosition(Vector3 pos)
+    public void TeleportToTile(PathTile tile)
+    {
+        TeleportToPosition(tile.GetNextPoint().position, Quaternion.identity);
+        Position = tile;
+        PrevPosition = tile;
+        Invoke(nameof(DelayedReachTile), 1.5f);
+    }
+
+    public void TeleportToPosition(Vector3 pos, Quaternion playerRotation)
     {
         cc.enabled = false;
         transform.position = pos + (transform.position - tileCheckPoint.position);
+        transform.rotation = playerRotation;
         cc.enabled = true;
+    }
+
+    private void DelayedReachTile()
+    {
+        OnPlayerPositionReached?.Invoke(this);
     }
 
     public void CompleteCustomization()

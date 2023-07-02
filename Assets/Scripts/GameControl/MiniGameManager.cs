@@ -10,6 +10,7 @@ public class MiniGameManager : MonoBehaviour
     [SerializeField] private GameObject boardScene;
     [SerializeField] private PlayerInputManager inputManager;
     [SerializeField] private List<MiniGameLoadingData> miniGameLoadingData;
+    [SerializeField] private PlayerManager PManager;
 
     public static MiniGameManager Instance { get; set; }
 
@@ -41,8 +42,13 @@ public class MiniGameManager : MonoBehaviour
     {
         yield return new WaitUntil(() => asyncOperation.isDone);
         boardScene.SetActive(true);
-        PlayerManager.Instance.EndPlayerTurn();
-        print("Unload finished: allowing player switch");
+        if (!PManager.IsTheLastMinigame())
+        {
+            PManager.SetFalseIsLastTurn();
+            PManager.SetFirstPlayerTurn();
+            //PlayerManager.Instance.EndPlayerTurn();
+            print("Unload finished: allowing player switch");
+        }
     }
 }
 

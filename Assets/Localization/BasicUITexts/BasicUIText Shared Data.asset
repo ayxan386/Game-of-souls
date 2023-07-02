@@ -103,6 +103,22 @@ MonoBehaviour:
     m_Key: BTN_DONE
     m_Metadata:
       m_Items: []
+  - m_Id: 9851625515450368
+    m_Key: Sound_Volume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9852231755956224
+    m_Key: Music_Volume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9852522115039232
+    m_Key: BTN_Continue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9852823647748096
+    m_Key: BTN_MAIN_MENU
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

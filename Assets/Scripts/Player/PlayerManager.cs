@@ -14,10 +14,19 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private PlayerJoinedIndicator joiningPrefab;
     [SerializeField] private Button startButton;
     [SerializeField] private GameObject connectionMenu;
+    [SerializeField] private AudioSource effectSource;
+    [SerializeField] private PodiumPlayerManager podiumManager;
+
+    public bool isLastPlayer;
+
+    public int turns;
+    public int MaxTurns;
 
     public bool GameStarted { get; private set; }
 
     public static PlayerManager Instance { get; private set; }
+
+    public AudioSource SfxAudioSource => effectSource;
 
     public Transform PlayerUIParent => playerUIParent;
 
@@ -26,6 +35,9 @@ public class PlayerManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        isLastPlayer = false;
+        turns = 1;
+        //MaxTurns = 5;
     }
 
     private void Start()
@@ -48,9 +60,34 @@ public class PlayerManager : MonoBehaviour
         Instantiate(joiningPrefab, joiningIndicator).Display(
             playerSubManager.PlayerId,
             playerSubManager.ColorIndicator);
+        SetPlayerToStartingPosition(player);
+    }
+
+    public void SetPlayerToStartingPosition(Player player)
+    {
         player.Position = startingTile;
-        player.TeleportToPosition(startingTile.GetNextPoint().position);
+        player.TeleportToPosition(startingTile.GetNextPoint().position, Quaternion.identity);
         player.UpdateSoulCount(0);
+        player.ResetPlayerHealth();
+    }
+
+    public void EndAllTurnsController()
+    {
+        if (currentPlayer == players.Count - 1)
+        {
+            Debug.Log("El current player es" + currentPlayer);
+            isLastPlayer = true;
+        }
+    }
+
+    public void SetFalseIsLastTurn()
+    {
+        isLastPlayer = false;
+    }
+
+    public bool GetIsLastTurn()
+    {
+        return isLastPlayer;
     }
 
     public void EndPlayerTurn()
@@ -58,8 +95,18 @@ public class PlayerManager : MonoBehaviour
         players[currentPlayer].PlayerView.Priority = 5;
         players[currentPlayer].UpdateStateOfPlayer(false);
         print("Ended player turn");
+        EndAllTurnsController();
         currentPlayer = (currentPlayer + 1) % players.Count;
         print("Current player " + currentPlayer);
+        ActivatePlayer();
+    }
+
+    public void SetFirstPlayerTurn()
+    {
+        currentPlayer = 0 % players.Count;
+        print("Current player " + currentPlayer);
+        turns++;
+        isLastPlayer = false;
         ActivatePlayer();
     }
 
@@ -106,6 +153,19 @@ public class PlayerManager : MonoBehaviour
     {
         players.Find(player => player.DisplayName == playerName).UpdateSoulCount(soulCount);
     }
+
+    public bool IsTheLastMinigame()
+    {
+        if (turns >= MaxTurns)
+        {
+            playerUIParent.gameObject.SetActive(false);
+            podiumManager.WinCondition();
+            return true;
+        }
+
+        return false;
+    }
+
 
     public void NextSelectable()
     {

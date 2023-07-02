@@ -106,6 +106,22 @@ MonoBehaviour:
     m_Localized: Done
     m_Metadata:
       m_Items: []
+  - m_Id: 9851625515450368
+    m_Localized: Sound Effects
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9852231755956224
+    m_Localized: Music
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9852522115039232
+    m_Localized: Continue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9852823647748096
+    m_Localized: Main menu
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

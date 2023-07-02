@@ -184,5 +184,6 @@ public enum TileType
     HealthDamaging,
     HealthHealing,
     MiniGameLoading,
+    Teleporting,
     Shop
 }

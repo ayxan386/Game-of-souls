@@ -10,6 +10,13 @@ public class PathManager : MonoBehaviour
 {
     [SerializeField] private PathTile startingTile;
     [SerializeField] private LevelPath path;
+    [SerializeField] private List<PathTile> levelTiles;
+
+    [Header("Teleport FX")] [SerializeField]
+    private AudioClip teleportationSound;
+
+    [SerializeField] private GameObject teleportParticles;
+
     private Dictionary<string, List<string>> buffer;
     public static PathManager Instance { get; private set; }
 
@@ -27,10 +34,8 @@ public class PathManager : MonoBehaviour
     {
         PathTile.OnNextTileSelected += PathTileOnSelected;
         Player.OnPlayerPositionReached += OnPlayerPositionReached;
-
         LoadPath();
     }
-
 
     private void OnDestroy()
     {
@@ -71,19 +76,44 @@ public class PathManager : MonoBehaviour
             case TileType.SoulAwarding:
                 player.UpdateSoulCount(playersCurrentTile.Value);
                 PlayerManager.Instance.EndPlayerTurn();
+                LoadMinigame(player);
                 break;
             case TileType.HealthDamaging:
             case TileType.HealthHealing:
                 player.UpdateHealth(playersCurrentTile.Value);
                 PlayerManager.Instance.EndPlayerTurn();
+                LoadMinigame(player);
                 break;
             case TileType.MiniGameLoading:
                 var values = Enum.GetValues(typeof(MiniGames)).Cast<MiniGames>().ToList();
                 MiniGameManager.Instance.LoadMiniGame(values[Random.Range(0, values.Count)]);
                 break;
+            case TileType.Teleporting:
+                StartCoroutine(TeleportationSequence(player));
+                break;
             default:
                 PlayerManager.Instance.EndPlayerTurn();
+                LoadMinigame(player);
                 break;
+        }
+    }
+
+    private IEnumerator TeleportationSequence(Player player)
+    {
+        Instantiate(teleportParticles, player.FootPoint.position, Quaternion.identity, player.transform);
+        yield return new WaitForSeconds(1.2f);
+        var randomTile = levelTiles[Random.Range(0, levelTiles.Count)];
+        player.TeleportToTile(randomTile);
+        PlayerManager.Instance.SfxAudioSource.PlayOneShot(teleportationSound);
+        yield return new WaitForSeconds(1);
+    }
+
+    public void LoadMinigame(Player player)
+    {
+        if (PlayerManager.Instance.GetIsLastTurn())
+        {
+            var values = Enum.GetValues(typeof(MiniGames)).Cast<MiniGames>().ToList();
+            MiniGameManager.Instance.LoadMiniGame(values[Random.Range(0, values.Count)]);
         }
     }
 
@@ -120,6 +150,8 @@ public class PathManager : MonoBehaviour
                 print("Missing path for " + pathTile.name);
             }
         }
+
+        levelTiles = pathTiles.ToList();
     }
 
     [ContextMenu("Save path")]
